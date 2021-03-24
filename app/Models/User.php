@@ -20,7 +20,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'login',
+        'firstname',
+        'lastname',
+        'description',
+        'picture_url',
+        'status_id',
     ];
+
+    protected $table = 'users';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -40,4 +48,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function state () {
+        return $this->belongsTo(Status::class);
+    }
 }
