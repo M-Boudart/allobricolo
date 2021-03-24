@@ -1,0 +1,56 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use App\Models\Announcement;
+
+class ReviewsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $reviews = [
+            [
+                'announcement_id' => 2,
+                'note' => 7,
+                'description' => null,
+            ],
+            [
+                'announcement_id' => 5,
+                'note' => 10,
+                'description' => 'Travail magnifique, personne qualifiée, polie et ponctuelle !',
+            ],
+            [
+                'announcement_id' => 1,
+                'note' => 1,
+                'description' => 'Incapable fini, je déconseille à quiconque veut avoir affaire à ses service... Raciste, incompétant et j\'en passe !',
+            ],
+            [
+                'announcement_id' => 3,
+                'note' => 6,
+                'description' => 'Travail bien réalisé sans plus.',
+            ],
+            [
+                'announcement_id' => 4,
+                'note' => 5,
+                'description' => null,
+            ],
+        ];
+
+        foreach ($reviews as $review) {
+            $announcement = Announcement::firstWhere('id', $review['announcement_id']);
+
+            DB::table('reviews')->insert([
+                'note' => $review['note'],
+                'announcement_id' => $announcement->id,
+                'description' => $review['description'],
+            ]);
+        }
+    }
+}
