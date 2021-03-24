@@ -17,6 +17,10 @@ class CreateAnnouncementPicturesTable extends Migration
             $table->id();
             $table->foreignId('announcement_id');
             $table->string('picture_url', 255)->unique();
+
+            $table->foreign('announcement_id')
+                    ->references('id')->on('announcements')
+                    ->onDelete('restrict')->onUpdate('cascade');
         });
     }
 
