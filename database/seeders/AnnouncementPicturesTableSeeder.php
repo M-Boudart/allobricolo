@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\AnnouncementPicture;
+use App\Models\Announcement;
 
 class AnnouncementPicturesTableSeeder extends Seeder
 {
@@ -56,8 +57,10 @@ class AnnouncementPicturesTableSeeder extends Seeder
         ];
 
         foreach ($announcementPictures as $announcementPicture) {
+            $announcement = Announcement::firstWhere('id', $announcementPicture['announcement_id']);
+
             DB::table('announcement_pictures')->insert([
-                'announcement_id' => $announcementPicture['announcement_id'],
+                'announcement_id' => $announcement->id,
                 'picture_url' => $announcementPicture['picture_url'],
             ]);
         }

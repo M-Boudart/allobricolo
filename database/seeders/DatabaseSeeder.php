@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
             // CategoriesTableSeeder::class,
             // StatusTableSeeder::class,
             // UsersTableSeeder::class,
+            // AnnouncementsTableSeeder::class,
             AnnouncementPicturesTableSeeder::class,
-            AnnouncementsTableSeeder::class,
         ]);
     }
 }
