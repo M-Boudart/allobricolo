@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             // UsersTableSeeder::class,
             // AnnouncementsTableSeeder::class,
             // AnnouncementPicturesTableSeeder::class,
-            ReviewsTableSeeder::class,
+            // ReviewsTableSeeder::class,
+            AnnouncementCategoriesTableSeeder::class,
         ]);
     }
 }

@@ -16,4 +16,8 @@ class Category extends Model
     protected $table = 'categories';
 
     public $timestamps = false;
+
+    public function announcements () {
+        return $this->belongsToMany(Announcement::class, 'announcement_categories');
+    }
 }
