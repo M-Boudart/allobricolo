@@ -14,7 +14,7 @@ class CreateAnnouncementsTable extends Migration
     public function up()
     {
         Schema::create('announcements', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('id')->autoIncrement()->unique();
             $table->foreignId('applicant_user_id');
             $table->string('title', 100);
             $table->string('address', 60);

@@ -36,4 +36,8 @@ class Announcement extends Model
     public function locality () {
         return $this->belongsTo(locality::class);
     }
+
+    public function reviews () {
+        return $this->hasMany(Review::class);
+    }
 }
