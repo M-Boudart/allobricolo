@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // LocalitiesTableSeeder::class,
-            CategoriesTableSeeder::class,
+            // CategoriesTableSeeder::class,
+            StatusTableSeeder::class,
         ]);
     }
 }
