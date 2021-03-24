@@ -24,6 +24,10 @@ class CreateAnnouncementsTable extends Migration
             $table->string('phone', 20);
             $table->dateTime('created_at');
             $table->dateTime('realised_at')->nullable();
+
+            $table->foreign('applicant_user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

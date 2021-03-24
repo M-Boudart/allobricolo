@@ -28,4 +28,8 @@ class Announcement extends Model
     public function pictures () {
         return $this->hasMany(AnnouncementPicture::class);
     }
+
+    public function apllicant () {
+        return $this->belongsTo(User::class);
+    }
 }
