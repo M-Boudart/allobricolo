@@ -32,4 +32,8 @@ class Announcement extends Model
     public function apllicant () {
         return $this->belongsTo(User::class);
     }
+
+    public function locality () {
+        return $this->belongsTo(locality::class);
+    }
 }

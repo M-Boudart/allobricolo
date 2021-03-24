@@ -28,6 +28,10 @@ class CreateAnnouncementsTable extends Migration
             $table->foreign('applicant_user_id')
                     ->references('id')->on('users')
                     ->onDelete('restrict')->onUpdate('cascade');
+            
+            $table->foreign('locality_id')
+                    ->references('id')->on('localities')
+                    ->onDelete('restrict')->onUpdate('cascade');
         });
     }
 
