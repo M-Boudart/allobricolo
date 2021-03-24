@@ -20,4 +20,8 @@ class Category extends Model
     public function announcements () {
         return $this->belongsToMany(Announcement::class, 'announcement_categories');
     }
+
+    public function knowledges () {
+        return $this->belongsToMany(User::class, 'knowledges');
+    }
 }

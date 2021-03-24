@@ -42,6 +42,6 @@ class Announcement extends Model
     }
 
     public function categories () {
-        return $this->belongsToMany(Announcement::class);
+        return $this->belongsToMany(Announcement::class, 'announcement_categories');
     }
 }
