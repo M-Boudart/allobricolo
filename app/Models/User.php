@@ -60,4 +60,8 @@ class User extends Authenticatable
     public function knowledges () {
         return $this->belongsToMany(Category::class, 'knowledges');
     }
+
+    public function helpers () {
+        return $this->belongsToMany(Announcements::class, 'helpers');
+    }
 }
