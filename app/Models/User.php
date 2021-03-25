@@ -72,4 +72,8 @@ class User extends Authenticatable
     public function reporters () {
         return $this->hasMany(Punishment::class);
     }
+
+    public function sendedMessages () {
+        return $this->hasMany(ChatMessage::class);
+    }
 }

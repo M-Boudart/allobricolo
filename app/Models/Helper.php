@@ -19,4 +19,8 @@ class Helper extends Model
     protected $table = 'helpers';
 
     public $timestamps = false;
+
+    public function chatMessages () {
+        return $this->hasMany(ChatMessage::class);
+    }
 }
