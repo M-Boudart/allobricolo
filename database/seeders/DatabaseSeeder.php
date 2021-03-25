@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             // AnnouncementCategoriesTableSeeder::class,
             // KnowledgesTableSeeder::class,
             // HelpersTableSeeder::class,
-            ReportsTableSeeder::class,
+            // ReportsTableSeeder::class,
+            PunishmentsTableSeeder::class,
         ]);
     }
 }
