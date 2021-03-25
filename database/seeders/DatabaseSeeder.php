@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             // ReviewsTableSeeder::class,
             // AnnouncementCategoriesTableSeeder::class,
             // KnowledgesTableSeeder::class,
-            HelpersTableSeeder::class,
+            // HelpersTableSeeder::class,
+            ReportsTableSeeder::class,
         ]);
     }
 }
