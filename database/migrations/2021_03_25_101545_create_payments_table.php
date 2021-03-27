@@ -16,9 +16,9 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('announcement_id');
-            $table->string('card_nummer', 255);
-            $table->float('ammount', 5, 2);
-            $table->dateTime('payed_at');
+            $table->string('payment_id', 255)->unique();
+            $table->dateTime('payed_at')->nullable();
+            $table->enum('status', ['pending', 'payed', 'problem']);
 
             $table->foreign('announcement_id')
                     ->references('id')->on('announcements')

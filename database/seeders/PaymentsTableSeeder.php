@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Announcement;
-use Illuminate\Support\Facades\Hash;
 
 class PaymentsTableSeeder extends Seeder
 {
@@ -23,15 +22,15 @@ class PaymentsTableSeeder extends Seeder
         $payments = [
             [
                 'announcement_id' => 5,
-                'card_nummer' => '352565256525',
-                'ammount' => 20,
-                'payed_at' => '2021-05-25 10:00:00',
+                'payment_id' => 'id_test_4eC39HqLyjWDarjtT1zdp7dc',
+                'payed_at' => null,
+                'status' => 'pending',
             ],
             [
                 'announcement_id' => 2,
-                'card_nummer' => '352565256525',
-                'ammount' => 250,
+                'payment_id' => 'id_test_37C39HqLyjWDarjtT1zdp7dc',
                 'payed_at' => '2021-10-30 14:00:00',
+                'status' => 'payed',
             ],
         ];
 
@@ -40,9 +39,9 @@ class PaymentsTableSeeder extends Seeder
 
             DB::table('payments')->insert([
                 'announcement_id' => $announcement->id,
-                'card_nummer' => Hash::make($payment['card_nummer']),
-                'ammount' => $payment['ammount'],
+                'payment_id' => $payment['payment_id'],
                 'payed_at' => $payment['payed_at'],
+                'status' => $payment['status'],
             ]);
         }
     }
