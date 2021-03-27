@@ -18,7 +18,8 @@ class CreateHelpersTable extends Migration
             $table->foreignId('announcement_id');
             $table->foreignId('helper_id');
             $table->enum('status', ['selected', 'pending', 'not selected']);
-            $table->foreignId('chat_id');
+            $table->unsignedBigInteger('chat_id');
+            $table->index('chat_id');
 
             $table->foreign('announcement_id')
                     ->references('id')->on('announcements')
