@@ -57,12 +57,19 @@
                                     </ul>
                                 </li>
                                 <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="#">Shop</a></li>
                             </ul>
                         </nav>
                         <div class="header__menu__right">
-                            <a href="#" class="primary-btn"><i class="fa fa-plus"></i>Add Listing</a>
-                            <a href="#" class="login-btn"><i class="fa fa-user"></i></a>
+                            @if (Auth::check())
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="primary-btn">Logout</button>
+                            </form>
+                            <a href="{{ route('login') }}" class="login-btn"><i class="fa fa-user"></i></a>
+                            @else
+                            <a href="{{ route('register') }}" class="primary-btn">Register</a>
+                            <a href="{{ route('login') }}" class="login-btn"><i class="fa fa-user"></i></a>
+                            @endif
                         </div>
                     </div>
                 </div>
