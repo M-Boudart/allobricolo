@@ -22,7 +22,6 @@ class UsersTableSeeder extends Seeder
 
         $users = [
             [
-                'name' => 'bob',
                 'login' => 'bob123',
                 'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
                 'firstname' => 'bob',
@@ -33,7 +32,6 @@ class UsersTableSeeder extends Seeder
                 'status_name' => 'Admin',
             ],
             [
-                'name' => 'john',
                 'login' => 'john123',
                 'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
                 'firstname' => 'john',
@@ -44,7 +42,6 @@ class UsersTableSeeder extends Seeder
                 'status_name' => 'Membre',
             ],
             [
-                'name' => 'Marie',
                 'login' => 'marie123',
                 'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
                 'firstname' => 'Marie',
@@ -55,7 +52,6 @@ class UsersTableSeeder extends Seeder
                 'status_name' => 'Membre',
             ],
             [
-                'name' => 'Pierre',
                 'login' => 'pierre123',
                 'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
                 'firstname' => 'Pierre',
@@ -66,7 +62,6 @@ class UsersTableSeeder extends Seeder
                 'status_name' => 'Vérifié',
             ],
             [
-                'name' => 'Alain',
                 'login' => 'alain123',
                 'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
                 'firstname' => 'Alain',
@@ -82,7 +77,6 @@ class UsersTableSeeder extends Seeder
             $status = Status::firstWhere('status', $user['status_name']);
 
             DB::table('users')->insert([
-                'name' => $user['name'],
                 'login' => $user['login'],
                 'password' => $user['password'],
                 'firstname' => $user['firstname'],

@@ -15,6 +15,10 @@ class ReviewsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('reviews')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
         $reviews = [
             [
                 'announcement_id' => 2,

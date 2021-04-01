@@ -14,6 +14,10 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('categories')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
         $categories = [
             [
                 'category' => 'Electricité',
@@ -29,6 +33,18 @@ class CategoriesTableSeeder extends Seeder
             ],
             [
                 'category' => 'Jardinage',
+            ],
+            [
+                'category' => 'Peinture',
+            ],
+            [
+                'category' => 'Electroménager',
+            ],
+            [
+                'category' => 'Décoration',
+            ],
+            [
+                'category' => 'Homme à tout faire',
             ],
         ];
 

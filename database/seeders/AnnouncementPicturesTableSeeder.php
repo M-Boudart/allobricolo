@@ -23,36 +23,28 @@ class AnnouncementPicturesTableSeeder extends Seeder
 
         $announcementPictures = [
             [
+                'announcement_id' => 1,
+                'picture_url' => 'douche.jpeg',
+            ],
+            [
                 'announcement_id' => 2,
                 'picture_url' => 'evier.jpg',
-            ],
-            [
-                'announcement_id' => 2,
-                'picture_url' => 'sdb.jpg',
-            ],
-            [
-                'announcement_id' => 2,
-                'picture_url' => 'douche.jpg',
-            ],
-            [
-                'announcement_id' => 1,
-                'picture_url' => 'ordinateur.jpg',
             ],
             [
                 'announcement_id' => 3,
                 'picture_url' => 'jardin.jpg',
             ],
             [
-                'announcement_id' => 3,
-                'picture_url' => 'arbre.jpg',
-            ],
-            [
                 'announcement_id' => 5,
-                'picture_url' => 'lumiere.jpg',
+                'picture_url' => 'ordinateur.jpeg',
             ],
             [
                 'announcement_id' => 6,
-                'picture_url' => 'toiture.jpg',
+                'picture_url' => 'maison.jpg',
+            ],
+            [
+                'announcement_id' => 7,
+                'picture_url' => 'meuble.jpg',
             ],
         ];
 

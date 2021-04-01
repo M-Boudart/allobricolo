@@ -16,22 +16,18 @@ class AnnouncementCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('announcement_categories')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
         $announcementCategories = [
             [   
-                'announcement_id' => 3,
+                'announcement_id' => 1,
                 'category_name' => 'Plomberie',
             ],
             [   
                 'announcement_id' => 2,
                 'category_name' => 'Plomberie',
-            ],
-            [   
-                'announcement_id' => 2,
-                'category_name' => 'Menuiserie',
-            ],
-            [   
-                'announcement_id' => 2,
-                'category_name' => 'Electricité',
             ],
             [   
                 'announcement_id' => 3,
@@ -39,7 +35,7 @@ class AnnouncementCategoriesTableSeeder extends Seeder
             ],
             [   
                 'announcement_id' => 4,
-                'category_name' => 'Plomberie',
+                'category_name' => 'Peinture',
             ],
             [   
                 'announcement_id' => 5,
@@ -47,7 +43,23 @@ class AnnouncementCategoriesTableSeeder extends Seeder
             ],
             [   
                 'announcement_id' => 6,
+                'category_name' => 'Plomberie',
+            ],
+            [   
+                'announcement_id' => 6,
                 'category_name' => 'Electricité',
+            ],
+            [   
+                'announcement_id' => 6,
+                'category_name' => 'Menuiserie',
+            ],
+            [   
+                'announcement_id' => 7,
+                'category_name' => 'Homme à tout faire',
+            ],
+            [   
+                'announcement_id' => 8,
+                'category_name' => 'Jardinage',
             ],
         ];
 
