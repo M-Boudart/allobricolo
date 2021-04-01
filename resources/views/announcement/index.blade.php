@@ -43,31 +43,29 @@
                 </div>
                 <div class="col-lg-9 col-md-9">
                     <div class="header__nav">
-                        <nav class="header__menu mobile-menu">
+                    <nav class="header__menu mobile-menu">
                             <ul>
                                 <li class="active"><a href="{{ route('welcome') }}">Accueil</a></li>
                                 <li><a href="{{ route('announcement.index') }}">Annonces</a></li>
-                                <li><a href="#">Categories</a></li>
-                                <li><a href="#">Pages</a>
+                                <li><a href="#">Nos bricoleurs</a></li>
+                                <li><a href="#">Langue</a>
                                     <ul class="dropdown">
-                                        <li><a href="./about.html">About</a></li>
-                                        <li><a href="./listing-details.html">Listing Details</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
-                                        <li><a href="./contact.html">Contact</a></li>
+                                        <li><a href="./about.html">Fr</a></li>
+                                        <li><a href="./listing-details.html">Ndls</a></li>
+                                        <li><a href="./blog-details.html">Ang</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="./blog.html">Blog</a></li>
                             </ul>
                         </nav>
                         <div class="header__menu__right">
                             @if (Auth::check())
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button class="primary-btn">Logout</button>
+                                <button class="primary-btn">Deconnexion</button>
                             </form>
                             <a href="{{ route('login') }}" class="login-btn"><i class="fa fa-user"></i></a>
                             @else
-                            <a href="{{ route('register') }}" class="primary-btn">Register</a>
+                            <a href="{{ route('register') }}" class="primary-btn">S'inscrire</a>
                             <a href="{{ route('login') }}" class="login-btn"><i class="fa fa-user"></i></a>
                             @endif
                         </div>
