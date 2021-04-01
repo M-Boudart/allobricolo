@@ -45,8 +45,8 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="./index.html">Home</a></li>
-                                <li><a href="./listing.html">Listing</a></li>
+                                <li class="active"><a href="{{ route('welcome') }}">Accueil</a></li>
+                                <li><a href="{{ route('announcement.index') }}">Annonces</a></li>
                                 <li><a href="#">Categories</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
@@ -1765,11 +1765,11 @@
     <script src="{{ asset('template/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('template/js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('template/js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('template/js/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ asset('template/js/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ asset('template/js/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('template/js/jquery.slicknav.js') }}"></script>
-    <script src="{{ asset('template/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('template/js/jquery.nicescroll.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('template/js/jquery.nicescroll.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('template/js/jquery.magnific-popup.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('template/js/jquery.slicknav.js') }}"></script> -->
+    <!-- <script src="{{ asset('template/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('template/js/main.js') }}"></script>
 </body>
 

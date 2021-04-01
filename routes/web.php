@@ -15,7 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
+Route::get('/announcements', 'App\Http\Controllers\AnnouncementController@index')
+    ->name('announcement.index');
+
+Route::post('/announcements', 'App\Http\Controllers\AnnouncementController@index')
+    ->name('announcement.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
