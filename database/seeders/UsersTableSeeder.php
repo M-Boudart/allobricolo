@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'sull',
                 'email' => 'bob@sull.com',
                 'description' => null,
-                'picture_url' => 'bob.jpg',
+                'picture_url' => null,
                 'status_name' => 'Admin',
             ],
             [
@@ -48,7 +48,7 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Doe',
                 'email' => 'Marie@doe.com',
                 'description' => 'J\'ai étudié l\'informatique pendant prêt de 5 ans.',
-                'picture_url' => null,
+                'picture_url' => 'marie.jpeg',
                 'status_name' => 'Membre',
             ],
             [
@@ -58,7 +58,7 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Caillou',
                 'email' => 'pierre@rocher.com',
                 'description' => null,
-                'picture_url' => 'brique.jpg',
+                'picture_url' => 'pierre.jpg',
                 'status_name' => 'Vérifié',
             ],
             [

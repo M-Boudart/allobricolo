@@ -29,8 +29,8 @@ class Announcement extends Model
         return $this->hasMany(AnnouncementPicture::class);
     }
 
-    public function apllicant () {
-        return $this->belongsTo(User::class);
+    public function applicant () {
+        return $this->belongsTo(User::class, 'applicant_user_id');
     }
 
     public function locality () {

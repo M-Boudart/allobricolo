@@ -148,9 +148,15 @@
                                             <div class="listing__item__pic set-bg"
                                             data-setbg="{{ asset('img/announcements/no-picture.png') }}">
                                         @endif
+                                        @if (!empty($announcement->applicant->picture_url))
                                             <a href="#">
-                                            <img src="{{ asset('img/users/no-profile.jpg') }}" alt="Photo de profile">
+                                            <img src="{{ asset('img/users/'.$announcement->applicant->picture_url) }}"
+                                            alt="Photo de profile de 
+                                            {{$announcement->applicant->firstname}}">
                                             </a>
+                                        @else
+                                            <img src="{{ asset('img/users/no-profile.jpg') }}" alt="Photo de profile">
+                                        @endif
                                         </div>
                                         <div class="listing__item__text">
                                             <div class="listing__item__text__inside">
