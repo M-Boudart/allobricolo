@@ -116,38 +116,6 @@
                                 <button type="submit">Trier les annonces</button>
                             </form>
                         </div>
-                        <ul class="hero__categories__tags">
-                            <li>
-                                <a href="#">
-                                    <img src="{{ asset('template/img/hero/cat-1.png') }}" alt=""> Restaurent
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="{{ asset('template/img/hero/cat-2.png') }}" alt=""> Food & Drink
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="{{ asset('template/img/hero/cat-3.png') }}" alt=""> Shopping
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="{{ asset('template/img/hero/cat-4.png') }}" alt=""> Beauty
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="{{ asset('template/img/hero/cat-5.png') }}" alt=""> Hotels
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="{{ asset('template/img/hero/cat-6.png') }}" alt=""> All Categories
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -173,10 +141,15 @@
                             @foreach ($announcements as $announcement)
                                 <div class="col-lg-4 col-md-6">
                                     <div class="listing__item">
-                                        <div class="listing__item__pic set-bg"
-                                        data-setbg="{{ asset('template/img/listing/list-1.jpg') }}">
+                                        @if (sizeof($announcement->pictures) > 0)
+                                            <div class="listing__item__pic set-bg"
+                                            data-setbg="{{ asset('img/announcements/'.$announcement->pictures[0]->picture_url) }}">
+                                        @else
+                                            <div class="listing__item__pic set-bg"
+                                            data-setbg="{{ asset('img/announcements/no-picture.png') }}">
+                                        @endif
                                             <a href="#">
-                                            <img src="{{ asset('/img/users/no-profile.jpg') }}" alt="Photo de profile">
+                                            <img src="{{ asset('img/users/no-profile.jpg') }}" alt="Photo de profile">
                                             </a>
                                         </div>
                                         <div class="listing__item__text">
