@@ -47,7 +47,7 @@
                             <ul>
                                 <li class="active"><a href="{{ route('welcome') }}">Accueil</a></li>
                                 <li><a href="{{ route('announcement.index') }}">Annonces</a></li>
-                                <li><a href="#">Nos bricoleurs</a></li>
+                                <li><a href="{{ route('worker.index') }}">Nos bricoleurs</a></li>
                                 <li><a href="#">Langue</a>
                                     <ul class="dropdown">
                                         <li><a href="./about.html">Fr</a></li>

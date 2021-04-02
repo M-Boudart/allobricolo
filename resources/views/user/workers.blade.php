@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="{{ asset('template/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('template/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('template/css/style.css') }}" type="text/css">
+    <!-- Template Profile -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ asset('css/workers.css') }}" type="text/css">
 </head>
 
 <body>
@@ -33,7 +37,7 @@
     </div>
 
     <!-- Header Section Begin -->
-    <header class="header">
+    <header class="header" style="background-color:black;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-md-3">
@@ -43,11 +47,11 @@
                 </div>
                 <div class="col-lg-9 col-md-9">
                     <div class="header__nav">
-                    <nav class="header__menu mobile-menu">
+                        <nav class="header__menu mobile-menu">
                             <ul>
                                 <li class="active"><a href="{{ route('welcome') }}">Accueil</a></li>
                                 <li><a href="{{ route('announcement.index') }}">Annonces</a></li>
-                                <li><a href="{{ route('worker.index') }}">Nos bricoleurs</a></li>
+                                <li><a href="#">Nos bricoleurs</a></li>
                                 <li><a href="#">Langue</a>
                                     <ul class="dropdown">
                                         <li><a href="./about.html">Fr</a></li>
@@ -77,131 +81,72 @@
     </header>
     <!-- Header Section End -->
 
-    <!-- Hero Section Begin -->
-    <section class="hero set-bg" data-setbg="{{ asset('template/img/hero/hero-bg.jpg') }}">
+    <!-- Workers List Section -->
+    <div class="content">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="hero__text">
-                        <div class="section-title">
-                            <h2>Annonces</h2>
-                        </div>
-                        <div class="hero__search__form">
-                            <form action="{{ route('announcement.index') }}" method="POST">
-                                @csrf
-                                <input type="text" name="keyword" 
-                                    placeholder="Mots cléfs séparés par des espaces...">
-                                <div name="category" class="select__option">
-                                    <select name="category">
-                                        <option value="" selected>Catégories</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">
-                                                {{ $category->category }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div name="locality" class="select__option">
-                                    <select name="locality">
-                                        <option value="" selected>Localité</option>
-                                        @foreach ($localities as $locality)
-                                            <option value="{{ $locality->id }}">
-                                                {{ $locality->postal_code }} {{ $locality->locality }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <button type="submit">Trier les annonces</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-sm-4"><a href="#custom-modal" class="btn btn-custom waves-effect waves-light mb-4" data-animation="fadein" data-plugin="custommodal" data-overlayspeed="200" data-overlaycolor="#36404a"><i class="mdi mdi-plus"></i> Add Member</a></div>
+                <!-- end col -->
             </div>
-        </div>
-    </section>
-    <!-- Hero Section End -->
-
-    <!-- Announcement Result Section -->
-    <section class="most-search spad">
-        <div class="container">
+            <!-- end row -->
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <h2>Liste des annonces</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                            <div class="row">
-                            @foreach ($announcements as $announcement)
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="listing__item">
-                                        @if (sizeof($announcement->pictures) > 0)
-                                            <div class="listing__item__pic set-bg"
-                                            data-setbg="{{ asset('img/announcements/'.$announcement->pictures[0]->picture_url) }}">
-                                        @else
-                                            <div class="listing__item__pic set-bg"
-                                            data-setbg="{{ asset('img/announcements/no-picture.png') }}">
-                                        @endif
-                                        @if (!empty($announcement->applicant->picture_url))
-                                            <a href="#">
-                                            <img src="{{ asset('img/users/'.$announcement->applicant->picture_url) }}"
-                                            alt="Photo de profile de 
-                                            {{$announcement->applicant->firstname}}">
-                                            </a>
-                                        @else
-                                            <img src="{{ asset('img/users/no-profile.jpg') }}" alt="Photo de profile">
-                                        @endif
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>{{ $announcement->title }}</h5>
-                                                <div class="listing__item__text__rating">
-                                                    <h6>{{ $announcement->price }} €</h6>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <span class="icon_pin_alt"></span>
-                                                        {{ $announcement->address }},
-                                                        {{ $announcement->locality->postal_code }} 
-                                                        {{ $announcement->locality->locality }}
-                                                    </li>
-                                                    <li>
-                                                        <span class="icon_phone"></span>
-                                                        {{ $announcement->phone }}
-                                                    </li>
-                                                    <li>
-                                                        <span class="material-icons-outlined"></span>
-                                                        {{ $announcement->created_at }}
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <div class="listing__item__text__info__left">
-                                                    <span>
-                                                        <a href="#" class="btn btn-primary">Plus d'infos</a>
-                                                    </span>
-                                                </div>
-                                                <div class="listing__item__text__info__right">
-                                                    <a href="#" class="btn btn-success">Proposer mon aide</a>
-                                                </div>
+                @foreach ($workers as $worker)
+                <div class="col-lg-4">
+                        <div class="text-center card-box">
+                            <div class="member-card pt-2 pb-2">
+                                <div class="thumb-lg member-thumb mx-auto">
+                                @if (!empty($worker->picture_url))
+                                    <img src="{{ asset('img/users/'.$worker->picture_url) }}" 
+                                    class="rounded-circle img-thumbnail" 
+                                    alt="Photo de {{ $worker->firstname }}"
+                                    style="width:78px;height:78px;">
+                                @else
+                                    <img src="{{ asset('img/users/no-profile.jpg') }}" 
+                                    class="rounded-circle img-thumbnail" 
+                                    alt="Photo de profile">
+                                @endif
+                                </div>
+                                <div class="">
+                                    <h4>{{  $worker->lastname }} {{ $worker->firstname }}</h4>
+                                    <p class="text-muted"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+                                </div>
+                                <button type="button" class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light">Consulter le profile</button>
+                                <div class="mt-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mt-3">
+                                                <h4>2563</h4>
+                                                <p class="mb-0 text-muted">Annonces réalisées</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <!-- <div class="row">
+                <div class="col-12">
+                    <div class="text-right">
+                        <ul class="pagination pagination-split mt-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span> <span class="sr-only">Previous</span></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span> <span class="sr-only">Next</span></a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
-    </section>
-    <!-- Announcement Result Section End -->
+    </div>
+    <!-- Workers List Section End -->
 
     <!-- Footer Section Begin -->
-    <footer class="footer">
+    <footer class="footer" style="padding-top:20px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">

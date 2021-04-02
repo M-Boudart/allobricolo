@@ -23,6 +23,9 @@ Route::get('/announcements', 'App\Http\Controllers\AnnouncementController@index'
 Route::post('/announcements', 'App\Http\Controllers\AnnouncementController@index')
     ->name('announcement.index');
 
+Route::get('/workers', 'App\Http\Controllers\UserController@workers')
+    ->name('worker.index');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
