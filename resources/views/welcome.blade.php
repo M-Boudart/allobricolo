@@ -436,27 +436,28 @@
                                 <img src="{{ asset('template/img/footer-logo.png') }}" alt="">
                             </a>
                         </div>
-                        <p>Challenging the way things have always been done can lead to creative new options that reward
-                            you.</p>
+                        <p>
+                        Allo Bricolo est un site d'économie collaborative qui met en lien des personnes ayant besoin d'aide dans un domaine lié au bricolage.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 offset-lg-1 col-md-6">
                     <div class="footer__address">
                         <ul>
                             <li>
-                                <span>Call Us:</span>
-                                <p>(+12) 345-678-910</p>
+                                <span>Appelez nous:</span>
+                                <p>(+32) 456.286.598</p>
                             </li>
                             <li>
                                 <span>Email:</span>
-                                <p>info.colorlib@gmail .com</p>
+                                <p>info.allobricolo@gmail .com</p>
                             </li>
                             <li>
                                 <span>Fax:</span>
-                                <p>(+12) 345-678-910</p>
+                                <p>(+32) 432.210.628</p>
                             </li>
                             <li>
-                                <span>Connect Us:</span>
+                                <span>Suivez nous:</span>
                                 <div class="footer__social">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-instagram"></i></a>
@@ -470,18 +471,11 @@
                 <div class="col-lg-3 offset-lg-1 col-md-6">
                     <div class="footer__widget">
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Support</a></li>
-                            <li><a href="#">How it work</a></li>
+                            <li><a href="{{ route('welcome') }}">Accueil</a></li>
                             <li><a href="#">Contact</a></li>
-                            <li><a href="#">Blog</a></li>
                         </ul>
                         <ul>
-                            <li><a href="#">Sign In</a></li>
-                            <li><a href="#">How it Work</a></li>
-                            <li><a href="#">Advantages</a></li>
-                            <li><a href="#">Direo App</a></li>
-                            <li><a href="#">Packages</a></li>
+                            <li><a href="{{ route('login') }}">Se connecter</a></li>
                         </ul>
                     </div>
                 </div>
@@ -494,9 +488,9 @@
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                         </div>
                         <div class="footer__copyright__links">
-                            <a href="#">Terms</a>
-                            <a href="#">Privacy Policy</a>
-                            <a href="#">Cookie Policy</a>
+                            <a href="#">Termes d'utilisation</a>
+                            <a href="#">RGPD</a>
+                            <a href="#">Politique des cookies</a>
                         </div>
                     </div>
                 </div>
