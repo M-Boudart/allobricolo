@@ -72,17 +72,15 @@ class ChatMessagesTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($chatMessages as $chatMessage) {
+        foreach ($chatMessages as &$chatMessage) {
             $user = User::firstWhere('login', $chatMessage['sender_login']);
-            $helper = Helper::firstWhere('chat_id', $chatMessage['chat_id']);
 
-            DB::table('chat_messages')->insert([
-                'chat_id' => $helper->chat_id,
-                'sender' => $user->id,
-                'message' => $chatMessage['message'],
-                'written_at' => $chatMessage['written_at'],
-                'status' => $chatMessage['status'],
-            ]);
+            $chatMessage['sender'] = $user->id;
+            unset($chatMessage['sender_login']);
         }
+
+        DB::table('chat_messages')->insert(
+            $chatMessages,
+        );
     }
 }

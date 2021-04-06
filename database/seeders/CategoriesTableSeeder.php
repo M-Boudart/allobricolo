@@ -48,10 +48,8 @@ class CategoriesTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($categories as $category) {
-            DB::table('categories')->insert([
-                'category' => $category['category'],
-            ]);
-        }
+            DB::table('categories')->insert(
+                $categories,
+            );
     }
 }

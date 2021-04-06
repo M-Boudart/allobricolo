@@ -71,21 +71,58 @@ class UsersTableSeeder extends Seeder
                 'picture_url' => null,
                 'status_name' => 'Modérateur',
             ],
+            [
+                'login' => 'andre123',
+                'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
+                'firstname' => 'André',
+                'lastname' => 'Coppard',
+                'email' => 'andre@coppard.com',
+                'description' => null,
+                'picture_url' => null,
+                'status_name' => 'Membre',
+            ],
+            [
+                'login' => 'juliette123',
+                'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
+                'firstname' => 'Juliette',
+                'lastname' => 'Clique',
+                'email' => 'juliette@clique.com',
+                'description' => null,
+                'picture_url' => null,
+                'status_name' => 'Membre',
+            ],
+            [
+                'login' => 'manon123',
+                'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
+                'firstname' => 'Manon',
+                'lastname' => 'Chocolat',
+                'email' => 'manon@chocolat.com',
+                'description' => null,
+                'picture_url' => null,
+                'status_name' => 'Vérifié',
+            ],
+            [
+                'login' => 'adrien123',
+                'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
+                'firstname' => 'Adrien',
+                'lastname' => 'Lonon',
+                'email' => 'adrien@lonon.com',
+                'description' => null,
+                'picture_url' => null,
+                'status_name' => 'Vérifié',
+            ],
         ];
 
-        foreach ($users as $user) {
+        foreach ($users as &$user) {
             $status = Status::firstWhere('status', $user['status_name']);
 
-            DB::table('users')->insert([
-                'login' => $user['login'],
-                'password' => $user['password'],
-                'firstname' => $user['firstname'],
-                'lastname' => $user['lastname'],
-                'email' => $user['email'],
-                'description' => $user['email'],
-                'picture_url' => $user['picture_url'],
-                'status_id' => $status->id,
-            ]);
+            $user['status_id'] = $status->id;
+
+            unset($user['status_name']);
         }
+
+        DB::table('users')->insert(
+            $users,
+        );
     }
 }

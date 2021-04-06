@@ -33,10 +33,8 @@ class StatusTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($status as $statu) {
-            DB::table('status')->insert([
-                'status' => $statu['status'],
-            ]);
-        }
+            DB::table('status')->insert(
+                $status,
+            );
     }
 }

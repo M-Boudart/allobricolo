@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Announcement;
 
 class PaymentsTableSeeder extends Seeder
 {
@@ -34,15 +33,8 @@ class PaymentsTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($payments as $payment) {
-            $announcement = Announcement::firstWhere('id', $payment['announcement_id']);
-
-            DB::table('payments')->insert([
-                'announcement_id' => $announcement->id,
-                'payment_id' => $payment['payment_id'],
-                'payed_at' => $payment['payed_at'],
-                'status' => $payment['status'],
-            ]);
-        }
+        DB::table('payments')->insert(
+            $payments,
+        );
     }
 }

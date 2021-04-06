@@ -48,13 +48,14 @@ class AnnouncementPicturesTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($announcementPictures as $announcementPicture) {
+        foreach ($announcementPictures as &$announcementPicture) {
             $announcement = Announcement::firstWhere('id', $announcementPicture['announcement_id']);
 
-            DB::table('announcement_pictures')->insert([
-                'announcement_id' => $announcement->id,
-                'picture_url' => $announcementPicture['picture_url'],
-            ]);
+            $announcementPicture['announcement_id'] = $announcement->id; 
         }
+
+        DB::table('announcement_pictures')->insert(
+            $announcementPictures
+        );
     }
 }

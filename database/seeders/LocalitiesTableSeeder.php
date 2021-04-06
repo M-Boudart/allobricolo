@@ -97,11 +97,8 @@ class LocalitiesTableSeeder extends Seeder
             ],
         ];
 
-        foreach($localities as $locality) {
-            DB::table('localities')->insert([
-                'postal_code' => $locality['postal_code'],
-                'locality' => $locality['locality'],
-            ]);
-        }
+            DB::table('localities')->insert(
+                $localities,
+            );
     }
 }

@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
-use App\Models\Announcement;
 
 class AnnouncementCategoriesTableSeeder extends Seeder
 {
@@ -63,14 +62,15 @@ class AnnouncementCategoriesTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($announcementCategories as $announcementCategory) {
-            $announcement = Announcement::firstWhere('id', $announcementCategory['announcement_id']);
+        foreach ($announcementCategories as &$announcementCategory) {
             $category = Category::firstWhere('category', $announcementCategory['category_name']);
 
-            DB::table('announcement_categories')->insert([
-                'announcement_id' => $announcement->id,
-                'category_id' => $category->id,
-            ]);
+            $announcementCategory['category_id'] = $category->id;
+            unset($announcementCategory['category_name']);
         }
+
+        DB::table('announcement_categories')->insert(
+            $announcementCategories
+        );
     }
 }

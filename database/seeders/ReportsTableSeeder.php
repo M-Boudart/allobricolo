@@ -50,16 +50,17 @@ class ReportsTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($reports as $report) {
+        foreach ($reports as &$report) {
             $user = User::firstWhere('login', $report['reported_by_login']);
 
-            DB::table('reports')->insert([
-                'type' => $report['type'],
-                'object_id' => $report['object_id'],
-                'reported_by' => $user->id,
-                'description' => $report['description'],
-                'reported_at' => $report['reported_at'],
-            ]);
+            $report['reported_by'] = $user->id;
+
+            unset($report['reported_by_login']);
+
         }
+
+        DB::table('reports')->insert(
+            $reports,
+        );
     }
 }

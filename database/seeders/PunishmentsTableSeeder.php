@@ -46,18 +46,19 @@ class PunishmentsTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($punishments as $punishment) {
+        foreach ($punishments as &$punishment) {
             $reportedUser = User::firstWhere('login', $punishment['user_id_login']);
             $reporterUser = User::firstWhere('login', $punishment['reported_by_login']);
 
-            DB::table('punishments')->insert([
-                'user_id' => $reportedUser->id,
-                'reported_by' => $reporterUser->id,
-                'type' => $punishment['type'],
-                'from_date' => $punishment['from_date'],
-                'to_date' => $punishment['to_date'],
-                'reason' => $punishment['reason'],
-            ]);
+            $punishment['user_id'] = $reportedUser->id;
+            $punishment['reported_by'] = $reporterUser->id;
+
+            unset($punishment['user_id_login']);
+            unset($punishment['reported_by_login']);
         }
+
+        DB::table('punishments')->insert(
+            $punishments,
+        );
     }
 }

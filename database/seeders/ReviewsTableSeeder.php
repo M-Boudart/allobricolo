@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Announcement;
 
 class ReviewsTableSeeder extends Seeder
 {
@@ -47,14 +46,8 @@ class ReviewsTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($reviews as $review) {
-            $announcement = Announcement::firstWhere('id', $review['announcement_id']);
-
-            DB::table('reviews')->insert([
-                'note' => $review['note'],
-                'announcement_id' => $announcement->id,
-                'description' => $review['description'],
-            ]);
-        }
+            DB::table('reviews')->insert(
+                $reviews,
+            );
     }
 }

@@ -59,14 +59,19 @@ class KnowledgesTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($knowledges as $knowledge) {
+        foreach ($knowledges as &$knowledge) {
             $user = User::firstWhere('login', $knowledge['user_login']);
             $category = Category::firstWhere('category', $knowledge['category_name']);
 
-            DB::table('knowledges')->insert([
-                'user_id' => $user->id,
-                'category_id' => $category->id,
-            ]);
+            $knowledge['user_id'] = $user->id;
+            $knowledge['category_id'] = $category->id;
+
+            unset($knowledge['user_login']);
+            unset($knowledge['category_name']);
         }
+
+        DB::table('knowledges')->insert(
+            $knowledges,
+        );
     }
 }

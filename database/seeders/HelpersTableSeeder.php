@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Announcement;
-use App\Models\ChatMessage;
 
 class HelpersTableSeeder extends Seeder
 {
@@ -102,16 +101,18 @@ class HelpersTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($helpers as $helper) {
+        foreach ($helpers as &$helper) {
             $annoucement = Announcement::firstWhere('id', $helper['announcement_id']);
             $userHelper = User::firstWhere('login', $helper['helper_login']);
 
-            DB::table('helpers')->insert([
-                'announcement_id' => $annoucement->id,
-                'helper_id' => $userHelper->id,
-                'status' => $helper['status'],
-                'chat_id' => $helper['chat_id'],
-            ]);
+            $helper['announcement_id'] = $annoucement->id;
+            $helper['helper_id'] = $userHelper->id;
+
+            unset($helper['helper_login']);
         }
+
+        DB::table('helpers')->insert(
+            $helpers,
+        );
     }
 }
