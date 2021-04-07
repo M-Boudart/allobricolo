@@ -65,6 +65,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Announcements::class, 'helpers');
     }
 
+    public function helpProposal () {
+        return $this->hasMany(Helper::class, 'helper_id');
+    }
+
     public function reports () {
         return $this->hasMany(Punishment::class);
     }

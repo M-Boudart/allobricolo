@@ -23,4 +23,8 @@ class Helper extends Model
     public function chatMessages () {
         return $this->hasMany(ChatMessage::class);
     }
+
+    public function helper () {
+        return $this->belongsTo(User::class);
+    }
 }
