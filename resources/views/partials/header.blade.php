@@ -28,7 +28,7 @@
                             @csrf
                             <button class="primary-btn">Deconnexion</button>
                         </form>
-                        <a href="{{ route('login') }}" class="login-btn"><i class="fa fa-user"></i></a>
+                        <a href="{{ route('user.show', Auth::id()) }}" class="login-btn"><i class="fa fa-user"></i></a>
                         @else
                         <a href="{{ route('register') }}" class="primary-btn">S'inscrire</a>
                         <a href="{{ route('login') }}" class="login-btn"><i class="fa fa-user"></i></a>

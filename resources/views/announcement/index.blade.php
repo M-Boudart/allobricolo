@@ -105,13 +105,15 @@
                                             data-setbg="{{ asset('img/announcements/no-picture.png') }}">
                                         @endif
                                         @if (!empty($announcement->applicant->picture_url))
-                                            <a href="#">
+                                            <a href="{{ route('user.show', $announcement->applicant->id) }}">
                                             <img src="{{ asset('img/users/'.$announcement->applicant->picture_url) }}"
                                             alt="Photo de profile de 
                                             {{$announcement->applicant->firstname}}">
                                             </a>
                                         @else
-                                            <img src="{{ asset('img/users/no-profile.jpg') }}" alt="Photo de profile">
+                                        <a href="{{ route('user.show', $announcement->applicant->id) }}">
+                                        <img src="{{ asset('img/users/no-profile.jpg') }}" alt="Photo de profil">
+                                        </a>
                                         @endif
                                         </div>
                                         <div class="listing__item__text">

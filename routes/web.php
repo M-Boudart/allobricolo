@@ -22,6 +22,9 @@ Route::get('/announcements', 'App\Http\Controllers\AnnouncementController@index'
 Route::post('/announcements', 'App\Http\Controllers\AnnouncementController@index')
     ->name('announcement.index');
 
+Route::get('/user/{id}', 'App\Http\Controllers\UserController@show')
+    ->name('user.show');
+
 Route::get('/workers', 'App\Http\Controllers\UserController@workers')
     ->name('user.workers');
 

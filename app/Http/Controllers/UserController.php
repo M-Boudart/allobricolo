@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use App\Models\User;
 
@@ -69,7 +70,26 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $reviews = new Collection();
+        $user = User::find($id);
+        $announcementRealised = DB::table('helpers')->select('announcement_id as id')
+                                    ->where('helper_id', '=', $id)
+                                    ->where('status', '=', 'selected')
+                                    ->get();  
+
+        if (!empty($announcementRealised)) {
+            foreach($announcementRealised as $announcement) {
+                $reviews = $reviews->concat(
+                    DB::table('reviews')->where('announcement_id', $announcement->id)->get()
+                );
+            }
+        }
+
+        return view('user.show', [
+            'user' => $user,
+            'nbAnnouncementRealised' => $announcementRealised->count(),
+            'reviews' => $reviews,
+        ]);
     }
 
     /**
