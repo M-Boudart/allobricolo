@@ -49,7 +49,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function state () {
+    public function status () {
         return $this->belongsTo(Status::class);
     }
 
