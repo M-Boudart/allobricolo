@@ -23,7 +23,7 @@ Route::post('/announcements', 'App\Http\Controllers\AnnouncementController@index
     ->name('announcement.index');
 
 Route::get('/workers', 'App\Http\Controllers\UserController@workers')
-    ->name('worker.index');
+    ->name('user.workers');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
