@@ -42,12 +42,8 @@
     <!-- Workers List Section -->
     <div class="content">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-4"><a href="#custom-modal" class="btn btn-custom waves-effect waves-light mb-4" data-animation="fadein" data-plugin="custommodal" data-overlayspeed="200" data-overlaycolor="#36404a"><i class="mdi mdi-plus"></i> Add Member</a></div>
-                <!-- end col -->
-            </div>
-            <!-- end row -->
-            <div class="row">
+        <h1>Nos bricoleurs</h1>
+            <div class="row firstRow">
                 @foreach ($workers as $worker)
                 <div class="col-lg-4">
                         <div class="text-center card-box">

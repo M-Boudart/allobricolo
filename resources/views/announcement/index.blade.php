@@ -36,7 +36,7 @@
     @include('partials.header')
 
     <!-- Hero Section Begin -->
-    <section class="hero set-bg" data-setbg="{{ asset('template/img/hero/hero-bg.jpg') }}">
+    <section class="hero set-bg" data-setbg="{{ asset('img/header-background.png') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

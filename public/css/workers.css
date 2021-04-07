@@ -1,7 +1,16 @@
-body{
-    background:#DCDCDC;
-    margin-top:20px;
+header {
+    background-color: black;
 }
+
+.container {
+    margin-top: 120px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 .card-box {
     padding: 20px;
     border-radius: 3px;
