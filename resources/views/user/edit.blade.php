@@ -36,6 +36,9 @@
     @include('partials.header')
 
     <div class="container emp-profile">
+        <form action="{{ route('user.edit', $user->id) }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('patch')
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
@@ -54,44 +57,23 @@
                                 <h5>
                                     {{strtoupper($user->lastname)}}  {{$user->firstname}}
                                 </h5>
-                                    @if (sizeof($user->knowledges) > 0)
-                                        <h6>Bricoleur</h6>
-                                        <p class="proile-rating">
-                                            Nombre d'annonces réalisées : <span>{{ $nbAnnouncementRealised }}</span>
-                                        </p>
-                                        <p class="proile-rating">
-                                            Moyenne des notes : <span>0</span>
-                                        </p>
-                                    @else
-                                        <h6>Requérant</h6>
-                                    @endif
+                                <h6>Formulaire de modification de profil</h6>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">A propos</a>
                             </li>
                         </ul>
                     </div>
-                    @if (session('success'))
-                        <div class="row">
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        </div>
-                    @elseif (session('error'))
-                        <div class="row">
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     @endif
                 </div>
-                @if (Auth::id() == $user->id)
-                <div class="col-md-2">
-                    <a href="{{ route('user.edit', $user->id) }}" class="profile-edit-btn">
-                        Modifier mon profil
-                    </a>
-                </div>
-                @endif
             </div>
             <div class="row">
                 <!-- Colonne gauche (connaissances) -->
@@ -111,67 +93,89 @@
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row">
+                            <div class="row form-div">
                                 <div class="col-md-6">
-                                    <label>Nom</label>
+                                    <label for="lastname">Nom</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ strtoupper($user->lastname) }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Prénom</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ $user->firstname }}</p>
+                                    <input id="lastname" type="text" name="lastname" placeholder="{{ $user->lastname}}" class="form-control" 
+                                    value="{{ old('lastname') }}">
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row form-div">
                                 <div class="col-md-6">
-                                    <label>Email</label>
+                                    <label for="firstname">Prénom</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ $user->email }}</p>
-                                </div>
-                            </div>
-                            @if (!empty($user->description))
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Description</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ $user->description }}</p>
+                                    <input id="firstname" type="text" name="firstname" placeholder="{{ $user->firstname}}" class="form-control"
+                                    value="{{ old('firstname') }}">
                                 </div>
                             </div>
-                            @endif
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="login">Login</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="login" type="text" name="login" placeholder="{{ $user->login}}" class="form-control"
+                                    value="{{ old('login') }}">
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="email" type="email" name="email" placeholder="{{ $user->email}}" class="form-control"
+                                    value="{{ old('email') }}">
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="password">Mot de passe</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="password" type="password" name="password"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="password_confirmation">Confirmation mot de passe</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="password_confirmation" type="password" name="password_confirmation"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="description">Description</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea id="description" name="description" placeholder="{{ $user->description}}" class="form-control" 
+                                    value="{{ old('description') }}"></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="picture">Photo de profil</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="picture" type="file" name="picture" class="form-control-file">
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="500000">
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <a href="{{ route('user.show', $user->id) }}"
+                                    class="btn btn-danger">Annuler les modifications</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary">Modifier mes informations</button>
+                                </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @if (!empty($user->announcements))
-            <div class="row announcements">
-                <div class="col-lg-6 col-md-12">
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="..." alt="...">
-                            </div>
-                            <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    commentaire
-                </div>
-           </div>
-           @endif
+        </form>
     </div>
 
     @include('partials.footer')

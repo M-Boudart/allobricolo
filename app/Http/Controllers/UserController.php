@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Collection;
 use App\Models\User;
 
@@ -100,7 +102,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('user.edit', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -112,7 +118,61 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'lastname' => 'nullable|max:60|alpha',
+            'firstname' => 'nullable|max:60|alpha',
+            'login' => 'nullable|max:30|unique:users',
+            'password' => 'nullable|min:8',
+            'password_confirmation' => 'nullable|min:8',
+            'email' => 'nullable|email:rfc|max:255|unique:users',
+            'description' => 'nullable|max:65535',
+            'picture' => 'file|image|nullable',
+        ]);
+
+        // Lorsque le mot de passe est modifié
+        if ($request->input('password') !== null) {
+            $validated = $request->validate([
+                'password' => 'required|confirmed',
+                'password_confirmation' => 'required|min:8|same:password',
+            ]);
+        }
+
+        $user = User::find($id);
+        $inputs = $request->all();
+        $userInfos = [];
+
+        // Lorsqu'il y a une photo de profil
+        if ($request->hasFile('picture')) {
+            $picture = $request->file('picture');
+            define('MAX_FILE_SIZE', $inputs['MAX_FILE_SIZE']);
+
+            $userInfos['picture_url'] = 'urlTemporaire';
+            // A réaliser Suppression ancienne image + sauvegarde nouvelle image
+        }
+
+        
+        unset($inputs['_token']);
+        unset($inputs['_method']);
+        unset($inputs['password_confirmation']);
+        unset($inputs['MAX_FILE_SIZE']);
+        unset($inputs['picture']);
+
+        foreach ($inputs as $key => $value) {
+            if (!empty($value)) {
+                if ($key === 'password') $userInfos[$key] = Hash::make($value);
+                else $userInfos[$key] = $value;
+            }
+
+        }
+        
+        $result = $user->where('id', '=', $user->id)
+            ->update($userInfos);
+
+        if ($result) {
+            return redirect()->route('user.show', $user->id)->with('success', 'Votre profil a bien été modifié !');
+        } else {
+            return redirect()->route('user.show', $user->id)->with('error', 'Une erreur s\'est produite lors de la modification, veuillez réessayer plustard');
+        }
     }
 
     /**

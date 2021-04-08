@@ -25,6 +25,12 @@ Route::post('/announcements', 'App\Http\Controllers\AnnouncementController@index
 Route::get('/user/{id}', 'App\Http\Controllers\UserController@show')
     ->name('user.show');
 
+Route::get('/user/edit/{id}', 'App\Http\Controllers\UserController@edit')
+    ->middleware(['auth'])->name('user.edit');
+
+Route::patch('/user/edit/{id}', 'App\Http\Controllers\UserController@update')
+    ->middleware(['auth'])->name('user.edit');
+
 Route::get('/workers', 'App\Http\Controllers\UserController@workers')
     ->name('user.workers');
 
