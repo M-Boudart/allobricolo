@@ -173,7 +173,12 @@ class AnnouncementController extends Controller
      */
     public function show($id)
     {
-        //
+        $announcement = Announcement::find($id);
+
+        // dd($announcement->pictures->toArray()[0]['picture_url']);
+        return view('announcement.show', [
+            'announcement' => $announcement,
+        ]);
     }
 
     /**

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\WelcomeController@index')
     ->name('welcome');
 
+// Announcements
 Route::get('/announcements', 'App\Http\Controllers\AnnouncementController@index')
     ->name('announcement.index');
 
@@ -28,6 +29,10 @@ Route::get('/announcements/create', 'App\Http\Controllers\AnnouncementController
 Route::post('/announcements/create', 'App\Http\Controllers\AnnouncementController@store')
     ->middleware(['auth'])->name('announcement.create');
 
+Route::get('/announcements/{id}', 'App\Http\Controllers\AnnouncementController@show')
+    ->name('announcement.show');
+
+// Users
 Route::get('/user/{id}', 'App\Http\Controllers\UserController@show')
     ->name('user.show');
 

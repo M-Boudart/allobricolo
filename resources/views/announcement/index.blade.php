@@ -151,7 +151,7 @@
                                             <div class="listing__item__text__info">
                                                 <div class="listing__item__text__info__left">
                                                     <span>
-                                                        <a href="#" class="btn btn-primary">Plus d'infos</a>
+                                                        <a href="{{ route('announcement.show', $announcement->id) }}" class="btn btn-primary">Plus d'infos</a>
                                                     </span>
                                                 </div>
                                                 <div class="listing__item__text__info__right">
