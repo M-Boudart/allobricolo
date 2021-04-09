@@ -49,7 +49,7 @@
                     </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="profile-head">
                                 <h5>
                                     {{strtoupper($user->lastname)}}  {{$user->firstname}}
@@ -87,9 +87,19 @@
                 </div>
                 @if (Auth::id() == $user->id)
                 <div class="col-md-2">
-                    <a href="{{ route('user.edit', $user->id) }}" class="profile-edit-btn">
+                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">
                         Modifier mon profil
                     </a>
+                </div>
+                <div class="col-md-2">
+                    <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-danger"
+                    onclick="confirm('Voulez vous vraiment supprimer votre profil ?')">
+                        Supprimer mon profil
+                    </button>
+                    </form>
                 </div>
                 @endif
             </div>

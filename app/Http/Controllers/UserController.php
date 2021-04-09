@@ -185,8 +185,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if (Auth::id() != $id) {
+            return redirect()->route('user.show', $id);
+        }
+
+        $user = User::find($id);
+
+        $result = User::where('id', '=', $id)->delete();
+
+        if ($result) {
+            Auth::logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect()->route('welcome')->with('success', 'Vous avez supprimé votre compte, aurevoir !');
+        }
     }
 }

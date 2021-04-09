@@ -42,6 +42,11 @@
                 <div class="col-lg-12">
                     <div class="hero__text">
                         <div class="section-title">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             <h2>Le site qui rassemble les bricoleurs prêt de chez vous !</h2>
                             <p><a href="#" class="btn btn-danger">Postez votre annonce dès maintenant</a></p>
                         </div>

@@ -31,6 +31,9 @@ Route::get('/user/edit/{id}', 'App\Http\Controllers\UserController@edit')
 Route::patch('/user/edit/{id}', 'App\Http\Controllers\UserController@update')
     ->middleware(['auth'])->name('user.edit');
 
+Route::delete('/user/delete/{id}', 'App\Http\Controllers\UserController@destroy')
+    ->middleware(['auth'])->name('user.destroy');
+
 Route::get('/workers', 'App\Http\Controllers\UserController@workers')
     ->name('user.workers');
 
