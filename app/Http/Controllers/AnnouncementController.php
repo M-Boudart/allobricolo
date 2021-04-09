@@ -212,6 +212,16 @@ class AnnouncementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $announcement = Announcement::find($id);
+
+        if (Auth::id() != $announcement->applicant_user_id) {
+            return redirect()->route('announcement.show', $announcement->id)->with('error', 'Vous n\'êtes pas autorisé à supprimer cette annonce !');
+        }
+
+        $result = Announcement::where('id', '=', $announcement->id)->delete();
+
+        if ($result) {
+            return redirect()->route('user.show', $announcement->applicant_user_id)->with('success', 'Vous avez');
+        }
     }
 }

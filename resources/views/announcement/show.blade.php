@@ -70,7 +70,7 @@
                     </a>
                 </div>
                 <div class="col-md-2">
-                    <form action="{{ route('user.destroy', $announcement->id) }}" method="POST">
+                    <form action="{{ route('announcement.destroy', $announcement->id) }}" method="POST">
                     @csrf
                     @method('delete')
                     <button class="btn btn-danger"
