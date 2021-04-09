@@ -22,6 +22,12 @@ Route::get('/announcements', 'App\Http\Controllers\AnnouncementController@index'
 Route::post('/announcements', 'App\Http\Controllers\AnnouncementController@index')
     ->name('announcement.index');
 
+Route::get('/announcements/create', 'App\Http\Controllers\AnnouncementController@create')
+    ->middleware(['auth'])->name('announcement.create');
+
+Route::post('/announcements/create', 'App\Http\Controllers\AnnouncementController@store')
+    ->middleware(['auth'])->name('announcement.create');
+
 Route::get('/user/{id}', 'App\Http\Controllers\UserController@show')
     ->name('user.show');
 

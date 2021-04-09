@@ -43,6 +43,15 @@
                     <div class="hero__text">
                         <div class="section-title">
                             <h2>Annonces</h2>
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @elseif (session('error'))
+                                <div class="alert alert-success">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                         </div>
                         <div class="hero__search__form">
                             <form action="{{ route('announcement.index') }}" method="POST">

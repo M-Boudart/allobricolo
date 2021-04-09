@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Collection;
 use App\Models\Announcement;
 use App\Models\Category;
@@ -90,7 +93,13 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        //
+        $localities = DB::table('localities')->get();
+        $categories = DB::table('categories')->get();
+
+        return view('announcement.create', [
+            'localities' => $localities,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -101,7 +110,59 @@ class AnnouncementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|max:100',
+            'address' => 'required|max:60',
+            'locality_id' => 'required|Numeric|min:1|max:19',
+            'price' => 'required|Numeric|min:0',
+            'description' => 'nullable|max:65535',
+            'phone' => 'required|max:20',
+            'pictures' => 'nullable|Array',
+            'categories' => 'required|Array',
+        ]);
+
+        // Récupération des inputs 
+        $announcementInfos = $request->all();
+        $categoriesInput = $request->categories;
+
+        // Formatage des inputs afin de les inserés dans la bdd
+        $announcementInfos['created_at'] = date('Y-m-d H:i:s');
+        $announcementInfos['applicant_user_id'] = Auth::id();
+        unset($announcementInfos['_token']); 
+        unset($announcementInfos['categories']);
+
+        $result = DB::table('announcements')->insert($announcementInfos);
+
+        if ($result) {
+            $categoryInfos = [];
+
+            $announcementId = Announcement::select('id')
+                                    ->orderBy('created_at', 'Desc')
+                                    ->limit(1)
+                                    ->get()
+                                    ->toArray()[0]['id'];
+
+            foreach ($categoriesInput as $category) {
+                $categoryId = DB::table('categories')
+                                ->select('id')
+                                ->where('category', '=', $category)
+                                ->get()
+                                ->toArray()[0]->id;
+                
+                $categoryInfos['announcement_id'] = $announcementId;
+                $categoryInfos['category_id'] = $categoryId;
+
+                $result = DB::table('announcement_categories')->insert($categoryInfos);
+
+                if (!$result) break;
+            }
+        }
+
+        if ($result) {
+            return redirect()->route('announcement.index')->with('success', 'Votre annonce vient d\'être ajoutée à la lsite des annnonces');
+        } else {
+            return redirect()->route('announcement.index')->with('error', 'Une erreur s\'est produite lors de la création de votre annonce, veuillez réessayer plustard');
+        }
     }
 
     /**

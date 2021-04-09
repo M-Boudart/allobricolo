@@ -1,0 +1,26 @@
+header {
+    background-image: url('../img/bandeau.png');
+}
+
+.container {
+margin-top: 10% !important;
+margin-bottom: 0 !important;
+padding-bottom: 0 !important;
+}
+
+#locality {
+    display:block !important;
+}
+
+/* Bug du deuxième select affiché */
+body > section > form > div:nth-child(4) > div.form-group.col-md-4 > div {
+    display: none !important;
+}
+
+footer {
+    padding-top: 0px !important;
+}
+
+.error {
+    color:red;
+}

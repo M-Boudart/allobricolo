@@ -48,7 +48,7 @@
                                 </div>
                             @endif
                             <h2>Le site qui rassemble les bricoleurs prêt de chez vous !</h2>
-                            <p><a href="#" class="btn btn-danger">Postez votre annonce dès maintenant</a></p>
+                            <p><a href="{{ route('announcement.create') }}" class="btn btn-danger">Postez votre annonce dès maintenant</a></p>
                         </div>
                     </div>
                 </div>
