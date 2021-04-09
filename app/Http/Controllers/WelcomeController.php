@@ -16,7 +16,7 @@ class WelcomeController extends Controller
     public function index()
     {
         $latestAnnouncements = Announcement::whereNull('realised_at')
-                                ->orderBy('created_at', 'asc')
+                                ->orderBy('created_at', 'desc')
                                 ->limit(3)
                                 ->get();
 
