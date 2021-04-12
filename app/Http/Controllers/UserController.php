@@ -74,6 +74,8 @@ class UserController extends Controller
     {
         $reviews = new Collection();
         $user = User::find($id);
+        $announcements = $user->announcements->whereNull('realised_at');
+        
         $announcementRealised = DB::table('helpers')->select('announcement_id as id')
                                     ->where('helper_id', '=', $id)
                                     ->where('status', '=', 'selected')
@@ -91,6 +93,7 @@ class UserController extends Controller
             'user' => $user,
             'nbAnnouncementRealised' => $announcementRealised->count(),
             'reviews' => $reviews,
+            'announcements' => $announcements,
         ]);
     }
 
