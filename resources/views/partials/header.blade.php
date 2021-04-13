@@ -18,6 +18,12 @@
                                 <a href="{{ route('announcement.create') }}">Créer une annonce</a>
                             </li>
                             @endif
+                            @if (Auth::user()->status->status == 'Admin' || 
+                                Auth::user()->status->status == 'Modérateur')
+                                <li>
+                                <a href="{{ route('dashboard') }}">Dashboard</a>
+                                </li>
+                            @endif
                             <li><a href="#">Langue</a>
                                 <ul class="dropdown">
                                     <li><a href="./about.html">Fr</a></li>

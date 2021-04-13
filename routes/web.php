@@ -52,7 +52,7 @@ Route::get('/workers', 'App\Http\Controllers\UserController@workers')
     ->name('user.workers');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('backend.dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
