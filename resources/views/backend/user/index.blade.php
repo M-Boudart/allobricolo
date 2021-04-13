@@ -17,6 +17,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @elseif (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 @foreach ($groupedUsers as $status => $users)
                 <h1 class="table-title">{{ $status }}s :</h1>
                 <table class="table table-striped">
@@ -49,12 +58,12 @@
                                 <td>{{ $user->description }}</td>
                                 @if ($status != 'Admin')
                                 <td>
-                                    <form id="frmPromote" action="#" method="post">
+                                    <form id="frmPromote" action="{{ route('backend.user.promote', $user->id) }}" method="post">
                                         @csrf
                                         @if ($status != 'Modérateur')
-                                        <button name="moderator" class="btn btn-primary">Modérateur</button>
+                                        <button name="status" value="modérateur" class="btn btn-primary">Modérateur</button>
                                         @endif
-                                        <button name="admin" class="btn btn-primary">Admin</button>
+                                        <button name="status" value="admin" class="btn btn-primary">Admin</button>
                                     </form>
                                 </td>
                                 @else

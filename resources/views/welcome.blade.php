@@ -46,6 +46,10 @@
                                 <div class="alert alert-success">
                                     {{ session('success') }}
                                 </div>
+                            @elseif (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
                             @endif
                             <h2>Le site qui rassemble les bricoleurs prêt de chez vous !</h2>
                             <p><a href="{{ route('announcement.create') }}" class="btn btn-danger">Postez votre annonce dès maintenant</a></p>

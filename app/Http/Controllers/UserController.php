@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 
 class UserController extends Controller
@@ -217,5 +219,39 @@ class UserController extends Controller
 
             return redirect()->route('welcome')->with('success', 'Vous avez supprimé votre compte, aurevoir !');
         }
+    }
+
+    /**
+     * Promote a member as admin or moderator.
+     *
+     * @param  int  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function promote (Request $request, $userId) {
+        if (Auth::user()->status->status != 'Admin') {
+            return redirect()->route('welcome')->with('error', 'Vous n\'êtes Spas autorisé à promouvoir un membre');
+        }
+
+        $validator = $request->validate([
+            'status' => 'required|exists:status'
+        ]);
+
+        if ($request->status == 'admin') {
+            $newStatus = DB::table('status')->select('id')
+                            ->where('status', '=', 'Admin')
+                            ->get()[0]->id;
+        } else {    
+            $newStatus = DB::table('status')->select('id')
+                            ->where('status', '=', 'Modérateur')
+                            ->get()[0]->id;
+        }
+        
+        $updated = User::where('id', '=', $userId)->update(['status_id' => $newStatus]);
+
+        if ($updated) {
+            return redirect()->route('backend.user.index')->with('success', 'Le membre a été promu !');
+        }
+
+        return redirect()->route('backend.user.index')->with('error', 'Une erreur s\'est produit lors de la promotion.');
     }
 }

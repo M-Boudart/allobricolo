@@ -53,7 +53,10 @@ Route::get('/workers', 'App\Http\Controllers\UserController@workers')
 
 // Backend
 Route::get('/users', 'App\Http\Controllers\UserController@index')
-    ->name('backend.user.index');
+    ->middleware(['auth'])->name('backend.user.index');
+
+Route::post('/user/promote/{id}', 'App\Http\Controllers\UserController@promote')
+    ->middleware(['auth'])->name('backend.user.promote');
 
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
