@@ -51,6 +51,10 @@ Route::delete('/user/delete/{id}', 'App\Http\Controllers\UserController@destroy'
 Route::get('/workers', 'App\Http\Controllers\UserController@workers')
     ->name('user.workers');
 
+// Backend
+Route::get('/users', 'App\Http\Controllers\UserController@index')
+    ->name('backend.user.index');
+
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['auth'])->name('dashboard');

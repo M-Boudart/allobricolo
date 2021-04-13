@@ -19,7 +19,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $orderedUsers = [];
+        $arrStatus = DB::table('status')->orderBy('id', 'asc')->get();
+
+        foreach ($arrStatus as $status) {
+            $orderedUsers [$status->status] = User::where('status_id', '=', $status->id)
+                                                ->get();
+        }
+
+        return view('backend.user.index', [
+            'groupedUsers' => $orderedUsers,
+        ]);
     }
 
     /**

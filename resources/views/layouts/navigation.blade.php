@@ -18,7 +18,7 @@
                 </div>
                 @if (Auth::user()->status->status == 'Admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
+                    <x-nav-link :href="route('backend.user.index')" :active="request()->routeIs('backend.user.index')">
                         {{ __('Membres') }}
                     </x-nav-link>
                 </div>
