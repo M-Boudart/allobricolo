@@ -58,6 +58,12 @@ Route::get('/users', 'App\Http\Controllers\UserController@index')
 Route::post('/user/promote/{id}', 'App\Http\Controllers\UserController@promote')
     ->middleware(['auth'])->name('backend.user.promote');
 
+Route::get('/category', 'App\Http\Controllers\CategoryController@index')
+    ->middleware(['auth'])->name('backend.category.index');
+
+Route::post('/category', 'App\Http\Controllers\CategoryController@store')
+    ->middleware(['auth'])->name('backend.category.store');
+
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['auth'])->name('dashboard');
