@@ -228,10 +228,6 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function promote (Request $request, $userId) {
-        if (Auth::user()->status->status != 'Admin') {
-            return redirect()->route('welcome')->with('error', 'Vous n\'êtes Spas autorisé à promouvoir un membre');
-        }
-
         $validator = $request->validate([
             'status' => 'required|exists:status'
         ]);

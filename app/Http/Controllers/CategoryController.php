@@ -30,10 +30,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->status->status != 'Admin') {
-            return redirect()->route('backend.category.index')->with('error', 'Vous ne pouvez pas ajouter de catégorie car vous n\'êtes pas admin');
-        }
-        
         $validate = $request->validate([
             'category' => 'required|unique:categories|string|max:30',
         ]);

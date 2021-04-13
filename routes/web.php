@@ -53,19 +53,19 @@ Route::get('/workers', 'App\Http\Controllers\UserController@workers')
 
 // Backend
 Route::get('/users', 'App\Http\Controllers\UserController@index')
-    ->middleware(['auth'])->name('backend.user.index');
+    ->middleware(['admin'])->name('backend.user.index');
 
 Route::post('/user/promote/{id}', 'App\Http\Controllers\UserController@promote')
-    ->middleware(['auth'])->name('backend.user.promote');
+    ->middleware(['admin'])->name('backend.user.promote');
 
 Route::get('/category', 'App\Http\Controllers\CategoryController@index')
-    ->middleware(['auth'])->name('backend.category.index');
+    ->middleware(['admin'])->name('backend.category.index');
 
 Route::post('/category', 'App\Http\Controllers\CategoryController@store')
-    ->middleware(['auth'])->name('backend.category.store');
+    ->middleware(['admin'])->name('backend.category.store');
 
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['modo'])->name('dashboard');
 
 require __DIR__.'/auth.php';
