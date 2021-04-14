@@ -19,4 +19,8 @@ class Report extends Model
     protected $table = 'reports';
 
     public $timestamps = false;
+
+    public function reportedBy () {
+        return $this->belongsTo(User::class, 'id');
+    }
 }
