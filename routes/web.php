@@ -64,6 +64,9 @@ Route::get('/category', 'App\Http\Controllers\CategoryController@index')
 Route::post('/category', 'App\Http\Controllers\CategoryController@store')
     ->middleware(['admin'])->name('backend.category.store');
 
+Route::get('/report', 'App\Http\Controllers\ReportController@index')
+    ->middleware(['modo'])->name('backend.report.index');
+
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['modo'])->name('dashboard');
