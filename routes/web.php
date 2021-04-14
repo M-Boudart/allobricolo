@@ -67,6 +67,9 @@ Route::post('/category', 'App\Http\Controllers\CategoryController@store')
 Route::get('/report', 'App\Http\Controllers\ReportController@index')
     ->middleware(['modo'])->name('backend.report.index');
 
+Route::delete('/report/{id}', 'App\Http\Controllers\ReportController@destroy')
+    ->middleware(['modo'])->name('backend.report.destroy');
+
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['modo'])->name('dashboard');

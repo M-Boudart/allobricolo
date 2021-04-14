@@ -85,6 +85,12 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deleted = Report::where('id', '=', $id)->delete();
+
+        if ($deleted) {
+            return redirect()->route('backend.report.index')->with('success', 'Le signalement a bien été supprimé');
+        }
+
+        return redirect()->route('backend.report.index')->with('error', 'Erreur lors de la suppression du signalement');
     }
 }

@@ -69,7 +69,7 @@
                                     </td>
                                     <td>{{ $report->description }}</td>
                                     <td>
-                                        <form action="#" method="post">
+                                        <form action="{{ route('backend.report.destroy', $report->id) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-success">Signalement non pertinant</a>
