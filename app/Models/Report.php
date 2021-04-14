@@ -21,6 +21,6 @@ class Report extends Model
     public $timestamps = false;
 
     public function reportedBy () {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'reported_by', 'id');
     }
 }
