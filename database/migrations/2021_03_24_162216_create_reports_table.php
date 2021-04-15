@@ -17,6 +17,7 @@ class CreateReportsTable extends Migration
             $table->id();
             $table->enum('status', ['pending', 'moderated']);
             $table->enum('type', ['announcement', 'profile', 'review']);
+            $table->unsignedBigInteger('object_id');
             $table->foreignId('object_author');
             $table->foreignId('reported_by');
             $table->text('description');
