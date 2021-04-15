@@ -28,36 +28,26 @@
                     </div>
                 @endif
                 <div>
-                    <table class="table table-striped">
+                    <h1>Signalements en attente de modération</h1>
+                    <table class="table table-striped mb-6">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Type</th>
                                 <th scope="col">Date du signalement</th>
-                                <th scope="col">Signaler par</th>
-                                <th scope="col">Auteur de l'objet</th>
+                                <th scope="col">Type</th>
                                 <th scope="col">Lien vers l'objet</th>
+                                <th scope="col">Auteur de l'objet</th>
+                                <th scope="col">Signaler par</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($reports as $report)
+                            @foreach ($pendingReports as $report)
                                 <tr>
                                     <td>{{ $report->id }}</td>
-                                    <td>{{ $report->type }}</td>
                                     <td>{{ date('d-m-Y', strtotime($report->reported_at)) }}</td>
-                                    <td>
-                                        <a href="{{ route('user.show', $report->reportedBy->id) }}" target="_blank">
-                                        {{ strtoupper($report->reportedBy->lastname) }}
-                                        {{ $report->reportedBy->firstname }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="#" target="_blank">
-                                            Personne concernée
-                                        </a>
-                                    </td>
+                                    <td>{{ $report->type }}</td>
                                     <td>
                                     @if ($report->type == 'announcement')
                                         <a href="{{ route('announcement.show', $report->object_id) }}" target="_blank">Consulter</a>
@@ -66,6 +56,18 @@
                                     @else
                                         <a href="#" target="_blank">A faire review</a>
                                     @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('user.show', $report->whoHasBeenReported->id) }}" target="_blank">
+                                        {{ strtoupper($report->whoHasBeenReported->lastname) }}
+                                        {{ $report->whoHasBeenReported->firstname }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('user.show', $report->reportedBy->id) }}" target="_blank">
+                                        {{ strtoupper($report->reportedBy->lastname) }}
+                                        {{ $report->reportedBy->firstname }}
+                                        </a>
                                     </td>
                                     <td>{{ $report->description }}</td>
                                     <td>
@@ -78,6 +80,56 @@
                                             @csrf
                                             <button class="btn btn-danger">Suspendre l'auteur</a>
                                         </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <h1>Signalements déjà modérés</h1>
+                    <table class="table table-striped mb-5">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Date du signalement</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Lien vers l'objet</th>
+                                <th scope="col">Auteur de l'objet</th>
+                                <th scope="col">Signaler par</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Sanction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($moderatedReports as $report)
+                                <tr>
+                                    <td>{{ $report->id }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($report->reported_at)) }}</td>
+                                    <td>{{ $report->type }}</td>
+                                    <td>
+                                    @if ($report->type == 'announcement')
+                                        <a href="{{ route('announcement.show', $report->object_id) }}" target="_blank">Consulter</a>
+                                    @elseif ($report->type == 'profile')
+                                        <a href="{{ route('user.show', $report->object_id) }}" target="_blank">Consulter</a>
+                                    @else
+                                        <a href="#" target="_blank">A faire review</a>
+                                    @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('user.show', $report->whoHasBeenReported->id) }}" target="_blank">
+                                        {{ strtoupper($report->whoHasBeenReported->lastname) }}
+                                        {{ $report->whoHasBeenReported->firstname }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('user.show', $report->reportedBy->id) }}" target="_blank">
+                                        {{ strtoupper($report->reportedBy->lastname) }}
+                                        {{ $report->reportedBy->firstname }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $report->description }}</td>
+                                    <td>
+                                        <a href="#" target="_blank">Consulter</a>
                                     </td>
                                 </tr>
                             @endforeach
