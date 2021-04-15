@@ -15,8 +15,9 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->enum('status', ['pending', 'moderated']);
             $table->enum('type', ['announcement', 'profile', 'review']);
-            $table->foreignId('object_id');
+            $table->foreignId('object_author');
             $table->foreignId('reported_by');
             $table->text('description');
             $table->date('reported_at');
@@ -24,6 +25,10 @@ class CreateReportsTable extends Migration
             $table->foreign('reported_by')
                     ->references('id')->on('users')
                     ->onDelete('restrict')->onUpdate('cascade');
+            
+            $table->foreign('object_author')
+                    ->references('id')->on('users')
+                    ->onDelete('no action')->onUpdate('cascade');
         });
     }
 

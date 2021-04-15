@@ -20,7 +20,7 @@ class CreatePunishmentsTable extends Migration
             $table->enum('type', ['suspended', 'banned']);
             $table->date('from_date');
             $table->date('to_date')->nullable();
-            $table->string('reason', 255);
+            $table->foreignId('reason');
 
             $table->foreign('user_id')
                     ->references('id')->on('users')
@@ -29,6 +29,10 @@ class CreatePunishmentsTable extends Migration
             $table->foreign('reported_by')
                     ->references('id')->on('users')
                     ->onDelete('restrict')->onUpdate('cascade');
+
+            $table->foreign('reason')
+                ->references('id')->on('reports')
+                ->onDelete('no action')->onUpdate('cascade');
         });
     }
 
