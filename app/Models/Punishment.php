@@ -29,4 +29,8 @@ class Punishment extends Model
     public function reportedBy () {
         return $this->belongsTo(User::class);
     }
+
+    public function punishementReason () {
+        return $this->hasOne(Report::class);
+    }
 }

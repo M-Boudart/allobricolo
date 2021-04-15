@@ -82,6 +82,10 @@ class User extends Authenticatable
     }
 
     public function hasReported () {
-        return $this->hasMany(Report::class);
+        return $this->hasMany(Report::class, 'reported_by');
+    }
+
+    public function hasBeenReportedFor () {
+        return $this->hasMany(Report::class, 'object_id');
     }
 }

@@ -23,4 +23,12 @@ class Report extends Model
     public function reportedBy () {
         return $this->belongsTo(User::class, 'reported_by', 'id');
     }
+
+    public function whoHasBeenReported () {
+        return $this->belongsTo(User::class, 'object_author', 'id');
+    }
+
+    public function concernedPunishment () {
+        return $this->hasOne(Punishment::class, 'reason');
+    }
 }
