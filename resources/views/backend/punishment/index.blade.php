@@ -80,10 +80,9 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Utilisateur</th>
-                                <th scope="col">Suspendu par</th>
+                                <th scope="col">Banni par</th>
                                 <th scope="col">Raison</th>
                                 <th scope="col">A partir de</th>
-                                <th scope="col">Jusqu'au</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -104,9 +103,6 @@
                                     <td><a href="#" target="_blank">Consulter</a></td>
                                     <td>
                                         {{ date('d-m-Y', strtotime($banned->from_date)) }}
-                                    </td>
-                                    <td>
-                                        {{ date('d-m-Y', strtotime($banned->to_date)) }}
                                     </td>
                                     <td>
                                         <form action="#" method="post">
