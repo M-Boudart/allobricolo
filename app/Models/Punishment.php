@@ -23,11 +23,11 @@ class Punishment extends Model
     public $timestamps = false;
 
     public function reportedUser () {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function reportedBy () {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'reported_by');
     }
 
     public function punishementReason () {
