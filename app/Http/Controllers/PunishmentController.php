@@ -19,10 +19,12 @@ class PunishmentController extends Controller
     {
         $suspendedUsers = Punishment::where('type', '=', 'suspended')->get();
         $bannedUsers = Punishment::where('type', '=', 'banned')->get();
+        $unBannedUsers = Punishment::where('type', '=', 'unbanned')->get();
 
         return view('backend.punishment.index', [
             'suspendedUsers' => $suspendedUsers,
             'bannedUsers' => $bannedUsers,
+            'unBannedUsers' => $unBannedUsers,
         ]);
     }
 
@@ -92,14 +94,23 @@ class PunishmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function stopSuspension(Request $request, $punishmentId)
+    public function stopPunishment(Request $request, $punishmentId)
     {
         $punishment = Punishment::where('id', '=', $punishmentId)->first();
 
-        $to_date = date('Y-m-d');
+        if ($request->type === 'ban') {
+            $updatedFields = [
+                'to_date' => date('Y-m-d'),
+                'type' => 'unbanned',
+            ];
+        } else {
+            $updatedFields = [
+                'to_date' => date('Y-m-d'),
+            ];
+        }
 
         $updated = Punishment::where('id', '=', $punishment->id)
-                                ->update(['to_date' => $to_date]);
+                                ->update($updatedFields);
 
         if ($updated == false) {
             return redirect()->route('backend.punishment.index')->with('error', 'Une erreur s\'est produite, réessayez plustard');
