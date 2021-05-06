@@ -76,7 +76,7 @@
                                             @method('delete')
                                             <button class="btn btn-success">Signalement non pertinant</a>
                                         </form>
-                                        <form action="#" method="post">
+                                        <form action="{{ route('backend.punishment.punish', $report->id) }}" method="post">
                                             @csrf
                                             <button class="btn btn-danger">Suspendre l'auteur</a>
                                         </form>

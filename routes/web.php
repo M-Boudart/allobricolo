@@ -73,6 +73,9 @@ Route::delete('/report/{id}', 'App\Http\Controllers\ReportController@destroy')
 Route::get('/punishment', 'App\Http\Controllers\PunishmentController@index')
     ->middleware(['modo'])->name('backend.punishment.index');
 
+Route::post('/punish/user/{id}', 'App\Http\Controllers\PunishmentController@punish')
+    ->middleware(['modo'])->name('backend.punishment.punish');
+
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['modo'])->name('dashboard');
