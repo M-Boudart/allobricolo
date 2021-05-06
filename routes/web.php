@@ -76,6 +76,9 @@ Route::get('/punishment', 'App\Http\Controllers\PunishmentController@index')
 Route::post('/punish/user/{id}', 'App\Http\Controllers\PunishmentController@punish')
     ->middleware(['modo'])->name('backend.punishment.punish');
 
+Route::post('/punish/stopSuspension/{id}', 'App\Http\Controllers\PunishmentController@stopSuspension')
+->middleware(['modo'])->name('backend.punishment.stopSuspension');
+
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['modo'])->name('dashboard');

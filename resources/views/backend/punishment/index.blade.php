@@ -64,7 +64,7 @@
                                     </td>
                                     <td>
                                     @if (strtotime($suspension->to_date) >= time())
-                                        <form action="#" method="post">
+                                        <form action="{{ route('backend.punishment.stopSuspension', $suspension->id) }}" method="post">
                                         @csrf
                                         <button class="btn btn-success">Lever la suspension</button>
                                     @endif

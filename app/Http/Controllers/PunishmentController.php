@@ -92,9 +92,20 @@ class PunishmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function stopSuspension(Request $request, $punishmentId)
     {
-        //
+        $punishment = Punishment::where('id', '=', $punishmentId)->first();
+
+        $to_date = date('Y-m-d');
+
+        $updated = Punishment::where('id', '=', $punishment->id)
+                                ->update(['to_date' => $to_date]);
+
+        if ($updated == false) {
+            return redirect()->route('backend.punishment.index')->with('error', 'Une erreur s\'est produite, réessayez plustard');
+        }
+
+        return redirect()->route('backend.punishment.index')->with('success', 'La suspension a bien été levée');
     }
 
     /**
