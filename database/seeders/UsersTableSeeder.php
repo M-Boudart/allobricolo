@@ -78,7 +78,7 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Coppard',
                 'email' => 'andre@coppard.com',
                 'description' => null,
-                'picture_url' => null,
+                'picture_url' => 'homme-nu.jpg',
                 'status_name' => 'Membre',
             ],
             [

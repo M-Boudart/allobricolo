@@ -46,6 +46,10 @@ class AnnouncementPicturesTableSeeder extends Seeder
                 'announcement_id' => 7,
                 'picture_url' => 'meuble.jpg',
             ],
+            [
+                'announcement_id' => 9,
+                'picture_url' => 'annonce-sexe.jpg',
+            ],
         ];
 
         foreach ($announcementPictures as &$announcementPicture) {

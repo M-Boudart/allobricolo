@@ -55,7 +55,7 @@ class AnnouncementsTableSeeder extends Seeder
                 'realised_at' => null,
             ],
             [
-                'applicant_login' => 'alain123',
+                'applicant_login' => 'andre123',
                 'title' => 'Peindre ma chambre',
                 'address' => 'Avenue du Delta 78',
                 'locality_postal_code' => 1180,
@@ -107,6 +107,17 @@ class AnnouncementsTableSeeder extends Seeder
                 'description' => null,
                 'phone' => '0485652598',
                 'created_at' => '2020-10-14 00:00:00',
+                'realised_at' => null,
+            ],
+            [
+                'applicant_login' => 'juliette123',
+                'title' => 'Je recherche un sexfriend',
+                'address' => 'Boulevard de la Jouissance 27',
+                'locality_postal_code' => 1180,
+                'price' => 100,
+                'description' => 'Je cherche un sexfriend car le confinement me pèse',
+                'phone' => '0483296580',
+                'created_at' => '2021-05-20 12:24:10',
                 'realised_at' => null,
             ],
         ];
