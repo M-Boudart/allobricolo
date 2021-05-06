@@ -17,7 +17,7 @@ class CreatePunishmentsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('reported_by');
-            $table->enum('type', ['suspended', 'banned']);
+            $table->enum('type', ['suspended', 'banned', 'unbanned']);
             $table->date('from_date');
             $table->date('to_date')->nullable();
             $table->foreignId('reason');
