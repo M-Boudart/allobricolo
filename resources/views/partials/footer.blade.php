@@ -47,7 +47,10 @@
                         <li><a href="#">Contact</a></li>
                     </ul>
                     <ul>
+                        @if (!Auth::check())
                         <li><a href="{{ route('login') }}">Se connecter</a></li>
+                        <li><a href="{{ route('register') }}">S'inscrire</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
