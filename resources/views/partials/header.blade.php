@@ -1,12 +1,22 @@
+<style>
+    a, a:hover {
+        text-decoration: none !important;
+    }
+
+    header form {
+        display: inline-block !important;
+    }
+</style>
+
 <header class="header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-md-3">
+            <div class="col-lg-2 col-md-2">
                 <div class="header__logo">
                     <a href="{{ route('welcome') }}"><img src="{{ asset('img/logo.png') }}" alt="Logo"></a>
                 </div>
             </div>
-            <div class="col-lg-9 col-md-9">
+            <div class="col-lg-10 col-md-10">
                 <div class="header__nav">
                     <nav class="header__menu mobile-menu">
                         <ul>
