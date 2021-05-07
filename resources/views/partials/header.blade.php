@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="header__logo">
-                    <a href="{{ route('welcome') }}"><img src="{{ asset('template/img/logo.png') }}" alt="Logo"></a>
+                    <a href="{{ route('welcome') }}"><img src="{{ asset('img/logo.png') }}" alt="Logo"></a>
                 </div>
             </div>
             <div class="col-lg-9 col-md-9">
