@@ -5,7 +5,7 @@
                 <div class="footer__about">
                     <div class="footer__about__logo">
                         <a href="./index.html">
-                            <img src="{{ asset('template/img/footer-logo.png') }}" alt="">
+                            <img src="{{ asset('/img/logo-black.png') }}" alt="Logo Allobricolo">
                         </a>
                     </div>
                     <p>
