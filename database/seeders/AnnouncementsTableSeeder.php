@@ -117,7 +117,7 @@ class AnnouncementsTableSeeder extends Seeder
                 'price' => 100,
                 'description' => 'Je cherche un sexfriend car le confinement me pèse',
                 'phone' => '0483296580',
-                'created_at' => '2021-05-20 12:24:10',
+                'created_at' => '2021-05-8 12:24:10',
                 'realised_at' => null,
             ],
         ];
