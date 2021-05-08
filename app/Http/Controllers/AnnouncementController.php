@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Collection;
 use App\Models\Announcement;
 use App\Models\Category;
 use App\Models\Locality;
+use App\Models\AnnouncementPicture;
 
 class AnnouncementController extends Controller
 {
@@ -130,6 +132,7 @@ class AnnouncementController extends Controller
         $announcementInfos['applicant_user_id'] = Auth::id();
         unset($announcementInfos['_token']); 
         unset($announcementInfos['categories']);
+        if ($request->hasFile('pictures')) { unset($announcementInfos['pictures']); }
 
         $result = DB::table('announcements')->insert($announcementInfos);
 
@@ -155,6 +158,34 @@ class AnnouncementController extends Controller
                 $result = DB::table('announcement_categories')->insert($categoryInfos);
 
                 if (!$result) break;
+            }
+
+            // Gestion de l'upload d'image
+            if ($request->hasFile('pictures')) {
+                $pictures = $request->pictures;
+                
+                if (sizeof($pictures) <= 3) {
+                    $pictureExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'gif', 'svg', 'webp'];
+                    
+                    foreach ($pictures as $picture) {
+                        $extension = $picture->extension();
+    
+                        if (!in_array($extension, $pictureExtensions)) {
+                            return redirect()->route('announcement.create')->with('error', 'Les fichiers que vous avez fournis doivent être des images');
+                        }
+                        
+                        $path = $picture->store('img/announcements');
+                        $path = explode('/', $path);
+                        $url = $path[2];
+                        
+                        $result = DB::table('announcement_pictures')->insert([
+                            'announcement_id' => $announcementId,
+                            'picture_url' => $url,
+                        ]);
+
+                        if (!$result) break;
+                    }
+                }
             }
         }
 
