@@ -193,7 +193,7 @@
                                             <div class="row g-0">
                                                 <div class="col-md-4">
                                                 @if (sizeof($announcement->pictures) > 0)
-                                                    <img src="{{ asset('img/announcements/'.$announcement->pictures[0]->picture_url) }}">
+                                                    <img src="{{ asset('storage/img/announcements/'.$announcement->pictures[0]->picture_url) }}">
                                                 @else
                                                     <img src="{{ asset('img/announcements/no-picture.png') }}">
                                                 @endif

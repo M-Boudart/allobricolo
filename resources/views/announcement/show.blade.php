@@ -41,7 +41,7 @@
                     <div class="profile-img">
                     @if (!empty($announcement->pictures->toArray()))
                     <a href="{{ asset('img/announcements/'.$announcement->pictures->toArray()[0]['picture_url']) }}">
-                        <img src="{{ asset('img/announcements/'.$announcement->pictures->toArray()[0]['picture_url']) }}" alt="Photo de l'annonce">
+                        <img src="{{ asset('storage/img/announcements/'.$announcement->pictures->toArray()[0]['picture_url']) }}" alt="Photo de l'annonce">
                     </a>
                     @else
                         <img src="{{ asset('img/announcements/no-picture.png') }}" alt="Aucune photo">

@@ -108,7 +108,7 @@
                                     <div class="listing__item">
                                         @if (sizeof($announcement->pictures) > 0)
                                             <div class="listing__item__pic set-bg"
-                                            data-setbg="{{ asset('img/announcements/'.$announcement->pictures[0]->picture_url) }}">
+                                            data-setbg="{{ asset('storage/img/announcements/'.$announcement->pictures[0]->picture_url) }}">
                                         @else
                                             <div class="listing__item__pic set-bg"
                                             data-setbg="{{ asset('img/announcements/no-picture.png') }}">
