@@ -43,7 +43,7 @@
                 <div class="col-md-4">
                     <div class="profile-img">
                     @if (!empty($user->picture_url))
-                        <img src="{{ asset('img/users/'.$user->picture_url) }}" alt="Photo de {{$user->firstname}}">
+                        <img src="{{ asset('storage/img/users/'.$user->picture_url) }}" alt="Photo de {{$user->firstname}}">
                     @else
                         <img src="{{ asset('img/users/no-profile.jpg') }}" alt="Photo de profil">
                     @endif

@@ -79,14 +79,22 @@
                 <!-- Colonne gauche (connaissances) -->
                 <div class="col-md-4">
                     <div class="profile-work">
-                    @if (sizeof($user->knowledges) > 0)
                         <p>CONNAISSANCES :</p>
-                        <p class="knowledges">
-                        @foreach ($user->knowledges as $knowledge)
-                            {{$knowledge->category}} <br />
+                        <ol style="list-style-type:none;">
+                        @foreach ($categories as $category)
+                        <li class="knowledges">
+                            <label for="{{ $category->category }}">{{ $category->category }}</label>
+                            <input id="{{ $category->category }}" 
+                                type="checkbox"
+                                name="knowledges[]"
+                                value="{{ $category->id }}"
+                            @php
+                                
+                            @endphp    
+                            >
+                        </li>
                         @endforeach
-                        </p>
-                    @endif
+                        </ol>
                     </div>
                 </div>
                 <!-- Colonne millieu (informations) -->
