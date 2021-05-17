@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use App\Models\Category;
 
 class UserController extends Controller
 {
@@ -122,9 +123,11 @@ class UserController extends Controller
         }
 
         $user = User::find($id);
+        $categories = Category::get();
 
         return view('user.edit', [
             'user' => $user,
+            'categories' => $categories,
         ]);
     }
 
@@ -160,30 +163,51 @@ class UserController extends Controller
         $inputs = $request->all();
         $userInfos = [];
 
+        if (isset($inputs['knowledges'])) {
+            $knowledges = [];
+
+            foreach ($inputs['knowledges'] as $knowledge) {
+                $knowledges[] = [
+                    'user_id' => Auth::id(),
+                    'category_id' => $knowledge,
+                ];
+            }
+
+            DB::table('knowledges')->insert($knowledges);
+
+            unset($inputs['knowledges']);
+        }
+
         // Lorsqu'il y a une photo de profil
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
-            define('MAX_FILE_SIZE', $inputs['MAX_FILE_SIZE']);
 
-            $userInfos['picture_url'] = 'urlTemporaire';
-            // A réaliser Suppression ancienne image + sauvegarde nouvelle image
+            $path = $picture->store('img/users');
+            $path = explode('/', $path);
+            $url = $path[2];
+            
+            if ($user->picture_url !== null) {
+                Storage::delete('img/users/' . $user->picture_url);
+            }
         }
 
-        
         unset($inputs['_token']);
         unset($inputs['_method']);
         unset($inputs['password_confirmation']);
         unset($inputs['MAX_FILE_SIZE']);
-        unset($inputs['picture']);
 
         foreach ($inputs as $key => $value) {
             if (!empty($value)) {
-                if ($key === 'password') $userInfos[$key] = Hash::make($value);
-                else $userInfos[$key] = $value;
+                if ($key === 'password') {
+                    $userInfos[$key] = Hash::make($value);
+                } else if ($request->hasFile('picture') && $key ==='picture') {
+                    $userInfos['picture_url'] = $url;
+                } else {
+                    $userInfos[$key] = $value;
+                }
             }
-
         }
-        
+
         $result = $user->where('id', '=', $user->id)
             ->update($userInfos);
 
