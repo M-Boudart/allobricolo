@@ -78,7 +78,7 @@ class PunishmentController extends Controller
             'type' => $type,
             'from_date' => date('Y-m-d', $from_date),
             'to_date' => $to_date,
-            'reason' => $report->object_id,
+            'reason' => $reportId,
         ]);
 
         if ($updateResult == false || $insertResult == false) {
