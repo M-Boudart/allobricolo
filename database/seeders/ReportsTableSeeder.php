@@ -95,7 +95,7 @@ class ReportsTableSeeder extends Seeder
             [
                 'status' => 'pending',
                 'type' => 'announcement',
-                'object_id' => 3,
+                'object_id' => 9,
                 'object_author_login' => 'juliette123',
                 'reported_by_login' => 'alain123',
                 'description' => 'Annonce pour des relations sexuelles',
@@ -103,8 +103,8 @@ class ReportsTableSeeder extends Seeder
             ],
             [
                 'status' => 'pending',
-                'type' => 'announcement',
-                'object_id' => 3,
+                'type' => 'profile',
+                'object_id' => 6,
                 'object_author_login' => 'andre123',
                 'reported_by_login' => 'manon123',
                 'description' => 'Photo de lui nu',
