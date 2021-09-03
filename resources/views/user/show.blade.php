@@ -89,23 +89,25 @@
                     @endif
                 </div>
                 @if (Auth::id() == $user->id)
-                <div class="col-md-2">
-                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary">
-                        Modifier mon profil
+                <div class="col-md-4">
+                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning" style="margin-bottom:10px">
+                        Modifier profile
                     </a>
-                </div>
-                <div class="col-md-2">
-                    <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                    <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('delete')
                     <button class="btn btn-danger"
                     onclick="confirm('Voulez vous vraiment supprimer votre profil ?')">
-                        Supprimer mon profil
+                        Supprimer profile
                     </button>
                     </form>
+                    <a href="{{ route('announcement.list') }}" class="btn btn-info">
+                        Annonces
+                    </a>
+                    
                 </div>
                 @else
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Signaler le profile
@@ -169,90 +171,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Annonces / reviews -->
-
-            <div class="row" style="margin-top:3%">
-                    <div class="col-12">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ses annonces</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Ses reviews</a>
-                            </li>
-                        </ul>
-                   </div> 
-                <div class="col-12">
-                   <div class="tab-content col-12" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            @if (sizeof($announcements) > 0)
-                                @foreach ($announcements as $announcement)
-                                    <div class="col-md-6 col-md-12" style="padding:0px">
-                                        <div class="card mb-3" style="max-width: 540px;">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                @if (sizeof($announcement->pictures) > 0)
-                                                    <img src="{{ asset('storage/img/announcements/'.$announcement->pictures[0]->picture_url) }}">
-                                                @else
-                                                    <img src="{{ asset('img/announcements/no-picture.png') }}">
-                                                @endif
-                                                </div>
-                                                <div class="col-md-8">
-                                                <div class="card-body" style="color:black">
-                                                    <h5 class="card-title">{{ $announcement->title }}</h5>
-                                                    <p class="card-text" style="color:red;font-weight:bold;">{{ $announcement->price }} €</p>
-                                                    <p class="card-text"><span class="icon_pin_alt"></span>
-                                                    {{ $announcement->address }},
-                                                    {{ $announcement->locality->postal_code }} 
-                                                    {{ $announcement->locality->locality }}
-                                                    </p>
-                                                    <p class="card-text"><span class="icon_phone"></span>
-                                                    {{ $announcement->phone }}
-                                                    </p>
-                                                    <p class="card-text">
-                                                    <small class="text-muted">{{ $announcement->created_at }}</small>
-                                                    </p> 
-                                                    <p class="card-text">
-                                                    <a href="{{ route('announcement.show',$announcement->id) }}" class="btn btn-primary">Plus d'info</a>
-                                                    <a href="#"
-                                                    class="btn btn-success">
-                                                    Aider</a>
-                                                    </p>
-                                                </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @else
-                                <div class="row">
-                                    Cet utilisateur n'a pas d'annonce pour l'instant.
-                                </div>
-                            @endif
-                            </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            @if (sizeof($reviews) > 0)
-                                @foreach ($reviews as $review)
-                                <div class="row">   
-                                    <div class="card col-12">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $review->note }} / 10</h5>
-                                            <p class="card-text">{{ $review->description }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-                            @else
-                                <div class="row">
-                                    Cet utilisateur n'a pas encore de review.
-                                </div>
-                            @endif
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <!-- Fin annonces / reviews -->
     </div>
     </div>
 
