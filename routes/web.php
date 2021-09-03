@@ -41,6 +41,11 @@ Route::post('/announcement/apply/{id}', 'App\Http\Controllers\AnnouncementContro
 Route::delete('/announcements/{id}', 'App\Http\Controllers\AnnouncementController@destroy')
     ->middleware(['auth'])->name('announcement.destroy');
 
+Route::get('/announcement/edit/{id}', 'App\Http\Controllers\AnnouncementController@edit')
+    ->middleware(['auth'])->name('announcement.edit');
+
+Route::patch('/announcement/edit/{id}', 'App\Http\Controllers\AnnouncementController@update')
+    ->middleware(['auth'])->name('announcement.edit');
 // Users
 Route::get('/user/{id}', 'App\Http\Controllers\UserController@show')
     ->name('user.show');

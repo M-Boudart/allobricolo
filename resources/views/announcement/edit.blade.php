@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -36,6 +36,9 @@
     @include('partials.header')
 
     <div class="container emp-profile">
+        <form action="{{ route('announcement.edit', $announcement->id) }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('patch')
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
@@ -48,146 +51,137 @@
                     @endif
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="profile-head">
-                                <h5>
-                                    {{ $announcement->title }}
-                                </h5>
-                                <p class="proile-rating">
-                                    <span>Date de création :</span> {{ $announcement->created_at }}
-                                </p>
+                        <h6>Formulaire de modification d'annonce</h6>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a href="#" class="nav-link active">A propos</a>
                             </li>
                         </ul>
                     </div>
-                    @if (session('success'))
-                        <div class="row">
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        </div>
-                    @elseif (session('error'))
-                        <div class="row">
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     @endif
                 </div>
-                @if (Auth::id() == $announcement->applicant_user_id)
-                <div class="col-md-2">
-                    <a href="{{ route('announcement.edit', $announcement->id) }}" class="btn btn-primary">
-                        Modifier
-                    </a>
-                </div>
-                <div class="col-md-2">
-                    <form action="{{ route('announcement.destroy', $announcement->id) }}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button class="btn btn-danger"
-                    onclick="confirm('Voulez vous vraiment supprimer votre annonce ?')">
-                        Supprimer !!!
-                    </button>
-                    </form>
-                </div>
-                @endif
             </div>
             <div class="row">
-                <!-- Colonne gauche (catégories) -->
+                <!-- Colonne gauche (connaissances) -->
                 <div class="col-md-4">
                     <div class="profile-work">
-                        <p>Categories :</p>
-                        <p class="knowledges">
-                        @foreach ($announcement->categories as $category)
-                            {{$category->category}} <br />
+                        <p>CONNAISSANCES :</p>
+                        <ol style="list-style-type:none;">
+                        @foreach ($categories as $category)
+                        <li class="knowledges">
+                            <label for="{{ $category->category }}">{{ $category->category }}</label>
+                            <input id="{{ $category->category }}" 
+                                type="checkbox"
+                                name="categories[]"
+                                value="{{ $category->id }}" 
+                            >
+                        </li>
                         @endforeach
-                        </p>
+                        </ol>
                     </div>
                 </div>
                 <!-- Colonne millieu (informations) -->
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row">
+                            <div class="row form-div">
                                 <div class="col-md-6">
-                                    <label>Titre</label>
+                                    <label for="title">Titre</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ $announcement->title }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Prix</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ $announcement->price }} €</p>
+                                    <input id="title" type="text" name="title" placeholder="{{ $announcement->title}}" class="form-control" 
+                                    value="{{ old('title') }}">
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row form-div">
                                 <div class="col-md-6">
-                                    <label>Adresse</label>
+                                    <label for="address">Adresse</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ $announcement->address }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Localité</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ $announcement->locality->postal_code }} {{ $announcement->locality->locality }}</p>
+                                    <input id="address" type="text" name="address" placeholder="{{ $announcement->address}}" class="form-control"
+                                    value="{{ old('address') }}">
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row form-div">
                                 <div class="col-md-6">
-                                    <label>Description</label>
+                                    <label for="locality">Localité</label>
                                 </div>
-                                @if (!empty($announcement->description))
                                 <div class="col-md-6">
-                                    <p>{{ $announcement->description }}</p>
-                                </div>
-                                @else
-                                <div class="col-md-6">
-                                    <p>L'auteur n'a pas fait de description</p>
-                                </div>
-                                @endif
-                            </div>
-                            @if (Auth::id() != $announcement->applicant_user_id)
-                            <div class="row" style="margin-top:3%;">
-                                <div class="col-12" style="text-align:center;">
-                                    @if (Auth::id() != $announcement->applicant->id)
-                                        <form action="{{ route('announcement.apply', $announcement->id) }}" method="POST" style="display:inline">
-                                            @csrf
-                                            @if (Auth::check())
-                                                <input type="hidden" name="authId" value="{{ Auth::id() }}">
-                                            @endif
-                                                <button class="btn btn-success">Proposer mon aide</button>
-                                        </form>
+                                <select id ="locality" class="form-control" name="locality_id">
+                                @foreach ($localities as $locality)
+                                    @if ($announcement->locality->id === $locality->id)
+                                    <option value="{{ $locality->id }}" selected>
+                                        {{ $locality->postal_code }} {{ $locality->locality }}
+                                    </option>
+                                    @else
+                                    <option value="{{ $locality->id }}">
+                                        {{ $locality->postal_code }} {{ $locality->locality }}
+                                    </option>
                                     @endif
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Signaler l'annonce
-                                    </button>
+                                @endforeach
+                                </select>
                                 </div>
                             </div>
-                            @endif
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="price">Prix</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="price" type="number" name="price" placeholder="{{ $announcement->price}}" class="form-control"
+                                    value="{{ old('price') }}">
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="phone">Numéro de téléphone</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="phone" type="text" name="phone" placeholder="{{ $announcement->phone}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="description">Description</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea id="description" name="description" placeholder="{{ $announcement->description}}" class="form-control" 
+                                    value="{{ old('description') }}"></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <label for="pictures">Photo</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="pictures" type="file" name="pictures" class="form-control-file">
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="500000">
+                                </div>
+                            </div>
+                            <div class="row form-div">
+                                <div class="col-md-6">
+                                    <a href="{{ route('announcement.show', $announcement->id) }}"
+                                    class="btn btn-danger">Annuler les modifications</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary">Modifier mes informations</button>
+                                </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
     </div>
 
-    @if (Auth::id() != $announcement->applicant_user_id)
-        @include('partials.reportModal', [
-            'type' => "announcements",
-            'ressourceId' => $announcement->id,
-        ])
-    @endif
-    
     @include('partials.footer')
     <!-- Js Plugins Template de base -->
     <script src="{{ asset('template/js/jquery-3.3.1.min.js') }}"></script>

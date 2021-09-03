@@ -216,14 +216,26 @@ class AnnouncementController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $announcementId
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($announcementId)
     {
-        //
-    }
+        $announcement = Announcement::find($announcementId);
 
+        if (Auth::id() != $announcement->applicant->id) {
+            return redirect()->route('announcement.show', $id);
+        }
+
+        $categories = Category::get();
+        $localities = Locality::get();
+
+        return view('announcement.edit', [
+            'announcement' => $announcement,
+            'categories' => $categories,
+            'localities' => $localities,
+        ]);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -231,9 +243,57 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $announcementId)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'nullable|max:100',
+            'address' => 'nullable|max:60',
+            'locality_id' => 'nullable|Numeric|min:1|max:19',
+            'price' => 'nullable|Numeric|min:0',
+            'description' => 'nullable|max:65535',
+            'phone' => 'nullable|max:20',
+            'pictures' => 'nullable|Array',
+            'categories' => 'nullable|Array',
+        ]);
+
+        $announcement = Announcement::find($announcementId);
+        $inputs = $request->all();
+        $announcementInfos = [];
+
+        if (isset($inputs['categories'])) {
+            $categories = [];
+
+            foreach ($inputs['categories'] as $category) {
+                $categories[] = [
+                    'announcement_id' => $announcementId,
+                    'category_id' => $category,
+                ];
+            }
+
+            DB::table('announcement_categories')->insert($categories);
+
+            unset($inputs['categories']);
+        }
+
+        //TODO Photo
+
+        unset($inputs['_token']);
+        unset($inputs['_method']);
+        unset($inputs['MAX_FILE_SIZE']);
+
+        foreach ($inputs as $key => $value) {
+            if (!empty($value)) {
+                $announcementInfos[$key] = $value;
+            }
+        }
+
+        $result = $announcement->where('id', '=', $announcement->id)->update($announcementInfos);
+
+        if ($result) {
+            return redirect()->route('announcement.show', $announcement->id)->with('success', 'L\'annonce a bien été modifié !');
+        } else {
+            return redirect()->route('announcement.show', $announcement->id)->with('error', 'Une erreur s\'est produite lors de la modification, veuillez réessayer plustard');
+        }
     }
 
     /**
