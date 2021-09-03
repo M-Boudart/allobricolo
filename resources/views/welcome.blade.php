@@ -234,7 +234,7 @@
                         @endif
                         @if (!empty($latestAnnouncement->applicant->picture_url))
                             <a href="{{ route('user.show', $latestAnnouncement->applicant->id) }}">
-                            <img src="{{ asset('img/users/'.$latestAnnouncement->applicant->picture_url) }}"
+                            <img src="{{ asset('storage/img/users/'.$latestAnnouncement->applicant->picture_url) }}"
                             alt="Photo de profile de 
                             {{$latestAnnouncement->applicant->firstname}}">
                             </a>
