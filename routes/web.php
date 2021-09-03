@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\WelcomeController@index')
     ->name('welcome');
-
+//Helper
+Route::get('/announcements/applied', 'App\Http\Controllers\HelperController@list')
+    ->middleware(['auth'])->name('helper.list');
 // Announcements
 Route::get('/announcements', 'App\Http\Controllers\AnnouncementController@index')
     ->name('announcement.index');

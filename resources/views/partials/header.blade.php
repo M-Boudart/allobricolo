@@ -45,7 +45,7 @@
                                     <ul class="dropdown">
                                         <li><a href="{{ route('user.show', Auth::id()) }}">Profile</a></li>
                                         <li><a href="{{ route('announcement.list') }}">Mes annonces</a></li>
-                                        <li><a href="#">Mes candidatures</a></li>
+                                        <li><a href="{{ route('helper.list') }}">Mes candidatures</a></li>
                                     </ul>
                                 </li>
                                 <li>

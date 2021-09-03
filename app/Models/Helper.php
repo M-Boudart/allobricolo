@@ -27,4 +27,8 @@ class Helper extends Model
     public function helper () {
         return $this->belongsTo(User::class);
     }
+
+    public function announcement () {
+        return $this->belongsTo(Announcement::class);
+    }
 }
