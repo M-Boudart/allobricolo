@@ -29,6 +29,9 @@ Route::get('/announcements/create', 'App\Http\Controllers\AnnouncementController
 Route::post('/announcements/create', 'App\Http\Controllers\AnnouncementController@store')
     ->middleware(['auth'])->name('announcement.create');
 
+Route::get('/announcements/list', 'App\Http\Controllers\AnnouncementController@list')
+    ->middleware(['auth'])->name('announcement.list');
+
 Route::get('/announcements/{id}', 'App\Http\Controllers\AnnouncementController@show')
     ->name('announcement.show');
 

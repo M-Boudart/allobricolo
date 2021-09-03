@@ -291,4 +291,17 @@ class AnnouncementController extends Controller
             return redirect()->route('welcome')->with('error', 'Une erreur s\'est produite lors de votre candidature, veuillez réessayer plustard');
         }
     }
+
+    /**
+     * List all the announcement of the connected user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list() {
+        $announcements = Announcement::where('applicant_user_id', '=', Auth::id())->get();
+
+        return view('announcement.list', [
+            'announcements' => $announcements,
+        ]);
+    }
 }
