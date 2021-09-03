@@ -41,16 +41,25 @@
                                     <li><a href="./blog-details.html">Ang</a></li>
                                 </ul>
                             </li>
+                            @if (Auth::check())
+                                <li><a href="#"><i class="fa fa-user"></i></a>
+                                    <ul class="dropdown">
+                                        <li><a href="{{ route('user.show', Auth::id()) }}">Profile</a></li>
+                                        <li><a href="#">Mes annonces</a></li>
+                                        <li><a href="#">Mes candidatures</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button class="primary-btn">Deconnexion</button>
+                                    </form>
+                                </li>
+                            @endif
                         </ul>
                     </nav>
                     <div class="header__menu__right">
-                        @if (Auth::check())
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button class="primary-btn">Deconnexion</button>
-                        </form>
-                        <a href="{{ route('user.show', Auth::id()) }}" class="login-btn"><i class="fa fa-user"></i></a>
-                        @else
+                        @if (!Auth::check())
                         <a href="{{ route('register') }}" class="primary-btn">S'inscrire</a>
                         <a href="{{ route('login') }}" class="login-btn"><i class="fa fa-user"></i></a>
                         @endif
