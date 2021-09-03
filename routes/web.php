@@ -54,9 +54,6 @@ Route::patch('/user/edit/{id}', 'App\Http\Controllers\UserController@update')
 Route::delete('/user/delete/{id}', 'App\Http\Controllers\UserController@destroy')
     ->middleware(['auth'])->name('user.destroy');
 
-Route::get('/workers', 'App\Http\Controllers\UserController@workers')
-    ->name('user.workers');
-    
 // Reports
 Route::post('/report/add/{type}/{id}', 'App\Http\Controllers\ReportController@store')
     ->middleware(['auth'])->name('report.report');

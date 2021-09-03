@@ -22,7 +22,6 @@
                         <ul>
                             <li class="active"><a href="{{ route('welcome') }}">Accueil</a></li>
                             <li><a href="{{ route('announcement.index') }}">Annonces</a></li>
-                            <li><a href="{{ route('user.workers') }}">Nos bricoleurs</a></li>
                             @if (Auth::check())
                                 <li>
                                     <a href="{{ route('announcement.create') }}">Créer une annonce</a>
