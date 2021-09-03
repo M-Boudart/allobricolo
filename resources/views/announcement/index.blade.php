@@ -154,9 +154,17 @@
                                                         <a href="{{ route('announcement.show', $announcement->id) }}" class="btn btn-primary">Plus d'infos</a>
                                                     </span>
                                                 </div>
+                                                @if (Auth::id() != $announcement->applicant->id)
                                                 <div class="listing__item__text__info__right">
-                                                    <a href="#" class="btn btn-success">Proposer mon aide</a>
+                                                    <form action="{{ route('announcement.apply', $announcement->id) }}" method="POST">
+                                                        @csrf
+                                                        @if (Auth::check())
+                                                            <input type="hidden" name="authId" value="{{ Auth::id() }}">
+                                                        @endif
+                                                            <button class="btn btn-success">Proposer mon aide</button>
+                                                    </form>
                                                 </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

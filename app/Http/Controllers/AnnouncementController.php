@@ -13,6 +13,7 @@ use App\Models\Announcement;
 use App\Models\Category;
 use App\Models\Locality;
 use App\Models\AnnouncementPicture;
+use App\Models\Helper;
 
 class AnnouncementController extends Controller
 {
@@ -253,6 +254,41 @@ class AnnouncementController extends Controller
 
         if ($result) {
             return redirect()->route('user.show', $announcement->applicant_user_id)->with('success', 'Vous avez');
+        }
+    }
+
+    /**
+     * Apply for an announcemennt.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $announcementId
+     * @return \Illuminate\Http\Response
+     */
+    public function apply($announcementId, Request $request) {
+        $validated = $request->validate([
+            'authId' => 'required|Numeric|min:0',
+        ]);
+
+        $alreadyApplied = Helper::where([
+            ['announcement_id', '=', $announcementId],
+            ['helper_id', '=', Auth::id()],
+        ])->get();
+
+        if (sizeof($alreadyApplied) === 0) {
+            $result = DB::table('helpers')->insert([
+                'announcement_id' => $announcementId,
+                'helper_id' => $request->authId,
+                'status' => 'pending',
+                'chat_id' => 0
+            ]);
+        } else {
+            return redirect()->route('welcome')->with('error', 'Vous avez déjà proposé votre aider pour cette annonce');
+        }
+
+        if ($result) {
+            return redirect()->route('welcome')->with('success', 'Votre candidature a bien été ajoutée');
+        } else {
+            return redirect()->route('welcome')->with('error', 'Une erreur s\'est produite lors de votre candidature, veuillez réessayer plustard');
         }
     }
 }

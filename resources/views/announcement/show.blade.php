@@ -146,7 +146,16 @@
                             @if (Auth::id() != $announcement->applicant_user_id)
                             <div class="row" style="margin-top:3%;">
                                 <div class="col-12" style="text-align:center;">
-                                    <a href="#" class="btn btn-success">Proposer mon aide</a>
+                                    <!-- <a href="#" class="btn btn-success">Proposer mon aide</a> -->
+                                    @if (Auth::id() != $announcement->applicant->id)
+                                        <form action="{{ route('announcement.apply', $announcement->id) }}" method="POST" style="display:inline">
+                                            @csrf
+                                            @if (Auth::check())
+                                                <input type="hidden" name="authId" value="{{ Auth::id() }}">
+                                            @endif
+                                                <button class="btn btn-success">Proposer mon aide</button>
+                                        </form>
+                                    @endif
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Signaler l'annonce

@@ -32,6 +32,9 @@ Route::post('/announcements/create', 'App\Http\Controllers\AnnouncementControlle
 Route::get('/announcements/{id}', 'App\Http\Controllers\AnnouncementController@show')
     ->name('announcement.show');
 
+Route::post('/announcement/apply/{id}', 'App\Http\Controllers\AnnouncementController@apply')
+    ->middleware(['auth'])->name('announcement.apply');
+
 Route::delete('/announcements/{id}', 'App\Http\Controllers\AnnouncementController@destroy')
     ->middleware(['auth'])->name('announcement.destroy');
 
