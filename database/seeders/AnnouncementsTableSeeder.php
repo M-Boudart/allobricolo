@@ -77,7 +77,7 @@ class AnnouncementsTableSeeder extends Seeder
                 'realised_at' => '2021-05-24 14:01:00',
             ],
             [
-                'applicant_login' => 'john123',
+                'applicant_login' => 'bob123',
                 'title' => 'Construire une nouvel étage à ma maison',
                 'address' => 'Boulevard du Régent 10',
                 'locality_postal_code' => 1050,
@@ -121,6 +121,36 @@ class AnnouncementsTableSeeder extends Seeder
                 'realised_at' => null,
             ],
         ];
+
+        for ($i = 0; $i < 50; $i++) {
+            $announcements[] = [
+                'applicant_login' => 'Lorem ipsum' . $i,
+                'title' => 'Lorem ipsum dolor. ',
+                'address' => 'Lorem ipsum dolor.',
+                'locality_postal_code' => 1180,
+                'price' => $i * 3,
+                'description' => '
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt sit amet libero sit amet.',
+                'phone' => '0483296580',
+                'created_at' => '2019-05-8 10:00:00',
+                'realised_at' => null,
+            ];
+        }
+
+        for ($i = 0; $i < 7; $i++) {
+            $announcements[] = [
+                'applicant_login' => 'bob123',
+                'title' => 'Lorem ipsum dolor. ',
+                'address' => 'Lorem ipsum dolor.',
+                'locality_postal_code' => 1180,
+                'price' => $i * 3,
+                'description' => '
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt sit amet libero sit amet.',
+                'phone' => '0483296580',
+                'created_at' => '2021-05-8 10:00:00',
+                'realised_at' => null,
+            ];
+        }
 
         foreach ($announcements as &$announcement) {
             $locality = Locality::firstWhere('postal_code', $announcement['locality_postal_code']);

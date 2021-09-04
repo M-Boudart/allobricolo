@@ -113,6 +113,19 @@ class UsersTableSeeder extends Seeder
             ],
         ];
 
+        for ($i = 0; $i < 50; $i++) {
+            $users[] = [
+                'login' => 'Lorem ipsum' . $i,
+                'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
+                'firstname' => 'Lorem',
+                'lastname' => 'Ipsum',
+                'email' => 'lorem@ipsum' . $i . '.com',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in.',
+                'picture_url' => null,
+                'status_name' => 'Membre',
+            ];
+        }
+
         foreach ($users as &$user) {
             $status = Status::firstWhere('status', $user['status_name']);
 
