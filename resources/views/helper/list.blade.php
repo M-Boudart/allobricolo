@@ -47,7 +47,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>Mes annonces</h2>
+                    <h2>Mes candidatures</h2>
                 </div>
             </div>
         </div>
