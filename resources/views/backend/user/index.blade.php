@@ -45,8 +45,8 @@
                         @foreach ($users as $user)
                             <tr>
                                 <td>
-                                @if (!empty($user->picture_url))
-                                    <img src="{{ asset('img/users/'.$user->picture_url) }}" alt="Photo de {{$user->firstname}}"
+                                @if (!empty($user->avatar))
+                                    <img src="{{ asset('img/users/'.$user->avatar) }}" alt="Photo de {{$user->firstname}}"
                                     style="width:75px;width:75px;">
                                 @else
                                     <img src="{{ asset('img/users/no-profile.jpg') }}" alt="Photo de profil" style="width:75px;width:75px;">

@@ -7,9 +7,9 @@
             <div class="listing__item__pic set-bg"
             data-setbg="{{ asset('img/announcements/no-picture.png') }}">
         @endif
-        @if (!empty($announcement->applicant->picture_url))
+        @if (!empty($announcement->applicant->avatar))
             <a href="{{ route('user.show', $announcement->applicant->id) }}">
-            <img src="{{ asset('storage/img/users/'.$announcement->applicant->picture_url) }}"
+            <img src="{{ asset('storage/users-avatar/'.$announcement->applicant->avatar) }}"
             alt="Photo de profile de 
             {{$announcement->applicant->firstname}}">
             </a>
