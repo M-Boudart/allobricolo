@@ -7,17 +7,11 @@
             <div class="listing__item__pic set-bg"
             data-setbg="{{ asset('img/announcements/no-picture.png') }}">
         @endif
-        @if (!empty($announcement->applicant->avatar))
-            <a href="{{ route('user.show', $announcement->applicant->id) }}">
-            <img src="{{ asset('storage/users-avatar/'.$announcement->applicant->avatar) }}"
-            alt="Photo de profile de 
-            {{$announcement->applicant->firstname}}">
-            </a>
-        @else
         <a href="{{ route('user.show', $announcement->applicant->id) }}">
-        <img src="{{ asset('img/users/no-profile.jpg') }}" alt="Photo de profil">
+        <img src="{{ asset('storage/users-avatar/'.$announcement->applicant->avatar) }}"
+        alt="Photo de profile de 
+        {{$announcement->applicant->firstname}}">
         </a>
-        @endif
         </div>
         <div class="listing__item__text">
             <div class="listing__item__text__inside">
