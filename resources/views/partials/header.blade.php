@@ -32,6 +32,9 @@
                                     <a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
                                 @endif
+                                <li>
+                                    <a href="/allobricolo/messagerie">Messagerie</a>
+                                </li>
                             @endif
                             <li><a href="#">Langue</a>
                                 <ul class="dropdown">
