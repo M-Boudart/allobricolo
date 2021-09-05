@@ -186,8 +186,8 @@ class UserController extends Controller
             $path = explode('/', $path);
             $url = $path[2];
             
-            if ($user->picture_url !== null) {
-                Storage::delete('img/users/' . $user->picture_url);
+            if ($user->avatar !== null) {
+                Storage::delete('img/users/' . $user->avatar);
             }
         }
 
@@ -201,7 +201,7 @@ class UserController extends Controller
                 if ($key === 'password') {
                     $userInfos[$key] = Hash::make($value);
                 } else if ($request->hasFile('picture') && $key ==='picture') {
-                    $userInfos['picture_url'] = $url;
+                    $userInfos['avatar'] = $url;
                 } else {
                     $userInfos[$key] = $value;
                 }

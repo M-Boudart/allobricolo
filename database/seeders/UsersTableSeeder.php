@@ -28,8 +28,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'sull',
                 'email' => 'bob@sull.com',
                 'description' => null,
-                'picture_url' => null,
+                'avatar' => 'avatar.png',
                 'status_name' => 'Admin',
+                'name' => 'Bob Sull',
             ],
             [
                 'login' => 'john123',
@@ -38,8 +39,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'doe',
                 'email' => 'john@outlook.com',
                 'description' => 'Je suis pationné de bricolage depuis mon plus jeune âge.',
-                'picture_url' => 'john.jpg',
+                'avatar' => 'john.jpg',
                 'status_name' => 'Membre',
+                'name' => 'John Doe',
             ],
             [
                 'login' => 'marie123',
@@ -48,8 +50,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Doe',
                 'email' => 'Marie@doe.com',
                 'description' => 'J\'ai étudié l\'informatique pendant prêt de 5 ans.',
-                'picture_url' => 'marie.jpeg',
+                'avatar' => 'marie.jpeg',
                 'status_name' => 'Membre',
+                'name' => 'Marie Doe',
             ],
             [
                 'login' => 'pierre123',
@@ -58,8 +61,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Caillou',
                 'email' => 'pierre@rocher.com',
                 'description' => null,
-                'picture_url' => 'pierre.jpg',
+                'avatar' => 'pierre.jpg',
                 'status_name' => 'Vérifié',
+                'name' => 'Pierre Caillou',
             ],
             [
                 'login' => 'alain123',
@@ -68,8 +72,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Ternet',
                 'email' => 'alain@terrieur.com',
                 'description' => 'J\'ai pas mal de connaiossances dans la menuiserie et la plomberie.',
-                'picture_url' => null,
+                'avatar' => 'avatar.png',
                 'status_name' => 'Modérateur',
+                'name' => 'Alain Ternet',
             ],
             [
                 'login' => 'andre123',
@@ -78,8 +83,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Coppard',
                 'email' => 'andre@coppard.com',
                 'description' => null,
-                'picture_url' => 'homme-nu.jpg',
+                'avatar' => 'homme-nu.jpg',
                 'status_name' => 'Membre',
+                'name' => 'André Coppard',
             ],
             [
                 'login' => 'juliette123',
@@ -88,8 +94,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Clique',
                 'email' => 'juliette@clique.com',
                 'description' => null,
-                'picture_url' => null,
+                'avatar' => 'avatar.png',
                 'status_name' => 'Membre',
+                'name' => 'Juliette Clique',
             ],
             [
                 'login' => 'manon123',
@@ -98,8 +105,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Chocolat',
                 'email' => 'manon@chocolat.com',
                 'description' => null,
-                'picture_url' => null,
+                'avatar' => 'avatar.png',
                 'status_name' => 'Vérifié',
+                'name' => 'Manon Chocolat',
             ],
             [
                 'login' => 'adrien123',
@@ -108,8 +116,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Lonon',
                 'email' => 'adrien@lonon.com',
                 'description' => null,
-                'picture_url' => null,
+                'avatar' => 'avatar.png',
                 'status_name' => 'Vérifié',
+                'name' => 'Adrien Lonon',
             ],
         ];
 
@@ -121,8 +130,9 @@ class UsersTableSeeder extends Seeder
                 'lastname' => 'Ipsum',
                 'email' => 'lorem@ipsum' . $i . '.com',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in.',
-                'picture_url' => null,
+                'avatar' => 'avatar.png',
                 'status_name' => 'Membre',
+                'name' => 'Lorem Ipsum' . $i,
             ];
         }
 
