@@ -79,7 +79,17 @@
         {{-- Messaging area --}}
         <div class="m-body app-scroll">
             <div class="messages">
-                <p class="message-hint center-el"><span>Veuillez sélectionner une discution pour commencer</span></p>
+                <p class="message-hint center-el">
+                @if (session('success'))
+                    <span style="background-color:green; color:white">
+                    {{ session('success') }}
+                    </span>
+                @else
+                    <span>
+                    Veuillez sélectionner une discution pour commencer
+                    </span>
+                @endif
+                </p>
             </div>
             {{-- Typing indicator --}}
             <div class="typing-indicator">

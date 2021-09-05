@@ -14,6 +14,7 @@ use App\Models\Category;
 use App\Models\Locality;
 use App\Models\AnnouncementPicture;
 use App\Models\Helper;
+use App\Models\ChMessage;
 
 class AnnouncementController extends Controller
 {
@@ -346,7 +347,22 @@ class AnnouncementController extends Controller
         }
 
         if ($result) {
-            return redirect()->route('welcome')->with('success', 'Votre candidature a bien été ajoutée');
+            $announcement = Announcement::find($announcementId);
+
+            $result = ChMessage::insert([
+                'id' => time(),
+                'type' => 'user',
+                'from_id' => Auth::id(),
+                'to_id' => $announcement->applicant_user_id,
+                'body' => 'CECI EST UN MESSAGE AUTOMATIQUE DU SITE : ' . Auth::user()->name . ' vient de postuler pour votre annonce "'. $announcement->title . '". N\'hésitez pas à entrer en communication avec.',
+                'seen' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        if ($result) {
+            return redirect('/allobricolo/messagerie')->with('success', 'Candidature envoyée avec succès. Pensez à entrer en communication avec le requérant');
         } else {
             return redirect()->route('welcome')->with('error', 'Une erreur s\'est produite lors de votre candidature, veuillez réessayer plustard');
         }
