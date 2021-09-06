@@ -8,7 +8,7 @@
             data-setbg="{{ asset('img/announcements/no-picture.png') }}">
         @endif
         <a href="{{ route('user.show', $announcement->applicant->id) }}">
-        <img src="{{ asset('storage/users-avatar/'.$announcement->applicant->avatar) }}"
+        <img src="{{ asset('storage/img/users/'.$announcement->applicant->avatar) }}"
         alt="Photo de profile de 
         {{$announcement->applicant->firstname}}">
         </a>
