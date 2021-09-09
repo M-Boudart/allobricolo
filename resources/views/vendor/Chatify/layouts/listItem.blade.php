@@ -1,22 +1,3 @@
-{{-- -------------------- Saved Messages -------------------- --}}
-@if($get == 'saved')
-    <table class="messenger-list-item m-li-divider @if('user_'.Auth::user()->id == $id && $id != "0") m-list-active @endif">
-        <tr data-action="0">
-            {{-- Avatar side --}}
-            <td>
-            <div class="avatar av-m" style="background-color: #d9efff; text-align: center;">
-                <span class="far fa-bookmark" style="font-size: 22px; color: #68a5ff; margin-top: calc(50% - 10px);"></span>
-            </div>
-            </td>
-            {{-- center side --}}
-            <td>
-                <p data-id="{{ 'user_'.Auth::user()->id }}">Messagerie personnelle <span>Vous</span></p>
-                <span>Sauvegardez vos messages</span>
-            </td>
-        </tr>
-    </table>
-@endif
-
 {{-- -------------------- All users/group list -------------------- --}}
 @if($get == 'users')
 <table class="messenger-list-item @if($user->id == $id && $id != "0") m-list-active @endif" data-contact="{{ $user->id }}">
