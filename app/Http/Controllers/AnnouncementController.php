@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -346,8 +347,8 @@ class AnnouncementController extends Controller
             return redirect()->route('welcome')->with('error', 'Vous avez déjà proposé votre aider pour cette annonce');
         }
 
+        $announcement = Announcement::find($announcementId);
         if ($result) {
-            $announcement = Announcement::find($announcementId);
 
             $result = ChMessage::insert([
                 'id' => time(),
@@ -362,7 +363,16 @@ class AnnouncementController extends Controller
         }
 
         if ($result) {
-            return redirect('/allobricolo/messagerie')->with('success', 'Candidature envoyée avec succès. Pensez à entrer en communication avec le requérant');
+            $applier = Auth::user();
+
+            Mail::send('emails.apply', ['announcement' => $announcement, 'applier' => $applier],
+            function($message) use ($announcement, $applier) {
+                $message->from('allobricolo@communication.com', 'Allobricolo Communication');
+                $message->to($announcement->applicant->email, $announcement->applicant->firstname)
+                        ->subject('Un bricoleur vous a proposé son aide');
+            });
+
+            return redirect('/allobricolo/messagerie')->with('success', 'Candidature envoyée avec succès. Un mail a été envoyé à' . $announcement->applicant->firstname);
         } else {
             return redirect()->route('welcome')->with('error', 'Une erreur s\'est produite lors de votre candidature, veuillez réessayer plustard');
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Punishment;
 use App\Models\Report;
 
@@ -71,20 +72,29 @@ class PunishmentController extends Controller
             $deleted = Report::where('id', '=', $otherReport->id)->delete();
         }
 
-        // Insertion de la punition
-        $insertResult = Punishment::insert([
+        $infos = [
             'user_id' => $report->object_author,
             'reported_by' => Auth::id(),
             'type' => $type,
             'from_date' => date('Y-m-d', $from_date),
             'to_date' => $to_date,
             'reason' => $reportId,
-        ]);
+        ];
+
+        // Insertion de la punition
+        $insertResult = Punishment::insert($infos);
 
         if ($updateResult == false || $insertResult == false) {
             return redirect()->route('backend.punishment.index')->with('error', 'Une erreur s\'est produite lors de la suspension');
         }
 
+        Mail::send('emails.punish', ['infos' => $infos, 'report' => $report],
+        function($message) use ($infos, $report) {
+            $message->from('allobricolo@moderation.com', 'Allobricolo Moderation');
+            $message->to($report->whoHasBeenReported->email, $report->whoHasBeenReported->firstname)
+                    ->subject('Vous avez été sanctionné par un modérateur');
+        });
+        
         return redirect()->route('backend.punishment.index')->with('success', 'La personne a été banni avec succès');
     }
 
