@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
             HelpersTableSeeder::class,
             ReportsTableSeeder::class,
             PunishmentsTableSeeder::class,
-            PaymentsTableSeeder::class,
             ChMessagesTableSeeder::class,
         ]);
     }
