@@ -18,6 +18,9 @@ Route::get('/', 'App\Http\Controllers\WelcomeController@index')
 //Helper
 Route::get('/announcements/applied', 'App\Http\Controllers\HelperController@list')
     ->middleware(['auth'])->name('helper.list');
+
+Route::post('/announcements/{announcementId}/select/{helperId}', 'App\Http\Controllers\HelperController@select')
+    ->middleware(['auth'])->name('helper.select');
 // Announcements
 Route::get('/announcements', 'App\Http\Controllers\AnnouncementController@index')
     ->name('announcement.index');

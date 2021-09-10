@@ -46,7 +46,7 @@ class Announcement extends Model
     }
 
     public function helpers () {
-        return $this->belongsToMany(User::class, 'helpers');
+        return $this->belongsToMany(User::class, 'helpers', 'announcement_id', 'helper_id');
     }
 
     public function payment () {

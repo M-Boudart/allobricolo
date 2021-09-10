@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Helper;
 use App\Models\Announcement;
+use App\Models\User;
 
 class HelperController extends Controller
 {
@@ -99,5 +103,50 @@ class HelperController extends Controller
         return view('helper.list', [
             'announcementsHelpers' => $announcementsHelper,
         ]);
+    }
+
+    /**
+     * Select a specified helper for the announcement.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function select(Request $request, $announcementId, $helperId) {
+        $validated = $request->validate([
+            'realised_at' => 'required|date',
+        ]);
+
+        $announcement = Announcement::find($announcementId);
+        $helper = User::find($helperId);
+
+        if ($announcement->id != Auth::id()) {
+            return redirect()->route('welcome')->with('error', 'Vous n\'êtes pas l\'auteur de cette annonce');
+        }
+
+        $result = DB::table('helpers')
+              ->where([
+                  ['announcement_id', '=', $announcementId],
+                  ['helper_id', '!=', $helperId],
+              ])
+              ->update(['status' => 'not selected']);
+        
+        $result = DB::table('helpers')
+            ->where([
+                ['announcement_id', '=', $announcementId],
+                ['helper_id', '=', $helperId],
+            ])
+            ->update(['status' => 'selected']);
+
+        $result = DB::table('announcements')
+            ->where('id', '=', $announcementId)
+            ->update(['realised_at' => date('Y-m-d H:i:s', strtotime($request->realised_at))]);
+
+        Mail::send('emails.selectHelper', ['announcement' => $announcement, 'helper' => $helper],
+        function($message) use ($announcement, $helper) {
+            $message->from('allobricolo@communication.com', 'Allobricolo Communication');
+            $message->to($helper->email, $helper->firstname)
+                    ->subject('Vous avez été selectionner pour une annonce');
+        });
+
+        return redirect()->route('announcement.show', $announcementId)->with('success', 'Vous avez bien selectionner le bricoleur');
     }
 }

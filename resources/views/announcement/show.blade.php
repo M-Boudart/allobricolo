@@ -179,6 +179,32 @@
                     </div>
                 </div>
             </div>
+            @if (Auth::check() && $announcement->applicant_user_id === Auth::id())
+            <div class="row">
+                <h1>Liste des candidatures</h1>
+            </div>
+            <div class="row">
+                @foreach ($announcement->helpers as $helper)
+                <div class="col-md-4">
+                    <div class="col-md-5" style="margin-bottom:8px;">
+                        <a href="{{ route('user.show', $helper->id) }}"><img src="{{ asset('storage/img/users/'.$helper->avatar) }}" alt="Photo de {{$helper->firstname}}" style="margin-left: 29px; width:110px;height:110px; border-radius:80px"></a>
+                    </div>
+                    <div class="col-md-7" style="text-align:center">
+                        <ul style="list-style:none;">
+                            <li>{{ strtoupper($helper->lastname) }} {{ $helper->firstname }}</li>
+                            <li>
+                                <form action="{{ route('helper.select', ['announcementId' => $announcement->id, 'helperId' => $helper->id]) }}" method="POST">
+                                    @csrf
+                                    <input type="datetime-local"name="realised_at">
+                                    <button class="btn btn-secondary">En attente</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
     </div>
 
     @if (Auth::id() != $announcement->applicant_user_id)
