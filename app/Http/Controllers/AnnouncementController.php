@@ -341,7 +341,6 @@ class AnnouncementController extends Controller
                 'announcement_id' => $announcementId,
                 'helper_id' => $request->authId,
                 'status' => 'pending',
-                'chat_id' => 0
             ]);
         } else {
             return redirect()->route('welcome')->with('error', 'Vous avez déjà proposé votre aider pour cette annonce');
