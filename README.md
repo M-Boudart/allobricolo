@@ -10,7 +10,11 @@ Ensuite, si vous souhaitez tester le système de mail, je vous conseille de cré
 - Ajouter vos clefs Stripe et Mailtrap au fichier .env.
 - Exécuter la commande `php artisan migrate` afin de récupérer la base de données.
 
+<<<<<<< HEAD
 Si vous ne possédez pas de certificat SSL vous pouvez en télécharger un. Si vous ne le faite pas, la messagerie ne sera pas dynamique, c'est à dire que vous devrez rafraichir la page après chaque envoie de message. Si vous souhaitez qu'elle soit dynamique suivez les étaps si dessous :
+=======
+Si vous ne possédez pas de certificat SSL vous devez en télécharger un. Néanmoins, il est possible de ne pas réaliser cette étape mais la messagerie ne sera pas dynamique. Il vous faudra donc rafraichir la page à chaque envoie de message.
+>>>>>>> badbdd4bbae675437630c27532e7e57b256342e9
 - Télécharger un [certifical SSL](https://curl.se/docs/caextract.html).
 - Configurer le fichier `php.ini`. Décommenter la ligne `curl.cainfo` et renseigner comme valeur le chemin vers certificat.
 
