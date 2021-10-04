@@ -13,16 +13,11 @@ class Helper extends Model
         'announcement_id',
         'helper_id',
         'status',
-        'chat_id',
     ];
 
     protected $table = 'helpers';
 
     public $timestamps = false;
-
-    public function chatMessages () {
-        return $this->hasMany(ChatMessage::class);
-    }
 
     public function helper () {
         return $this->belongsTo(User::class);
