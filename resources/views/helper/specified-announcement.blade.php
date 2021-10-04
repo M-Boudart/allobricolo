@@ -85,7 +85,7 @@
                 @endif
             </div>
 
-            @if (sizeof($selectedHelper) == 1 || sizeof($pendingHelpers) < 0)
+            @if (!(sizeof($selectedHelper) == 0 && sizeof($pendingHelpers) == 0))
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
