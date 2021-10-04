@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
 
         'admin' => \App\Http\Middleware\AdminStatus::class,
         'modo' => \App\Http\Middleware\ModeratorStatus::class,
+        'punishment' => \App\Http\Middleware\CheckPunishment::class,
     ];
 }
