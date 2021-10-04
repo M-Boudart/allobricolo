@@ -35,15 +35,6 @@
                                 <li>
                                     <a href="/allobricolo/messagerie">Messagerie</a>
                                 </li>
-                            @endif
-                            <li><a href="#">Langue</a>
-                                <ul class="dropdown">
-                                    <li><a href="./about.html">Fr</a></li>
-                                    <li><a href="./listing-details.html">Ndls</a></li>
-                                    <li><a href="./blog-details.html">Ang</a></li>
-                                </ul>
-                            </li>
-                            @if (Auth::check())
                                 <li><a href="#"><i class="fa fa-user"></i></a>
                                     <ul class="dropdown">
                                         <li><a href="{{ route('user.show', Auth::id()) }}">Profile</a></li>
