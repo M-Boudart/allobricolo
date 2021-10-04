@@ -54,7 +54,7 @@
                 </div>
                 @else
                 <div class="listing__item__text__info__right">
-                    <a href="{{ route('announcement.show', $announcement->id) }}" class="btn btn-info">Candidatures</a>
+                    <a href="{{ route('helper.specifiedAnnouncement', $announcement->id) }}" class="btn btn-info">Candidatures</a>
                 </div>
                 @endif
             </div>

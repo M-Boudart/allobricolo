@@ -149,4 +149,33 @@ class HelperController extends Controller
 
         return redirect()->route('announcement.show', $announcementId)->with('success', 'Vous avez bien selectionner le bricoleur');
     }
+
+    /**
+     * List all the announcements for a specified announcement.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function specifiedAnnouncement($announcementId) {
+        $announcement = Announcement::find($announcementId);
+
+        if ($announcement->applicant_user_id != Auth::id()) {
+            return redirect()->route('welcome')->with('error', 'Vous n\'êtes pas l\'auteur de cette annonce');
+        }
+
+        $selectedHelper = Helper::where([
+            ['announcement_id', '=', $announcementId],
+            ['status', '=', 'selected'],
+        ])->get();
+
+        $pendingHelpers = Helper::where([
+            ['announcement_id', '=', $announcementId],
+            ['status', '=', 'pending'],
+        ])->get();
+        
+        return view('helper.specified-announcement', [
+            'announcement' => $announcement,
+            'selectedHelper' => $selectedHelper,
+            'pendingHelpers' => $pendingHelpers,
+        ]);
+    }
 }

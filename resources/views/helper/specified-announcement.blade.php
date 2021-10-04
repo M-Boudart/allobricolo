@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -77,116 +77,60 @@
                     @endif
                 </div>
                 @if (Auth::id() == $announcement->applicant_user_id)
-                <div class="col-md-2">
-                    <a href="{{ route('announcement.edit', $announcement->id) }}" class="btn btn-primary">
-                        Modifier
+                <div class="col-md-4">
+                    <a href="{{ route('announcement.show', $announcement->id) }}" class="btn btn-primary">
+                        Consulter l'annonce
                     </a>
-                </div>
-                <div class="col-md-2">
-                    <form action="{{ route('announcement.destroy', $announcement->id) }}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button class="btn btn-danger"
-                    onclick="confirm('Voulez vous vraiment supprimer votre annonce ?')">
-                        Supprimer !!!
-                    </button>
-                    </form>
                 </div>
                 @endif
             </div>
+
+            @if (sizeof($selectedHelper) == 1 || sizeof($pendingHelpers) < 0)
             <div class="row">
-                <!-- Colonne gauche (catégories) -->
-                <div class="col-md-4">
-                    <div class="profile-work">
-                        <p>Categories :</p>
-                        <p class="knowledges">
-                        @foreach ($announcement->categories as $category)
-                            {{$category->category}} <br />
-                        @endforeach
-                        </p>
+                <div class="col-md-12">
+                    <div class="row">
+                    @if (sizeof($selectedHelper) == 1)
+                        <h1 style="font-size:150%">Bricoleur sélectionné</h1>
+                    @else
+                        <h1>Liste des candidatures</h1>
+                    @endif
                     </div>
-                </div>
-                <!-- Colonne millieu (informations) -->
-                <div class="col-md-8">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Titre</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ $announcement->title }}</p>
-                                </div>
+                    <div class="row">
+                    @if (sizeof($selectedHelper) == 1)
+                    <div class="col" style="margin-bottom:8px;">
+                        <a href="{{ route('user.show', $selectedHelper[0]->helper->id) }}"><img src="{{ asset('storage/img/users/'.$selectedHelper[0]->helper->avatar) }}" alt="Photo de {{$selectedHelper[0]->helper->firstname}}" style="margin-left: 29px; width:110px;height:110px; border-radius:80px"></a>
+                        {{ strtoupper($selectedHelper[0]->helper->lastname) }} {{ $selectedHelper[0]->helper->firstname }} viendra le {{ date('d-m-Y', strtotime($announcement->realised_at)) }} à {{ date('H:i', strtotime($announcement->realised_at)) }}
+                    </div>
+                    @else
+                        @foreach($pendingHelpers as $helper)
+                        <div class="col-md-4">
+                            <div class="col-md-5" style="margin-bottom:8px;">
+                                <a href="{{ route('user.show', $helper->helper->id) }}"><img src="{{ asset('storage/img/users/'.$helper->helper->avatar) }}" alt="Photo de {{$helper->helper->firstname}}" style="margin-left: 29px; width:110px;height:110px; border-radius:80px"></a>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Prix</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ $announcement->price }} €</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Adresse</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ $announcement->address }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Localité</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{ $announcement->locality->postal_code }} {{ $announcement->locality->locality }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Description</label>
-                                </div>
-                                @if (!empty($announcement->description))
-                                <div class="col-md-6">
-                                    <p>{{ $announcement->description }}</p>
-                                </div>
-                                @else
-                                <div class="col-md-6">
-                                    <p>L'auteur n'a pas fait de description</p>
-                                </div>
-                                @endif
-                            </div>
-                            @if (Auth::id() != $announcement->applicant_user_id)
-                            <div class="row" style="margin-top:3%;">
-                                <div class="col-12" style="text-align:center;">
-                                    @if (Auth::id() != $announcement->applicant->id)
-                                        <form action="{{ route('announcement.apply', $announcement->id) }}" method="POST" style="display:inline">
+                            <div class="col-md-7" style="text-align:center">
+                                <ul style="list-style:none;">
+                                    <li>{{ strtoupper($helper->helper->lastname) }} {{ $helper->helper->firstname }}</li>
+                                    <li>
+                                        <form action="{{ route('helper.select', ['announcementId' => $announcement->id, 'helperId' => $helper->helper->id]) }}" method="POST">
                                             @csrf
-                                            @if (Auth::check())
-                                                <input type="hidden" name="authId" value="{{ Auth::id() }}">
-                                            @endif
-                                                <button class="btn btn-success">Proposer mon aide</button>
+                                            <input type="datetime-local"name="realised_at">
+                                            <button class="btn btn-secondary">Sélectionner</button>
                                         </form>
-                                    @endif
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Signaler l'annonce
-                                    </button>
-                                </div>
+                                    </li>
+                                </ul>
                             </div>
-                            @endif
                         </div>
+                        @endforeach
+                    @endif
                     </div>
                 </div>
             </div>
+            @else
+            <div class="row">
+                <p>Il n'y a pas encore de candidature pour votre annonce. Revenez plus tard.</p>
+            </div>
+            @endif
     </div>
-
-    @if (Auth::id() != $announcement->applicant_user_id)
-        @include('partials.reportModal', [
-            'type' => "announcements",
-            'ressourceId' => $announcement->id,
-        ])
-    @endif
     
     @include('partials.footer')
     <!-- Js Plugins Template de base -->
