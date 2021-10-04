@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Helper;
 use App\Models\Announcement;
 use App\Models\User;
+use App\Models\ChMessage;
 
 class HelperController extends Controller
 {
@@ -87,6 +88,64 @@ class HelperController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Apply for an announcemennt.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int $announcementId
+     * @return \Illuminate\Http\Response
+     */
+    public function apply($announcementId, Request $request) {
+        $validated = $request->validate([
+            'authId' => 'required|Numeric|min:0',
+        ]);
+
+        $alreadyApplied = Helper::where([
+            ['announcement_id', '=', $announcementId],
+            ['helper_id', '=', Auth::id()],
+        ])->get();
+
+        if (sizeof($alreadyApplied) === 0) {
+            $result = DB::table('helpers')->insert([
+                'announcement_id' => $announcementId,
+                'helper_id' => $request->authId,
+                'status' => 'pending',
+            ]);
+        } else {
+            return redirect()->route('welcome')->with('error', 'Vous avez déjà proposé votre aider pour cette annonce');
+        }
+
+        $announcement = Announcement::find($announcementId);
+        if ($result) {
+
+            $result = ChMessage::insert([
+                'id' => time(),
+                'type' => 'user',
+                'from_id' => Auth::id(),
+                'to_id' => $announcement->applicant_user_id,
+                'body' => 'CECI EST UN MESSAGE AUTOMATIQUE DU SITE : ' . Auth::user()->name . ' vient de postuler pour votre annonce "'. $announcement->title . '". N\'hésitez pas à entrer en communication avec.',
+                'seen' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        if ($result) {
+            $applier = Auth::user();
+
+            Mail::send('emails.apply', ['announcement' => $announcement, 'applier' => $applier],
+            function($message) use ($announcement, $applier) {
+                $message->from('allobricolo@communication.com', 'Allobricolo Communication');
+                $message->to($announcement->applicant->email, $announcement->applicant->firstname)
+                        ->subject('Un bricoleur vous a proposé son aide');
+            });
+
+            return redirect('/allobricolo/messagerie')->with('success', 'Candidature envoyée avec succès. Un mail a été envoyé à' . $announcement->applicant->firstname);
+        } else {
+            return redirect()->route('welcome')->with('error', 'Une erreur s\'est produite lors de votre candidature, veuillez réessayer plustard');
+        }
     }
 
     /**
@@ -171,7 +230,7 @@ class HelperController extends Controller
             ['announcement_id', '=', $announcementId],
             ['status', '=', 'pending'],
         ])->get();
-        
+
         return view('helper.specified-announcement', [
             'announcement' => $announcement,
             'selectedHelper' => $selectedHelper,

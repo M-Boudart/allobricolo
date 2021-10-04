@@ -22,6 +22,9 @@ Route::get('/announcements/applied', 'App\Http\Controllers\HelperController@list
 Route::get('/announcements/{id}/helpers', 'App\Http\Controllers\HelperController@specifiedAnnouncement')
     ->middleware(['auth'])->name('helper.specifiedAnnouncement');
 
+Route::post('/announcement/apply/{id}', 'App\Http\Controllers\HelperController@apply')
+    ->middleware(['auth'])->name('announcement.apply');
+
 Route::post('/announcements/{announcementId}/select/{helperId}', 'App\Http\Controllers\HelperController@select')
     ->middleware(['auth'])->name('helper.select');
 // Announcements
@@ -42,9 +45,6 @@ Route::get('/announcements/list', 'App\Http\Controllers\AnnouncementController@l
 
 Route::get('/announcements/{id}', 'App\Http\Controllers\AnnouncementController@show')
     ->name('announcement.show');
-
-Route::post('/announcement/apply/{id}', 'App\Http\Controllers\AnnouncementController@apply')
-    ->middleware(['auth'])->name('announcement.apply');
 
 Route::delete('/announcements/{id}', 'App\Http\Controllers\AnnouncementController@destroy')
     ->middleware(['auth'])->name('announcement.destroy');
