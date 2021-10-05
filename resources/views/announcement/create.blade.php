@@ -27,103 +27,129 @@
 
     <!-- Mon css -->
     <link rel="stylesheet" href="{{ asset('css/announcement-create.css') }}" type="text/css">
+
+    <style>
+        .primary-btn {
+            display: inline-block !important;
+            font-size: 14px !important;
+            padding: 12px 30px 10px !important;
+            color: #ffffff !important;
+            text-transform: uppercase !important;
+            font-weight: 700 !important;
+            background: #f03250 !important;
+            border-radius: 2px !important;
+            border-color: #f03250 !important;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
     @include('partials.header')
-    
-    <section class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <h2>Créer votre annonce</h2>
+    <section>
+    <div class="container px-1 py-5 mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+                <h2 class="text-center mb-4">Création d'une annonce</h2>
+                <form class="form-card" action="{{ route('announcement.create') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                    <div class="row justify-content-between text-left">
+                        <div class="row justify-content-between text-left col-12">
+                            <div class="form-group col-12 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Titre<span class="text-danger"> *</span></label> 
+                                <input type="text" id="title" name="title" value="{{ old('title') }}" placeholder="Titre"> 
+                            </div>
+                                @error('title')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> 
+                            <label class="form-control-label px-3">Prix<span class="text-danger"> *</span></label> 
+                            <input type="number" id="price" name="price" value="{{ old('price') }}" placeholder="Prix">
+                            @error('price')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> 
+                            <label class="form-control-label px-3">Téléphone<span class="text-danger"> *</span></label> 
+                            <input id="phone" name="phone"  type="text" class="form-control" placeholder="Téléphone" value="{{ old('phone') }}">
+                            @error('phone')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
-                </div>
-            </div>
-            
-            <form  action="{{ route('announcement.create') }}" method="post" enctype="multipart/form-data">
-            @csrf
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="title">Titre*</label>
-                        <input id="title" type="text" name="title" class="form-control" value="{{ old('title') }}" placeholder="Titre">
-                        @error('title')
-                            <span class="error">{{ $message }}</span>
-                        @enderror
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> 
+                            <label class="form-control-label px-3">Adresse<span class="text-danger"> *</span></label> 
+                            <input id="address" name="address" type="text"  class="form-control" placeholder="Adresse" value="{{ old('address') }}">
+                            @error('title')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> 
+                            <label class="form-control-label px-3">Phone number<span class="text-danger"> *</span></label> 
+                            <select id ="locality" class="form-control" name="locality_id">
+                                @foreach ($localities as $locality)
+                                    <option value="{{ $locality->id }}">
+                                        {{ $locality->postal_code }} {{ $locality->locality }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('locality')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="price">Prix*</label>
-                        <input type="text" name="price"  class="form-control" id="price" value="{{ old('price') }}" placeholder="Prix">
-                        @error('price')
-                            <span class="error">{{ $message }}</span>
-                        @enderror
+                    <hr>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-12 flex-column d-flex"> 
+                            <p style="font-size: 1.3em;">Catégories<span class="text-danger"> *</span></p> 
+                            <div class="form-row">
+                                @foreach ($categories as $category)
+                                    <div class="form-group col-md-4">
+                                        <label for="checkbox{{ $category->category }}" class="form-check-label"
+                                        style="margin-right:25px;">
+                                            {{ $category->category }}
+                                        </label>
+                                        <input id="checkbox{{ $category->category }}" type="checkbox" name="categories[]" class="form-check-input" value="{{ $category->category }}">
+                                    </div>
+                                @endforeach
+                                @error('categories')
+                                    <span class="error">You must select at least one category</span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="phone">Téléphone*</label>
-                        <input id="phone" name="phone"  type="text" class="form-control" placeholder="Téléphone" value="{{ old('phone') }}">
-                        @error('phone')
-                            <span class="error">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group col-md-6">
-                    <label for="description">Description</label>
-                        <textarea id="description" name="description" placeholder="Description" class="form-control" value="{{ old('description') }}"></textarea>
+                    <hr>
+                    <div class="row justify-content-between text-left col-12">
+                        <div class="form-group col-12 flex-column d-flex"> 
+                            <label class="form-control-label px-3">Description</span></label> 
+                            <textarea id="description" name="description" placeholder="Description" class="form-control" value="{{ old('description') }}"></textarea>
+                        </div>
                         @error('description')
                             <span class="error">{{ $message }}</span>
-                        @enderror
+                        @enderror 
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-8">
-                    <label for="address">Adresse*</label>
-                    <input id="address" name="address" type="text"  class="form-control" placeholder="Adresse" value="{{ old('address') }}">
-                    @error('title')
-                        <span class="error">{{ $message }}</span>
-                    @enderror
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="locality">Localité*</label>
-                        <select id ="locality" class="form-control" name="locality_id">
-                        @foreach ($localities as $locality)
-                            <option value="{{ $locality->id }}">
-                                {{ $locality->postal_code }} {{ $locality->locality }}
-                            </option>
-                        @endforeach
-                        </select>
-                        @error('locality')
-                            <span class="error">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <label>Catégorie*</label>
-                <div class="form-row">
-                    @foreach ($categories as $category)
-                        <div class="form-group col-md-4">
-                            <label for="checkbox{{ $category->category }}" class="form-check-label"
-                            style="margin-right:25px;">
-                                {{ $category->category }}
-                            </label>
-                            <input id="checkbox{{ $category->category }}" type="checkbox" name="categories[]" class="form-check-input" value="{{ $category->category }}">
+                    <div class="row justify-content-between text-left col-12">
+                        <div class="form-group col-12 flex-column d-flex"> 
+                            <label class="form-control-label px-3">Description</span></label> 
+                            <input id="pictures" type="file" name="pictures[]" class="form-control" multiple>
                         </div>
-                    @endforeach
-                    @error('categories')
-                        <span class="error">You must select at least one category</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <div class="col-6" style="padding-left:0px;">
-                        <label for="pictures">Photo (maximum 3 photos)</label>
-                        <input id="pictures" type="file" name="pictures[]" class="form-control" multiple>
                         @error('pictures')
                             <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Créer mon annonce</button>
-            </form>
-    </section>
+                    <div class="row justify-content-end">
+                        <div class="form-group col-sm-6"> 
+                            <button type="submit" class="btn-block btn-primary">Créer mon annonce</button> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
 
     @include('partials.footer')
     <!-- Js Plugins Template de base -->
