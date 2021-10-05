@@ -48,8 +48,4 @@ class Announcement extends Model
     public function helpers () {
         return $this->belongsToMany(User::class, 'helpers', 'announcement_id', 'helper_id');
     }
-
-    public function payment () {
-        return $this->hasOne(Payment::class, 'announcement_id');
-    }
 }

@@ -280,8 +280,6 @@ class AnnouncementController extends Controller
             unset($inputs['categories']);
         }
 
-        //TODO Photo
-
         unset($inputs['_token']);
         unset($inputs['_method']);
         unset($inputs['MAX_FILE_SIZE']);
