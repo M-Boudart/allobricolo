@@ -15,6 +15,7 @@ section {
     background-repeat: no-repeat;
     background-position: center;
     margin-bottom: 30px;
+    background-attachment: fixed;
 }
 
 .card {
