@@ -76,6 +76,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col">
+                            {{ $suspendedUsers->links() }}
+                        </div>
+                    </div>
                 @endif
                 @if (sizeof($bannedUsers) > 0)
                     <h1>Utilisateurs bannis</h1>
@@ -119,6 +124,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col">
+                            {{ $bannedUsers->links() }}
+                        </div>
+                    </div>
                 @endif
                 @if (sizeof($unBannedUsers) > 0)
                     <h1>Utilisateurs unban</h1>
@@ -150,6 +160,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col">
+                            {{ $unBannedUsers->links() }}
+                        </div>
+                    </div>
                 @endif
                 </div>
             </div>

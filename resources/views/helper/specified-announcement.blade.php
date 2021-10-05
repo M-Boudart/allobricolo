@@ -125,6 +125,11 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    {{ $pendingHelpers->links() }}
+                </div>
+            </div>
             @else
             <div class="row">
                 <p>Il n'y a pas encore de candidature pour votre annonce. Revenez plus tard.</p>

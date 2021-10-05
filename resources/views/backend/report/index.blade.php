@@ -85,6 +85,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col">
+                            {{ $pendingReports->links() }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

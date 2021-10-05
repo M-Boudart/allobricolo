@@ -111,6 +111,13 @@
                     </div>
                 </div>
             </div>
+            @if ($pagination)
+            <div class="row">
+                <div class="col">
+                    {{ $announcements->links() }}
+                </div>
+            </div>
+            @endif
         </div>
     </section>
     <!-- Announcement Result Section End -->

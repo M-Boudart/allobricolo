@@ -26,11 +26,13 @@ class AnnouncementController extends Controller
      */
     public function index(Request $request)
     {
+        $pagination = true;
         $announcements = new Collection();
 
         if ($request->isMethod('get')) {
-            $announcements = Announcement::get();
+            $announcements = Announcement::simplePaginate(6);
         } else {
+            $pagination = false;
             $keywords = explode(' ', $request->input('keyword'));
             $category = $request->input('category');
             $locality = $request->input('locality');
@@ -88,6 +90,7 @@ class AnnouncementController extends Controller
             'announcements' => $announcements,
             'categories' => $categories,
             'localities' => $localities,
+            'pagination' => $pagination,
         ]);
     }
 

@@ -18,9 +18,15 @@ class PunishmentController extends Controller
      */
     public function index()
     {
-        $suspendedUsers = Punishment::where('type', '=', 'suspended')->get();
-        $bannedUsers = Punishment::where('type', '=', 'banned')->get();
-        $unBannedUsers = Punishment::where('type', '=', 'unbanned')->get();
+        $suspendedUsers = Punishment::where('type', '=', 'suspended')->paginate(
+                                $perPage = 5, $columns = ['*'], $pageName = 'suspendedUsers'
+                            );
+        $bannedUsers = Punishment::where('type', '=', 'banned')->paginate(
+                                $perPage = 5, $columns = ['*'], $pageName = 'banned'
+                            );
+        $unBannedUsers = Punishment::where('type', '=', 'unbanned')->paginate(
+                                $perPage = 5, $columns = ['*'], $pageName = 'banned'
+                            );
 
         return view('backend.punishment.index', [
             'suspendedUsers' => $suspendedUsers,

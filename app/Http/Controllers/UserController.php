@@ -22,13 +22,38 @@ class UserController extends Controller
      */
     public function index()
     {
-        $orderedUsers = [];
-        $arrStatus = DB::table('status')->orderBy('id', 'asc')->get();
+        $members = User::where([
+            ['status_id', '=', 1],
+            ])->paginate(
+                    $perPage = 5, $columns = ['*'], $pageName = 'members'
+                );
 
-        foreach ($arrStatus as $status) {
-            $orderedUsers [$status->status] = User::where('status_id', '=', $status->id)
-                                                ->get();
-        }
+        $verified = User::where([
+            ['status_id', '=', 2],
+            ])->paginate(
+                    $perPage = 5, $columns = ['*'], $pageName = 'verified'
+                );
+
+        $moderators = User::where([
+            ['status_id', '=', 3],
+            ])->paginate(
+                    $perPage = 5, $columns = ['*'], $pageName = 'moderators'
+                );
+
+        $admin = User::where([
+            ['status_id', '=', 4],
+            ])->paginate(
+                    $perPage = 5, $columns = ['*'], $pageName = 'admin'
+                );
+        
+        $groupedUsers['Membre'] = $members;
+        $groupedUsers['Vérifié'] = $verified;
+        $groupedUsers['Modérateur'] = $moderators;
+        $groupedUsers['Admin'] = $admin;
+
+        return view('backend.user.index', [
+            'groupedUsers' => $groupedUsers,
+        ]);
 
         return view('backend.user.index', [
             'groupedUsers' => $orderedUsers,
@@ -260,9 +285,17 @@ class UserController extends Controller
             $newStatus = DB::table('status')->select('id')
                             ->where('status', '=', 'Admin')
                             ->get()[0]->id;
-        } else {    
+        } elseif ($request->status == 'modérateur') {   
             $newStatus = DB::table('status')->select('id')
                             ->where('status', '=', 'Modérateur')
+                            ->get()[0]->id;
+        } elseif ($request->status == 'membre') {   
+            $newStatus = DB::table('status')->select('id')
+                            ->where('status', '=', 'Membre')
+                            ->get()[0]->id;
+        } else {
+            $newStatus = DB::table('status')->select('id')
+                            ->where('status', '=', 'Vérifié')
                             ->get()[0]->id;
         }
         

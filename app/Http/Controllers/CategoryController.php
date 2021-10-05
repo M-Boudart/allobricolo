@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::get();
+        $categories = Category::paginate(10);
 
         return view('backend.category.index', [
             'categories' => $categories,
@@ -41,5 +41,22 @@ class CategoryController extends Controller
         }
 
         return redirect()->route('backend.category.index')->with('error', 'Une erreur est survenue lors de la création de la catégorie');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+        $result = Category::where('id', '=', $id)->delete();
+
+        if ($result) {
+            return redirect()->route('backend.category.index')->with('success', 'Catégorie supprimée');
+        }
+
+        return redirect()->route('backend.category.index')->with('error', 'Une erreur est survenue lors de la suppression de la catégorie');
     }
 }

@@ -42,6 +42,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Catégorie</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,10 +50,23 @@
                                 <tr>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->category }}</td>
+                                    <td>
+                                        <form id="frmDelete" action="{{ route('backend.category.destory', $category->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger"
+                                            onclick="confirm('Voulez vous vraiment supprimer cette catégorie?')">X</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col">
+                            {{ $categories->links() }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -81,6 +81,9 @@ Route::post('/user/promote/{id}', 'App\Http\Controllers\UserController@promote')
 Route::get('/category', 'App\Http\Controllers\CategoryController@index')
     ->middleware(['admin'])->name('backend.category.index');
 
+Route::delete('/category/{id}', 'App\Http\Controllers\CategoryController@destroy')
+    ->middleware(['admin'])->name('backend.category.destory');
+
 Route::post('/category', 'App\Http\Controllers\CategoryController@store')
     ->middleware(['admin'])->name('backend.category.store');
 

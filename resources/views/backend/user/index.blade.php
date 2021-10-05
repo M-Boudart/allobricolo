@@ -56,24 +56,46 @@
                                 <td>{{ $user->firstname }}</td>
                                 <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
                                 <td>{{ $user->description }}</td>
-                                @if ($status != 'Admin')
                                 <td>
+                                @if ($status == 'Membre')
                                     <form id="frmPromote" action="{{ route('backend.user.promote', $user->id) }}" method="post">
                                         @csrf
-                                        @if ($status != 'Modérateur')
+                                        <button name="status" value="vérifié" class="btn btn-primary">Vérifé</button>
                                         <button name="status" value="modérateur" class="btn btn-primary">Modérateur</button>
-                                        @endif
                                         <button name="status" value="admin" class="btn btn-primary">Admin</button>
                                     </form>
-                                </td>
-                                @else
-                                <td>
-                                </td>
+                                @elseif($status == 'Vérifié')
+                                    <form id="frmPromote" action="{{ route('backend.user.promote', $user->id) }}" method="post">
+                                        @csrf
+                                        <button name="status" value="membre" class="btn btn-primary">Membre</button>
+                                        <button name="status" value="modérateur" class="btn btn-primary">Modérateur</button>
+                                        <button name="status" value="admin" class="btn btn-primary">Admin</button>
+                                    </form>
+                                @elseif($status == 'Modérateur')
+                                    <form id="frmPromote" action="{{ route('backend.user.promote', $user->id) }}" method="post">
+                                        @csrf
+                                        <button name="status" value="membre" class="btn btn-primary">Membre</button>
+                                        <button name="status" value="vérifié" class="btn btn-primary">Vérifé</button>
+                                        <button name="status" value="admin" class="btn btn-primary">Admin</button>
+                                    </form>
+                                @elseif($status == 'Admin')
+                                    <form id="frmPromote" action="{{ route('backend.user.promote', $user->id) }}" method="post">
+                                        @csrf
+                                        <button name="status" value="membre" class="btn btn-primary">Membre</button>
+                                        <button name="status" value="vérifié" class="btn btn-primary">Vérifé</button>
+                                        <button name="status" value="modérateur" class="btn btn-primary">Modérateur</button>
+                                    </form>
                                 @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col">
+                        {{ $users->links() }}
+                    </div>
+                </div>
                 @endforeach
                 </div>
             </div>

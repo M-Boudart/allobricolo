@@ -229,7 +229,7 @@ class HelperController extends Controller
         $pendingHelpers = Helper::where([
             ['announcement_id', '=', $announcementId],
             ['status', '=', 'pending'],
-        ])->get();
+        ])->simplePaginate(6);
 
         return view('helper.specified-announcement', [
             'announcement' => $announcement,
