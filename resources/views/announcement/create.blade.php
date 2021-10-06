@@ -87,7 +87,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex"> 
-                            <label class="form-control-label px-3">Phone number<span class="text-danger"> *</span></label> 
+                            <label class="form-control-label px-3">Localité<span class="text-danger"> *</span></label> 
                             <select id ="locality" class="form-control" name="locality_id">
                                 @foreach ($localities as $locality)
                                     <option value="{{ $locality->id }}">
