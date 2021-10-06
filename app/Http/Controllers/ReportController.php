@@ -19,7 +19,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $pendingReports = Report::where('status', '=', 'pending')->paginate(5);
+        $pendingReports = Report::where('status', '=', 'pending')->orderBy('reported_at', 'desc')->paginate(5);
 
         return view('backend.report.index', [
             'pendingReports' => $pendingReports,

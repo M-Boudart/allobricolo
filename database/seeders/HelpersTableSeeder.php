@@ -53,11 +53,6 @@ class HelpersTableSeeder extends Seeder
             ],
             [
                 'announcement_id' => 5,
-                'helper_login' => 'bob123',
-                'status' => 'pending',
-            ],
-            [
-                'announcement_id' => 5,
                 'helper_login' => 'john123',
                 'status' => 'pending',
             ],

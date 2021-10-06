@@ -74,11 +74,11 @@
                                         <form action="{{ route('backend.report.destroy', $report->id) }}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-success">Signalement non pertinant</a>
+                                            <button class="btn btn-success" onclick="return confirm('Confirmez vous que le signalement n°{{$report->id}} n\'est pas pertinant?')">Signalement non pertinant</a>
                                         </form>
                                         <form action="{{ route('backend.punishment.punish', $report->id) }}" method="post">
                                             @csrf
-                                            <button class="btn btn-danger">Suspendre l'auteur</a>
+                                            <button class="btn btn-danger" onclick="return confirm('Etes vous sûr de vouloir suspendre {{$report->whoHasBeenReported->firstname}}?')">Suspendre l'auteur</a>
                                         </form>
                                     </td>
                                 </tr>

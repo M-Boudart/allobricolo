@@ -55,7 +55,7 @@
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-danger"
-                                            onclick="confirm('Voulez vous vraiment supprimer cette catégorie?')">X</button>
+                                            onclick="return confirm('Voulez vous vraiment supprimer cette catégorie?')">X</button>
                                         </form>
                                     </td>
                                 </tr>

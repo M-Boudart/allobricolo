@@ -27,7 +27,7 @@ class ReportsTableSeeder extends Seeder
                 'object_author_login' => 'alain123',
                 'reported_by_login' => 'bob123',
                 'description' => 'azeazeaze',
-                'reported_at' => '2021-01-01',
+                'reported_at' => '2021-10-10',
             ],
             [
                 'status' => 'moderated',
@@ -99,7 +99,7 @@ class ReportsTableSeeder extends Seeder
                 'object_author_login' => 'juliette123',
                 'reported_by_login' => 'alain123',
                 'description' => 'Annonce pour des relations sexuelles',
-                'reported_at' => '2021-05-21',
+                'reported_at' => '2021-10-11',
             ],
             [
                 'status' => 'pending',
@@ -108,9 +108,57 @@ class ReportsTableSeeder extends Seeder
                 'object_author_login' => 'andre123',
                 'reported_by_login' => 'manon123',
                 'description' => 'Photo de lui nu',
-                'reported_at' => '2021-04-10',
+                'reported_at' => '2021-10-12',
+            ],
+            [
+                'status' => 'moderated',
+                'type' => 'profile',
+                'object_id' => 10,
+                'object_author_login' => 'Lorem ipsum0',
+                'reported_by_login' => 'pierre123',
+                'description' => 'lorem ipsum',
+                'reported_at' => '2021-02-01',
+            ],
+            [
+                'status' => 'moderated',
+                'type' => 'profile',
+                'object_id' => 10,
+                'object_author_login' => 'Lorem ipsum0',
+                'reported_by_login' => 'manon123',
+                'description' => 'lorem ipsum',
+                'reported_at' => '2021-02-20',
+            ],
+            [
+                'status' => 'moderated',
+                'type' => 'profile',
+                'object_id' => 10,
+                'object_author_login' => 'Lorem ipsum0',
+                'reported_by_login' => 'alain123',
+                'description' => 'lorem ipsum',
+                'reported_at' => '2021-03-09',
+            ],
+            [
+                'status' => 'moderated',
+                'type' => 'profile',
+                'object_id' => 10,
+                'object_author_login' => 'Lorem ipsum0',
+                'reported_by_login' => 'bob123',
+                'description' => 'lorem ipsum',
+                'reported_at' => '2021-03-14',
             ],
         ];
+
+        for ($i = 0; $i <13; $i++) {
+            $reports[] = [
+                'status' => 'pending',
+                'type' => 'profile',
+                'object_id' => 15,
+                'object_author_login' => 'Lorem ipsum0',
+                'reported_by_login' => 'pierre123',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                'reported_at' => '2021-10-09',
+            ];
+        }
 
         foreach ($reports as &$report) {
             $reportedByUser = User::firstWhere('login', $report['reported_by_login']);

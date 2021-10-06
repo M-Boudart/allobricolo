@@ -60,30 +60,30 @@
                                 @if ($status == 'Membre')
                                     <form id="frmPromote" action="{{ route('backend.user.promote', $user->id) }}" method="post">
                                         @csrf
-                                        <button name="status" value="vérifié" class="btn btn-primary">Vérifé</button>
-                                        <button name="status" value="modérateur" class="btn btn-primary">Modérateur</button>
-                                        <button name="status" value="admin" class="btn btn-primary">Admin</button>
+                                        <button name="status" value="vérifié" class="btn btn-success" onclick="return confirm('Voulez vous améliorer le statut de {{$user->firstname}} en statut vérfié?')">Vérifé</button>
+                                        <button name="status" value="modérateur" class="btn btn-success" onclick="return confirm('Voulez vous améliorer le statut de {{$user->firstname}} en statut modérateur?')">Modérateur</button>
+                                        <button name="status" value="admin" class="btn btn-success" onclick="return confirm('Voulez vous améliorer le statut de {{$user->firstname}}? en statut administrateur')">Admin</button>
                                     </form>
                                 @elseif($status == 'Vérifié')
                                     <form id="frmPromote" action="{{ route('backend.user.promote', $user->id) }}" method="post">
                                         @csrf
-                                        <button name="status" value="membre" class="btn btn-primary">Membre</button>
-                                        <button name="status" value="modérateur" class="btn btn-primary">Modérateur</button>
-                                        <button name="status" value="admin" class="btn btn-primary">Admin</button>
+                                        <button name="status" value="membre" class="btn btn-danger" onclick="return confirm('Voulez vous rétrograder {{$user->firstname}} en tant que membre?')">Membre</button>
+                                        <button name="status" value="modérateur" class="btn btn-success" onclick="return confirm('Voulez vous améliorer le statut de {{$user->firstname}}? en statut modérateur')">Modérateur</button>
+                                        <button name="status" value="admin" class="btn btn-success" onclick="return confirm('Voulez vous améliorer le statut de {{$user->firstname}} en statut administrateur?')">Admin</button>
                                     </form>
                                 @elseif($status == 'Modérateur')
                                     <form id="frmPromote" action="{{ route('backend.user.promote', $user->id) }}" method="post">
                                         @csrf
-                                        <button name="status" value="membre" class="btn btn-primary">Membre</button>
-                                        <button name="status" value="vérifié" class="btn btn-primary">Vérifé</button>
-                                        <button name="status" value="admin" class="btn btn-primary">Admin</button>
+                                        <button name="status" value="membre" class="btn btn-danger" onclick="return confirm('Voulez vous rétrograder {{$user->firstname}} en membre?')">Membre</button>
+                                        <button name="status" value="vérifié" class="btn btn-danger" onclick="return confirm('Voulez vous rétrograder {{$user->firstname}} en membre vérifié?')">Vérifé</button>
+                                        <button name="status" value="admin" class="btn btn-success" onclick="return confirm('Voulez vous améliorer le statut de {{$user->firstname}} en statut administrateur?')">Admin</button>
                                     </form>
                                 @elseif($status == 'Admin')
                                     <form id="frmPromote" action="{{ route('backend.user.promote', $user->id) }}" method="post">
                                         @csrf
-                                        <button name="status" value="membre" class="btn btn-primary">Membre</button>
-                                        <button name="status" value="vérifié" class="btn btn-primary">Vérifé</button>
-                                        <button name="status" value="modérateur" class="btn btn-primary">Modérateur</button>
+                                        <button name="status" value="membre" class="btn btn-danger" onclick="return confirm('Voulez vous rétrograder {{$user->firstname}} en membre?')">Membre</button>
+                                        <button name="status" value="vérifié" class="btn btn-danger" onclick="return confirm('Voulez vous rétrograder {{$user->firstname}} en vérifié?')">Vérifé</button>
+                                        <button name="status" value="modérateur" class="btn btn-danger" onclick="return confirm('Voulez vous rétrograder {{$user->firstname}} en modérateur?')">Modérateur</button>
                                     </form>
                                 @endif
                                 </td>

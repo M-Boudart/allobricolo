@@ -46,6 +46,12 @@ class CategoriesTableSeeder extends Seeder
             [
                 'category' => 'Homme à tout faire',
             ],
+            [
+                'category' => 'Maçonnerie',
+            ],
+            [
+                'category' => 'Autre',
+            ],
         ];
 
             DB::table('categories')->insert(

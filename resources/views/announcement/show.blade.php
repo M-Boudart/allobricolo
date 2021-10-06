@@ -87,7 +87,7 @@
                     @csrf
                     @method('delete')
                     <button class="btn btn-danger"
-                    onclick="confirm('Voulez vous vraiment supprimer votre annonce ?')">
+                    onclick="return confirm('Voulez vous vraiment supprimer votre annonce ?')">
                         Supprimer !!!
                     </button>
                     </form>

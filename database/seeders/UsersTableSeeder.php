@@ -122,7 +122,7 @@ class UsersTableSeeder extends Seeder
             ],
         ];
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $users[] = [
                 'login' => 'Lorem ipsum' . $i,
                 'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
@@ -132,6 +132,48 @@ class UsersTableSeeder extends Seeder
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in.',
                 'avatar' => 'avatar.png',
                 'status_name' => 'Membre',
+                'name' => 'Lorem Ipsum' . $i,
+            ];
+        }
+
+        for ($i = 10; $i < 20; $i++) {
+            $users[] = [
+                'login' => 'Lorem ipsum' . $i,
+                'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
+                'firstname' => 'Lorem',
+                'lastname' => 'Ipsum',
+                'email' => 'lorem@ipsum' . $i . '.com',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in.',
+                'avatar' => 'avatar.png',
+                'status_name' => 'Vérifié',
+                'name' => 'Lorem Ipsum' . $i,
+            ];
+        }
+
+        for ($i = 20; $i < 30; $i++) {
+            $users[] = [
+                'login' => 'Lorem ipsum' . $i,
+                'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
+                'firstname' => 'Lorem',
+                'lastname' => 'Ipsum',
+                'email' => 'lorem@ipsum' . $i . '.com',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in.',
+                'avatar' => 'avatar.png',
+                'status_name' => 'Modérateur',
+                'name' => 'Lorem Ipsum' . $i,
+            ];
+        }
+
+        for ($i = 30; $i < 40; $i++) {
+            $users[] = [
+                'login' => 'Lorem ipsum' . $i,
+                'password' => '$2y$10$IQ8s5wZ2cCWR.kVXVgzB3umQYXaVEqTueAy2x6.Xj/opk6JKMXrzu',
+                'firstname' => 'Lorem',
+                'lastname' => 'Ipsum',
+                'email' => 'lorem@ipsum' . $i . '.com',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in.',
+                'avatar' => 'avatar.png',
+                'status_name' => 'Admin',
                 'name' => 'Lorem Ipsum' . $i,
             ];
         }

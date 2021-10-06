@@ -68,7 +68,7 @@
                                         <form action="{{ route('backend.punishment.stopPunishment', $suspension->id) }}" method="post">
                                         @csrf
                                         <input type="hidden" name="type" value="suspension">
-                                        <button class="btn btn-success">Lever la suspension</button>
+                                        <button class="btn btn-success" onclick="return confirm('Etes vous sûr de vouloir lever la suspension n°{{$suspension->id}}')">Lever la suspension</button>
                                         </form>
                                     @endif
                                     </td>
@@ -117,7 +117,7 @@
                                         <form action="{{ route('backend.punishment.stopPunishment', $banned->id) }}" method="post">
                                         @csrf
                                         <input type="hidden" name="type" value="ban">
-                                        <button class="btn btn-success">Deban</button>
+                                        <button class="btn btn-success" onclick="return confirm('Etes vous sûr de vouloir lever la lever le bannissement n°{{$banned->id}}')">Deban</button>
                                         </form>
                                     </td>
                                 </tr>

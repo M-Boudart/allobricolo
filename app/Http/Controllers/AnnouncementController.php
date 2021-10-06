@@ -30,7 +30,7 @@ class AnnouncementController extends Controller
         $announcements = new Collection();
 
         if ($request->isMethod('get')) {
-            $announcements = Announcement::simplePaginate(6);
+            $announcements = Announcement::orderBy('created_at', 'desc')->simplePaginate(6);
         } else {
             $pagination = false;
             $keywords = explode(' ', $request->input('keyword'));
