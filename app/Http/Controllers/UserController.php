@@ -129,10 +129,12 @@ class UserController extends Controller
 
         $user = User::find($id);
         $categories = Category::get();
+        $knowledgesIds = $this->getUserKnowledgesIds($user);
 
         return view('user.edit', [
             'user' => $user,
             'categories' => $categories,
+            'knowledgesIds' => $knowledgesIds,
         ]);
     }
 
@@ -171,11 +173,15 @@ class UserController extends Controller
         if (isset($inputs['knowledges'])) {
             $knowledges = [];
 
+            $alreadyKnown = $this->getUserKnowledgesIds($user);
+
             foreach ($inputs['knowledges'] as $knowledge) {
-                $knowledges[] = [
-                    'user_id' => Auth::id(),
-                    'category_id' => $knowledge,
-                ];
+                if (!in_array($knowledge, $alreadyKnown)) {
+                    $knowledges[] = [
+                        'user_id' => Auth::id(),
+                        'category_id' => $knowledge,
+                    ];
+                }
             }
 
             DB::table('knowledges')->insert($knowledges);
@@ -286,5 +292,20 @@ class UserController extends Controller
         }
 
         return redirect()->route('backend.user.index')->with('error', 'Une erreur s\'est produit lors de la promotion.');
+    }
+
+    /**
+     * Get all the knowledges of a specified user.
+     *
+     * @param  User  $user
+     * @return Array
+     */
+    private function getUserKnowledgesIds (User $user) {
+        $knowledges = [];
+            foreach($user->knowledges as $knowledge) {
+                $knowledges[] = Category::where('id', '=', $knowledge->id)->get()[0]->id;
+            }
+
+        return $knowledges;
     }
 }

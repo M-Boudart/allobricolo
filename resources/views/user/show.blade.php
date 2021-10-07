@@ -90,19 +90,19 @@
                 </div>
                 @if (Auth::id() == $user->id)
                 <div class="col-md-4">
-                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning" style="margin-bottom:10px">
-                        Modifier profile
+                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary" style="margin-bottom:10px">
+                        Modifier
                     </a>
                     <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('delete')
                     <button class="btn btn-danger"
                     onclick="return confirm('Voulez vous vraiment supprimer votre profil ?')">
-                        Supprimer profile
+                        Supprimer
                     </button>
                     </form>
                     <a href="{{ route('announcement.list') }}" class="btn btn-info">
-                        Annonces
+                        Mes annonces
                     </a>
                     
                 </div>

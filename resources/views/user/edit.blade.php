@@ -84,11 +84,20 @@
                         @foreach ($categories as $category)
                         <li class="knowledges">
                             <label for="{{ $category->category }}">{{ $category->category }}</label>
+                            @if (in_array($category->id, $knowledgesIds))
                             <input id="{{ $category->category }}" 
                                 type="checkbox"
                                 name="knowledges[]"
-                                value="{{ $category->id }}" 
+                                value="{{ $category->id }}"
+                                checked="true"
                             >
+                            @else
+                            <input id="{{ $category->category }}" 
+                                type="checkbox"
+                                name="knowledges[]"
+                                value="{{ $category->id }}"
+                            >
+                            @endif
                         </li>
                         @endforeach
                         </ol>
