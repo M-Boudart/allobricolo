@@ -234,11 +234,13 @@ class AnnouncementController extends Controller
 
         $categories = Category::get();
         $localities = Locality::get();
+        $announcementCategories = $this->getAnnouncementCategoriesIds($announcement);
 
         return view('announcement.edit', [
             'announcement' => $announcement,
             'categories' => $categories,
             'localities' => $localities,
+            'announcementCategories' => $announcementCategories,
         ]);
     }
     /**
@@ -268,11 +270,15 @@ class AnnouncementController extends Controller
         if (isset($inputs['categories'])) {
             $categories = [];
 
+            $announcementCategories = $this->getAnnouncementCategoriesIds($announcement);
+
             foreach ($inputs['categories'] as $category) {
-                $categories[] = [
-                    'announcement_id' => $announcementId,
-                    'category_id' => $category,
-                ];
+                if (!in_array($category, $announcementCategories)) {
+                    $categories[] = [
+                        'announcement_id' => $announcementId,
+                        'category_id' => $category,
+                    ];
+                }
             }
 
             DB::table('announcement_categories')->insert($categories);
@@ -331,5 +337,20 @@ class AnnouncementController extends Controller
         return view('announcement.list', [
             'announcements' => $announcements,
         ]);
+    }
+
+    /**
+     * Get all the categories of a specified announcement.
+     *
+     * @param  Announcement  $user
+     * @return Array
+     */
+    private function getAnnouncementCategoriesIds (Announcement $announcement) {
+        $categories = [];
+            foreach($announcement->categories as $category) {
+                $categories[] = Category::where('id', '=', $category->id)->get()[0]->id;
+            }
+
+        return $categories;
     }
 }
