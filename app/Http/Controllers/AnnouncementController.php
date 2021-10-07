@@ -146,7 +146,7 @@ class AnnouncementController extends Controller
             $categoryInfos = [];
 
             $announcementId = Announcement::select('id')
-                                    ->orderBy('created_at', 'Desc')
+                                    ->orderBy('id', 'Desc')
                                     ->limit(1)
                                     ->get()
                                     ->toArray()[0]['id'];
@@ -316,7 +316,7 @@ class AnnouncementController extends Controller
         $result = Announcement::where('id', '=', $announcement->id)->delete();
 
         if ($result) {
-            return redirect()->route('user.show', $announcement->applicant_user_id)->with('success', 'Vous avez');
+            return redirect()->route('user.show', $announcement->applicant_user_id)->with('success', 'Vous avez supprimer votre annonce');
         }
     }
 
