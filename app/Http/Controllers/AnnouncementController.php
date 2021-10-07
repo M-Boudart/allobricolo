@@ -332,7 +332,7 @@ class AnnouncementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function list() {
-        $announcements = Announcement::where('applicant_user_id', '=', Auth::id())->get();
+        $announcements = Announcement::where('applicant_user_id', '=', Auth::id())->simplePaginate(6);
 
         return view('announcement.list', [
             'announcements' => $announcements,

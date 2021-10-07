@@ -64,6 +64,11 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                {{ $announcements->links() }}
+            </div>
+        </div>
     </div>
 </section>
 <!-- Announcement Result Section End -->
