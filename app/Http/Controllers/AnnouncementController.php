@@ -30,7 +30,7 @@ class AnnouncementController extends Controller
         $announcements = new Collection();
 
         if ($request->isMethod('get')) {
-            $announcements = Announcement::orderBy('created_at', 'desc')->simplePaginate(6);
+            $announcements = Announcement::whereNull('realised_at')->orderBy('created_at', 'desc')->simplePaginate(6);
         } else {
             $pagination = false;
             $keywords = explode(' ', $request->input('keyword'));
@@ -39,7 +39,7 @@ class AnnouncementController extends Controller
            
             // Recherche par locality
             if ($locality) {
-                $locationCollection = Announcement::where('locality_id', '=', $locality)->get();
+                $locationCollection = Announcement::whereNull('realised_at')->where('locality_id', '=', $locality)->get();
                 
                 $announcements = $announcements->concat($locationCollection);
             }
@@ -50,7 +50,7 @@ class AnnouncementController extends Controller
 
                 foreach ($keywords as $keyword) {
                     $keywordsCollection = $keywordsCollection->concat(
-                        Announcement::where('description', 'like', "%$keyword%")
+                        Announcement::whereNull('realised_at')->where('description', 'like', "%$keyword%")
                                         ->orWhere('title', 'like', "%$keyword%")
                                         ->get()
                     );
@@ -72,7 +72,7 @@ class AnnouncementController extends Controller
                 
                 foreach ($announcementIds as $announcementId) {
                     $categoryCollection = $categoryCollection->concat(
-                        Announcement::where('id', '=', $announcementId->announcement_id)->get()
+                        Announcement::whereNull('realised_at')->where('id', '=', $announcementId->announcement_id)->get()
                     );
                 }
 

@@ -110,7 +110,7 @@
 
     <!-- Testimonial Section Begin -->
     <section class="testimonial spad set-bg" 
-    data-setbg="{{ asset('template/img/testimonial/testimonial-bg.jpg') }}">
+    style="background-color:rgba(0,0,0,0.7)">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -120,22 +120,20 @@
                     </div>
                     <div class="testimonial__slider owl-carousel">
                         <div class="testimonial__item" data-hash="review-1">
-                            <p>" We worked with Consultant. Our representative was very knowledgeable and helpful.
-                                Consultant made a number of suggestions to help improve our systems. Consultant
-                                explained how things work and why it would help."</p>
+                            <p>"{{  $verifiedUsers[0]->description }}"</p>
                             <div class="testimonial__item__author">
-                                <a href="#review-3">
-                                    <img src="{{ asset('template/img/testimonial/author-3.png') }}" alt="">
+                            <a href="{{ route('user.show', $verifiedUsers[2]->id) }}">
+                                    <img src="{{asset('storage/img/users/'.$verifiedUsers[2]->avatar) }}" alt="{{ $verifiedUsers[2]->name }}">
                                 </a>
-                                <a href="#review-1" class="active">
-                                    <img src="{{ asset('template/img/testimonial/author-1.png') }}" alt="">
+                                <a href="{{ route('user.show', $verifiedUsers[0]->id) }}" class="active">
+                                    <img src="{{asset('storage/img/users/'.$verifiedUsers[0]->avatar) }}" alt="{{ $verifiedUsers[0]->name }}">
                                 </a>
-                                <a href="#review-2">
-                                    <img src="{{ asset('template/img/testimonial/author-2.png') }}" alt="">
+                                <a href="{{ route('user.show', $verifiedUsers[1]->id) }}">
+                                    <img src="{{asset('storage/img/users/'.$verifiedUsers[1]->avatar) }}" alt="{{ $verifiedUsers[1]->name }}">
                                 </a>
                             </div>
                             <div class="testimonial__item__author__text">
-                                <h5>John Smith -</h5>
+                                <h5>{{ $verifiedUsers[0]->name }} -</h5>
                                 <div class="testimonial__item__author__rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -146,22 +144,20 @@
                             </div>
                         </div>
                         <div class="testimonial__item" data-hash="review-2">
-                            <p>" We worked with Consultant. Our representative was very knowledgeable and helpful.
-                                Consultant made a number of suggestions to help improve our systems. Consultant
-                                explained how things work and why it would help."</p>
+                            <p>"{{  $verifiedUsers[1]->description }}"</p>
                             <div class="testimonial__item__author">
-                                <a href="#review-1">
-                                    <img src="{{ asset('template/img/testimonial/author-1.png') }}" alt="">
+                                <a href="{{ route('user.show', $verifiedUsers[0]->id) }}">
+                                    <img src="{{asset('storage/img/users/'.$verifiedUsers[0]->avatar) }}" alt="{{ $verifiedUsers[0]->name }}">
                                 </a>
-                                <a href="#review-2" class="active">
-                                    <img src="{{ asset('template/img/testimonial/author-2.png') }}" alt="">
+                                <a href="{{ route('user.show', $verifiedUsers[1]->id) }}" class="active">
+                                    <img src="{{asset('storage/img/users/'.$verifiedUsers[1]->avatar) }}" alt="{{ $verifiedUsers[1]->name }}">
                                 </a>
-                                <a href="#review-3">
-                                    <img src="{{ asset('template/img/testimonial/author-3.png') }}" alt="">
+                                <a href="{{ route('user.show', $verifiedUsers[2]->id) }}">
+                                    <img src="{{asset('storage/img/users/'.$verifiedUsers[2]->avatar) }}" alt="{{ $verifiedUsers[2]->name }}">
                                 </a>
                             </div>
                             <div class="testimonial__item__author__text">
-                                <h5>John Smith -</h5>
+                                <h5>{{  $verifiedUsers[1]->name }} -</h5>
                                 <div class="testimonial__item__author__rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -170,25 +166,22 @@
                                     <i class="fa fa-star"></i>
                                 </div>
                             </div>
-                            <span>CEO Colorlib</span>
                         </div>
                         <div class="testimonial__item" data-hash="review-3">
-                            <p>" We worked with Consultant. Our representative was very knowledgeable and helpful.
-                                Consultant made a number of suggestions to help improve our systems. Consultant
-                                explained how things work and why it would help."</p>
+                            <p>"{{  $verifiedUsers[2]->description }}"</p>
                             <div class="testimonial__item__author">
-                                <a href="#review-2">
-                                    <img src="{{ asset('template/img/testimonial/author-2.png') }}" alt="">
+                                <a href="{{asset('storage/img/users/'.$verifiedUsers[1]->avatar) }}">
+                                    <img src="{{asset('storage/img/users/'.$verifiedUsers[1]->avatar) }}" alt="{{ $verifiedUsers[1]->name }}">
                                 </a>
-                                <a href="#review-3" class="active">
-                                    <img src="{{ asset('template/img/testimonial/author-3.png') }}" alt="">
+                                <a href="{{ route('user.show', $verifiedUsers[2]->id) }}" class="active">
+                                    <img src="{{asset('storage/img/users/'.$verifiedUsers[2]->avatar) }}" alt="{{ $verifiedUsers[2]->name }}">
                                 </a>
-                                <a href="#review-1">
-                                    <img src="{{ asset('template/img/testimonial/author-1.png') }}" alt="">
+                                <a href="{{asset('storage/img/users/'.$verifiedUsers[0]->avatar) }}">
+                                    <img src="{{asset('storage/img/users/'.$verifiedUsers[0]->avatar) }}" alt="{{ $verifiedUsers[0]->name }}">
                                 </a>
                             </div>
                             <div class="testimonial__item__author__text">
-                                <h5>John Smith -</h5>
+                                <h5>{{  $verifiedUsers[2]->name }} -</h5>
                                 <div class="testimonial__item__author__rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -197,7 +190,6 @@
                                     <i class="fa fa-star"></i>
                                 </div>
                             </div>
-                            <span>CEO Colorlib</span>
                         </div>
                     </div>
                 </div>

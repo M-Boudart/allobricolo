@@ -113,7 +113,7 @@
                                     <li>
                                         <form action="{{ route('helper.select', ['announcementId' => $announcement->id, 'helperId' => $helper->helper->id]) }}" method="POST">
                                             @csrf
-                                            <input type="datetime-local"name="realised_at">
+                                            <input type="datetime-local"name="realised_at" class="form-control">
                                             <button class="btn btn-secondary">Sélectionner</button>
                                         </form>
                                     </li>

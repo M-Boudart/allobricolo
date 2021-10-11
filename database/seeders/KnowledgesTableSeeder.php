@@ -57,6 +57,18 @@ class KnowledgesTableSeeder extends Seeder
                 'user_login' => 'alain123',
                 'category_name' => 'Plomberie',
             ],
+            [
+                'user_login' => 'adrien123',
+                'category_name' => 'Jardinage',
+            ],
+            [
+                'user_login' => 'manon123',
+                'category_name' => 'Peinture',
+            ],
+            [
+                'user_login' => 'manon123',
+                'category_name' => 'Décoration',
+            ],
         ];
 
         foreach ($knowledges as &$knowledge) {
