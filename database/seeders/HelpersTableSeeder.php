@@ -57,6 +57,11 @@ class HelpersTableSeeder extends Seeder
                 'status' => 'pending',
             ],
             [
+                'announcement_id' => 4,
+                'helper_login' => 'bob123',
+                'status' => 'not selected',
+            ],
+            [
                 'announcement_id' => 5,
                 'helper_login' => 'pierre123',
                 'status' => 'pending',
@@ -68,17 +73,17 @@ class HelpersTableSeeder extends Seeder
             ],
             [
                 'announcement_id' => 6,
-                'helper_login' => 'bob123',
-                'status' => 'not selected',
-            ],
-            [
-                'announcement_id' => 6,
                 'helper_login' => 'alain123',
                 'status' => 'not selected',
             ],
             [
                 'announcement_id' => 6,
                 'helper_login' => 'marie123',
+                'status' => 'selected',
+            ],
+            [
+                'announcement_id' => 57,
+                'helper_login' => 'bob123',
                 'status' => 'selected',
             ],
         ];

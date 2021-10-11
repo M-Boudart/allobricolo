@@ -27,6 +27,9 @@ Route::post('/announcement/apply/{id}', 'App\Http\Controllers\HelperController@a
 
 Route::post('/announcements/{announcementId}/select/{helperId}', 'App\Http\Controllers\HelperController@select')
     ->middleware(['auth'])->name('helper.select');
+
+Route::delete('/helper/destroy/{id}', 'App\Http\Controllers\HelperController@destroy')
+    ->middleware(['auth'])->name('helper.destroy');
 // Announcements
 Route::get('/announcements', 'App\Http\Controllers\AnnouncementController@index')
     ->name('announcement.index');

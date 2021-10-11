@@ -152,6 +152,18 @@ class AnnouncementsTableSeeder extends Seeder
             ];
         }
 
+        $announcements[] = [
+            'applicant_login' => 'pierre123',
+            'title' => 'J\'ai besoin d\'aide pour refaire ma cuisine',
+            'address' => 'Boulevard de la place 15',
+            'locality_postal_code' => 1180,
+            'price' => 500,
+            'description' => 'Je voudrais refaire la décoration de ma cuisine',
+            'phone' => '0483796580',
+            'created_at' => '2021-10-08 12:24:10',
+            'realised_at' => '2021-10-08 14:00:00',
+        ];
+
         foreach ($announcements as &$announcement) {
             $locality = Locality::firstWhere('postal_code', $announcement['locality_postal_code']);
             $user = User::firstWhere('login', $announcement['applicant_login']);

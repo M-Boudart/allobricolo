@@ -48,74 +48,176 @@
             <div class="col-lg-12">
                 <div class="section-title">
                     <h2>Mes candidatures</h2>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @elseif (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
+        @if (sizeof($notSelectedHelper) > 0)
         <div class="row">
+            <h3>Non retenues</h3>
             <div class="col-lg-12">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                        <div class="row">
-                        @foreach ($announcementsHelpers as $announcement)
-                            <div class="col-lg-4 col-md-6">
-                                <div class="listing__item">
-                                    @if (sizeof($announcement->announcement->pictures) > 0)
-                                        <div class="listing__item__pic set-bg"
-                                        data-setbg="{{ asset('storage/img/announcements/'.$announcement->announcement->pictures[0]->picture_url) }}">
-                                    @else
-                                        <div class="listing__item__pic set-bg"
-                                        data-setbg="{{ asset('img/announcements/no-picture.png') }}">
-                                    @endif
-                                    <a href="{{ route('user.show', $announcement->announcement->applicant->id) }}">
-                                    <img src="{{ asset('storage/img/users/'.$announcement->announcement->applicant->avatar) }}"
-                                    alt="Photo de profile de 
-                                    {{$announcement->announcement->applicant->firstname}}">
-                                    </a>
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h5>{{ $announcement->announcement->title }}</h5>
-                                            <div class="listing__item__text__rating">
-                                                <h6>{{ $announcement->announcement->price }} €</h6>
-                                            </div>
-                                            <ul>
-                                                <li>
-                                                    <span class="icon_pin_alt"></span>
-                                                    {{ $announcement->announcement->address }},
-                                                    {{ $announcement->announcement->locality->postal_code }} 
-                                                    {{ $announcement->announcement->locality->locality }}
-                                                </li>
-                                                <li>
-                                                    <span class="icon_phone"></span>
-                                                    {{ $announcement->announcement->phone }}
-                                                </li>
-                                                <li>
-                                                    <span class="material-icons-outlined"></span>
-                                                    {{ $announcement->announcement->created_at }}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="listing__item__text__info">
-                                            <div class="listing__item__text__info__left">
-                                                <span>
-                                                    <a href="{{ route('announcement.show', $announcement->announcement->id) }}" class="btn btn-primary">Plus d'infos</a>
-                                                </span>
-                                            </div>
-                                            <div class="listing__item__text__info__right">
-                                            @if ($announcement->status == 'pending')
-                                                <button class="btn btn-secondary">En attente</button>
-                                            @else
-                                                <button class="btn btn-success">Sélectionné</button>
-                                            @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Annonce</th>
+                        <th scope="col"></th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($notSelectedHelper as $helper)
+                        <tr>
+                            <td>
+                            @if (sizeof($helper->announcement->pictures) > 0)
+                                <a href="{{ route('announcement.show', $helper->announcement->id) }}">
+                                <img style="width:100px;height:100px;" alt="{{ $helper->announcement->title }}"
+                                src="{{ asset('storage/img/announcements/'.$helper->announcement->pictures[0]->picture_url) }}">
+                                </a>
+                            @else
+                                <a href="{{ route('announcement.show', $helper->announcement->id) }}">
+                                <img style="width:100px;height:100px;" alt="{{ $helper->announcement->title }}"
+                                src="{{ asset('img/announcements/no-picture.png') }}">
+                                </a>
+                            @endif
+                            </td>
+                            <td>
+                                {{ $helper->announcement->title }}
+                            </td>
+                            <td>
+                                Pas sélectionné
+                            </td>
+                            <td>
+                                <form action="{{ route('helper.destroy', $helper->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-danger" onclick="return confirm('Voulez vous supprimer votre candidature non retenue?')">X</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col">
+                        {{ $notSelectedHelper->links() }}
+                    </div>
                 </div>
-            </div>
         </div>
+        @endif
+        @if (sizeof($pendingHelper) > 0)
+        <div class="row">
+            <h3>En attente de sélection</h3>
+            <div class="col-lg-12">
+                <div class="tab-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Annonce</th>
+                        <th scope="col"></th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($pendingHelper as $helper)
+                        <tr>
+                            <td>
+                            @if (sizeof($helper->announcement->pictures) > 0)
+                                <a href="{{ route('announcement.show', $helper->announcement->id) }}">
+                                <img style="width:100px;height:100px;" alt="{{ $helper->announcement->title }}"
+                                src="{{ asset('storage/img/announcements/'.$helper->announcement->pictures[0]->picture_url) }}">
+                                </a>
+                            @else
+                                <a href="{{ route('announcement.show', $helper->announcement->id) }}">
+                                <img style="width:100px;height:100px;" alt="{{ $helper->announcement->title }}"
+                                src="{{ asset('img/announcements/no-picture.png') }}">
+                                </a>
+                            @endif
+                            </td>
+                            <td>
+                                {{ $helper->announcement->title }}
+                            </td>
+                            <td>
+                                En attente
+                            </td>
+                            <td>
+                                <form action="{{ route('helper.destroy', $helper->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-danger" onclick="return confirm('Voulez vous supprimer votre candidature non retenue?')">X</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col">
+                        {{ $pendingHelper->links() }}
+                    </div>
+                </div>
+        </div>
+        @endif
+        @if (sizeof($selectedHelper) > 0)
+        <div class="row">
+            <h3>Sélectionné</h3>
+            <div class="col-lg-12">
+                <div class="tab-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Annonce</th>
+                        <th scope="col"></th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Date de rendez vous</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($selectedHelper as $helper)
+                        <tr>
+                            <td>
+                            @if (sizeof($helper->announcement->pictures) > 0)
+                                <a href="{{ route('announcement.show', $helper->announcement->id) }}">
+                                <img style="width:100px;height:100px;" alt="{{ $helper->announcement->title }}"
+                                src="{{ asset('storage/img/announcements/'.$helper->announcement->pictures[0]->picture_url) }}">
+                                </a>
+                            @else
+                                <a href="{{ route('announcement.show', $helper->announcement->id) }}">
+                                <img style="width:100px;height:100px;" alt="{{ $helper->announcement->title }}"
+                                src="{{ asset('img/announcements/no-picture.png') }}">
+                                </a>
+                            @endif
+                            </td>
+                            <td>
+                                {{ $helper->announcement->title }}
+                            </td>
+                            <td>
+                                Sélectionné
+                            </td>
+                            <td>
+                                {{ date('d-m-Y à H:i', strtotime($helper->announcement->realised_at)) }}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col">
+                        {{ $selectedHelper->links() }}
+                    </div>
+                </div>
+        </div>
+        @endif
     </div>
 </section>
 <!-- Announcement Result Section End -->

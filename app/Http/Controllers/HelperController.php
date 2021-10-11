@@ -15,6 +15,29 @@ use App\Models\ChMessage;
 class HelperController extends Controller
 {
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $helper = Helper::find($id);
+
+        if (Auth::id() != $helper->helper_id) {
+            return redirect()->route('welcome')->with('error', 'Vous n\'êtes pas autorisé à supprimer cette candidature !');
+        }
+
+        if ($helper->status != 'selected') {
+            $result = Helper::where('id', '=', $helper->id)->delete();  
+        }
+
+        if ($result) {
+            return redirect()->route('helper.list')->with('success', 'Vous avez supprimer votre candidature');
+        }
+    }
+
+    /**
      * Apply for an announcemennt.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -78,13 +101,31 @@ class HelperController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function list() {
-        $announcementsHelper = Helper::where([
+        $notSelectedHelper = Helper::where([
             ['helper_id', '=', Auth::id()],
-            ['status', '!=', 'not selected'],
-        ])->get();
+            ['status', '=', 'not selected'],
+        ])->simplePaginate(
+            $perPage = 3, $columns = ['*'], $pageName = 'notSelectedHelper'
+        );
+
+        $selectedHelper = Helper::where([
+            ['helper_id', '=', Auth::id()],
+            ['status', '=', 'selected'],
+        ])->simplePaginate(
+            $perPage = 3, $columns = ['*'], $pageName = 'selectedHelper'
+        );
+
+        $pendingHelper = Helper::where([
+            ['helper_id', '=', Auth::id()],
+            ['status', '=', 'pending'],
+        ])->simplePaginate(
+            $perPage = 3, $columns = ['*'], $pageName = 'pendingHelper'
+        );
 
         return view('helper.list', [
-            'announcementsHelpers' => $announcementsHelper,
+            'notSelectedHelper' => $notSelectedHelper,
+            'pendingHelper' => $pendingHelper,
+            'selectedHelper' => $selectedHelper,
         ]);
     }
 

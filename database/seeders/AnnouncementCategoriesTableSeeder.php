@@ -60,6 +60,18 @@ class AnnouncementCategoriesTableSeeder extends Seeder
                 'announcement_id' => 8,
                 'category_name' => 'Jardinage',
             ],
+            [   
+                'announcement_id' => 57,
+                'category_name' => 'Peinture',
+            ],
+            [   
+                'announcement_id' => 57,
+                'category_name' => 'Electroménager',
+            ],
+            [   
+                'announcement_id' => 57,
+                'category_name' => 'Homme à tout faire',
+            ],
         ];
 
         foreach ($announcementCategories as &$announcementCategory) {
