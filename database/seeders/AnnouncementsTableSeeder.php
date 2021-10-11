@@ -85,7 +85,7 @@ class AnnouncementsTableSeeder extends Seeder
                 'description' => null,
                 'phone' => '0485652598',
                 'created_at' => '2020-10-05 00:00:00',
-                'realised_at' => null,
+                'realised_at' => '2020-11-05 00:00:00',
             ],
             [
                 'applicant_login' => 'john123',

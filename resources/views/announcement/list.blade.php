@@ -52,11 +52,12 @@
             </div>
         </div>
         <div class="row">
+        <h3>En attente de sélection de bricoleur</h3>
             <div class="col-lg-12">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tabs-1" role="tabpanel">
                         <div class="row">
-                        @foreach ($announcements as $announcement)
+                        @foreach ($pendingAnnouncements as $announcement)
                             @include('partials.announcementCard', [
                                         'announcement' => $announcement,
                                     ])
@@ -66,7 +67,26 @@
         </div>
         <div class="row">
             <div class="col">
-                {{ $announcements->links() }}
+                {{ $pendingAnnouncements->links() }}
+            </div>
+        </div>
+        <div class="row">
+        <h3>Bricoleur déjà sélectionné</h3>
+            <div class="col-lg-12">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                        <div class="row">
+                        @foreach ($selectedAnnouncements as $announcement)
+                            @include('partials.announcementCard', [
+                                        'announcement' => $announcement,
+                                    ])
+                        @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ $selectedAnnouncements->links() }}
             </div>
         </div>
     </div>

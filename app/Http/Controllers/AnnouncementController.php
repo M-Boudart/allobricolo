@@ -332,10 +332,18 @@ class AnnouncementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function list() {
-        $announcements = Announcement::where('applicant_user_id', '=', Auth::id())->simplePaginate(6);
+        $pendingAnnouncements = Announcement::where('applicant_user_id', '=', Auth::id())
+            ->whereNull('realised_at')->simplePaginate(
+                $perPage = 6, $columns = ['*'], $pageName = 'pendingAnnouncements'
+            );
+        $selectedAnnouncements = Announcement::where('applicant_user_id', '=', Auth::id())
+            ->whereNotNull('realised_at')->simplePaginate(
+                $perPage = 6, $columns = ['*'], $pageName = 'selectedAnnouncements'
+            );
 
         return view('announcement.list', [
-            'announcements' => $announcements,
+            'pendingAnnouncements' => $pendingAnnouncements,
+            'selectedAnnouncements' => $selectedAnnouncements,
         ]);
     }
 
