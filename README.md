@@ -7,11 +7,11 @@ Ensuite, si vous souhaitez tester le système de mail, je vous conseille de cré
 ## Marche à suivre
 - Cloner le code du projet à l'aide de la commande `git clone`.
 - Renommer le fichier `.env.example` en `.env`.
-- Ajouter vos clefs Stripe et Mailtrap au fichier .env.
+- Ajouter vos clefs Stripe et Mailtrap au fichier .env et configurer vos informations de bdd.
+- Exécuter la commande `php artisan storage:link` afin de pouvoir intéragir avec les fichiers publics.
 - Exécuter la commande `php artisan migrate` afin de récupérer la base de données.
-
-Si vous ne possédez pas de certificat SSL vous pouvez en télécharger un. Si vous ne le faite pas, la messagerie ne sera pas dynamique, c'est à dire que vous devrez rafraichir la page après chaque envoie de message. Si vous souhaitez qu'elle soit dynamique suivez les étaps si dessous :
 - Télécharger un [certifical SSL](https://curl.se/docs/caextract.html).
-- Configurer le fichier `php.ini`. Décommenter la ligne `curl.cainfo` et renseigner comme valeur le chemin vers certificat.
+- Configurer le fichier `php.ini`. Décommenter la ligne `curl.cainfo` et renseigner comme valeur le chemin vers le certificat téléchargé.
+- Pour tester le site en local, exécuter la commande `php artisan serve` et rendez-vous sur l'url affichée lors du démarrage du serveur.
 
 Si vous souhaitez disposer de données de test, exécutez les seeder avec `php artisan db:seed`. Le mot de passe des utilisateurs test sera donc `12345678`.
