@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
@@ -51,12 +52,18 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $result = Category::where('id', '=', $id)->delete();
+        $nbAnnouncementCategory = DB::table('announcement_categories')->where('announcement_id', '=', $id)->count();
 
-        if ($result) {
-            return redirect()->route('backend.category.index')->with('success', 'Catégorie supprimée');
+        if ($nbAnnouncementCategory == 0) {
+            $result = Category::where('id', '=', $id)->delete();
+
+            if ($result) {
+                return redirect()->route('backend.category.index')->with('success', 'Catégorie supprimée');
+            } else {
+                return redirect()->route('backend.category.index')->with('error', 'Une erreur est survenue lors de la suppression de la catégorie');
+            }
         }
-
-        return redirect()->route('backend.category.index')->with('error', 'Une erreur est survenue lors de la suppression de la catégorie');
+        
+        return redirect()->route('backend.category.index')->with('error', 'Vous ne pouvez pas supprimer une catégorie présente dans une ou plusieurs annonces!');
     }
 }
