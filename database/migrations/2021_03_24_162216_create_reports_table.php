@@ -25,11 +25,11 @@ class CreateReportsTable extends Migration
 
             $table->foreign('reported_by')
                     ->references('id')->on('users')
-                    ->onDelete('restrict')->onUpdate('cascade');
+                    ->onDelete('cascade')->onUpdate('cascade');
             
             $table->foreign('object_author')
                     ->references('id')->on('users')
-                    ->onDelete('no action')->onUpdate('cascade');
+                    ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

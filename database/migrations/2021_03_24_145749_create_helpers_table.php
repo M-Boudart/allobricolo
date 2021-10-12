@@ -27,7 +27,7 @@ class CreateHelpersTable extends Migration
 
             $table->foreign('helper_id')
                     ->references('id')->on('users')
-                    ->onDelete('restrict')->onUpdate('cascade');
+                    ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -24,15 +24,15 @@ class CreatePunishmentsTable extends Migration
 
             $table->foreign('user_id')
                     ->references('id')->on('users')
-                    ->onDelete('restrict')->onUpdate('cascade');
+                    ->onDelete('cascade')->onUpdate('cascade');
 
             $table->foreign('reported_by')
                     ->references('id')->on('users')
-                    ->onDelete('restrict')->onUpdate('cascade');
+                    ->onDelete('cascade')->onUpdate('cascade');
 
             $table->foreign('reason')
                 ->references('id')->on('reports')
-                ->onDelete('no action')->onUpdate('cascade');
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
