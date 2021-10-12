@@ -21,23 +21,25 @@ class CheckPunishment
     {
         $user = User::where('email', '=', $request->email)->get();
 
-        $banned = Punishment::where([
+        if (sizeof($user) > 0) {
+            $banned = Punishment::where([
                 ['user_id', '=', $user[0]->id],
                 ['type', '=', 'banned'],
             ])->exists();
         
-        if ($banned) {
-            return redirect()->route('welcome')->with('error', 'Vous avez été banni par nos modérateurs à durée indéterminée! Vous avez reçu un mail lors de votre bannissement dans lequel vous retrouvez la procédure pour introduire une demande de fin de bannissement.');
-        }
+            if ($banned) {
+                return redirect()->route('welcome')->with('error', 'Vous avez été banni par nos modérateurs à durée indéterminée! Vous avez reçu un mail lors de votre bannissement dans lequel vous retrouvez la procédure pour introduire une demande de fin de bannissement.');
+            }
 
-        $suspended = Punishment::where([
-            ['user_id', '=', $user[0]->id],
-            ['type', '=', 'suspended'],
-            ['to_date', '>=', date('Y-m-d')],
-        ])->exists();
+            $suspended = Punishment::where([
+                ['user_id', '=', $user[0]->id],
+                ['type', '=', 'suspended'],
+                ['to_date', '>=', date('Y-m-d')],
+            ])->exists();
 
-        if ($suspended) {
-            return redirect()->route('welcome')->with('error', 'Vous êtes suspendu, réessayez de vous connecter dans quelques jours ou consultez vos mails afin de faire une demande de fin de suspension');
+            if ($suspended) {
+                return redirect()->route('welcome')->with('error', 'Vous êtes suspendu, réessayez de vous connecter dans quelques jours ou consultez vos mails afin de faire une demande de fin de suspension');
+            }
         }
 
         return $next($request);
