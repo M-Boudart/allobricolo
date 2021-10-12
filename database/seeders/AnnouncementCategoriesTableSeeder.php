@@ -74,6 +74,63 @@ class AnnouncementCategoriesTableSeeder extends Seeder
             ],
         ];
 
+        for ($i = 9; $i < 15; $i++) {
+            $announcementCategories[] =[   
+                    'announcement_id' => $i,
+                    'category_name' => 'Jardinage',
+            ];
+            $announcementCategories[] =[   
+                    'announcement_id' => $i,
+                    'category_name' => 'Plomberie',
+            ];
+        }
+
+        for ($i = 15; $i < 23; $i++) {
+            $announcementCategories[] =[   
+                'announcement_id' => $i,
+                'category_name' => 'Peinture',
+            ];
+            $announcementCategories[] =[   
+                'announcement_id' => $i,
+                'category_name' => 'Décoration',
+            ];
+        }
+
+        for ($i = 23; $i < 32; $i++) {
+            $announcementCategories[] =[   
+                'announcement_id' => $i,
+                'category_name' => 'Menuiserie',
+            ];
+        }
+
+        for ($i = 32; $i < 40; $i++) {
+            $announcementCategories[] =[   
+                'announcement_id' => $i,
+                'category_name' => 'Autre',
+            ];
+        }
+
+        for ($i = 40; $i < 45; $i++) {
+            $announcementCategories[] =[   
+                'announcement_id' => $i,
+                'category_name' => 'Homme à tout faire',
+            ];
+        }
+
+        for ($i = 45; $i < 51; $i++) {
+            $announcementCategories[] =[   
+                'announcement_id' => $i,
+                'category_name' => 'Plomberie',
+            ];
+        }
+
+        for ($i = 51; $i < 56; $i++) {
+            $announcementCategories[] =[   
+                'announcement_id' => $i,
+                'category_name' => 'Electricité',
+            ];
+        }
+
         foreach ($announcementCategories as &$announcementCategory) {
             $category = Category::firstWhere('category', $announcementCategory['category_name']);
 

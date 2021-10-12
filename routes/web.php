@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\WelcomeController@index')
     ->name('welcome');
+
+Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')
+    ->middleware(['modo'])->name('dashboard');
 //Helper
 Route::get('/announcements/applied', 'App\Http\Controllers\HelperController@list')
     ->middleware(['auth'])->name('helper.list');
@@ -105,8 +108,5 @@ Route::post('/punish/user/{id}', 'App\Http\Controllers\PunishmentController@puni
 Route::post('/punish/stopPunishment/{id}', 'App\Http\Controllers\PunishmentController@stopPunishment')
 ->middleware(['modo'])->name('backend.punishment.stopPunishment');
 
-Route::get('/dashboard', function () {
-    return view('backend.dashboard');
-})->middleware(['modo'])->name('dashboard');
 
 require __DIR__.'/auth.php';
