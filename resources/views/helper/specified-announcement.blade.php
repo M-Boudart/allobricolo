@@ -111,11 +111,26 @@
                                 <ul style="list-style:none;">
                                     <li>{{ strtoupper($helper->helper->lastname) }} {{ $helper->helper->firstname }}</li>
                                     <li>
-                                        <form action="{{ route('helper.select', ['announcementId' => $announcement->id, 'helperId' => $helper->helper->id]) }}" method="POST">
+                                        <!-- <form action="{{ route('helper.select', ['announcementId' => $announcement->id, 'helperId' => $helper->helper->id]) }}" method="POST">
                                             @csrf
                                             <input type="datetime-local"name="realised_at" class="form-control">
                                             <button class="btn btn-secondary">Sélectionner</button>
+                                        </form> -->
+                                        <form action="{{ route('helper.select', ['announcementId' => $announcement->id, 'helperId' => $helper->helper->id]) }}" method="POST">
+                                        @csrf
+                                        <input type="datetime-local"name="realised_at" class="form-control">
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                data-key="{{ env('STRIPE_KEY') }}"
+                                                data-amount="{{$announcement->price * 100}}"
+                                                data-name="Payer le bricoleur"
+                                                data-description="{{ $announcement->title }}"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="auto"
+                                                data-currency="eur">
+                                        </script>
                                         </form>
+                                        
                                     </li>
                                 </ul>
                             </div>

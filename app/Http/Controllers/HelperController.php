@@ -11,6 +11,9 @@ use App\Models\Helper;
 use App\Models\Announcement;
 use App\Models\User;
 use App\Models\ChMessage;
+use Stripe\Stripe;
+use Stripe\Customer;
+use Stripe\Charge;
 
 class HelperController extends Controller
 {
@@ -170,6 +173,25 @@ class HelperController extends Controller
             $message->to($helper->email, $helper->firstname)
                     ->subject('Vous avez été selectionner pour une annonce');
         });
+
+        try {
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+        
+            $customer = Customer::create(array(
+                'email' => Auth::user()->email,
+                'source' => $request->stripeToken
+            ));
+        
+            $charge = Charge::create(array(
+                'customer' => $customer->id,
+                'amount' => $announcement->price * 100,
+                'currency' => 'eur'
+            ));
+        
+            return redirect()->route('helper.specifiedAnnouncement', $announcementId)->with('success', 'Vous avez bien selectionner le bricoleur et votre payement a bien été accepté');;
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        }
 
         return redirect()->route('announcement.show', $announcementId)->with('success', 'Vous avez bien selectionner le bricoleur');
     }
